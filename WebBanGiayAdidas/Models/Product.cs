@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace WebBanGiayAdidas.Models;
 
 public partial class Product
 {
     public int Id { get; set; }
-    [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
+
     public string Title { get; set; } = null!;
 
     public int? ProductCategoryId { get; set; }
@@ -19,11 +18,11 @@ public partial class Product
     public string? Detail { get; set; }
 
     public string? Image { get; set; }
-    [Range(0, double.MaxValue, ErrorMessage = "Giá sản phẩm phải >= 0")]
+
     public decimal? Price { get; set; }
-    [Range(0, double.MaxValue, ErrorMessage = "Giá khuyến mãi phải >= 0")]
+
     public decimal? PriceSale { get; set; }
-    [Range(0, int.MaxValue, ErrorMessage = "Số lượng phải >= 0")]
+
     public int? Quantity { get; set; }
 
     public string? SeoTitle { get; set; }
