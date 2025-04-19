@@ -1,0 +1,171 @@
+﻿@model IEnumerable<WebBanGiayAdidas.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Admin.cshtml";
+}
+@section naviheader {
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="nav-link">Danh mục</a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản lý danh mục</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+@*                     <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Danh mục</li> *@
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách danh mục</h3>
+
+            <div class="card-tools">
+                <a class="btn btn-primary " asp-action="Create">Thêm mới</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên danh mục</th>
+                        <th>Mô tả</th>
+                        <th>Thứ tự</th>
+                        <th>Công cụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = 1;
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Sửa</a> |
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-info btn-view" data-id="@item.Id">Xem</a> |
+                                    <button class="btn btn-sm btn-danger btn-delete" data-id="@item.Id">Xóa</button>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+<!-- Modal for Category Details -->
+<div class="modal fade" id="categoryDetailsModal" tabindex="-1" aria-labelledby="categoryDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryDetailsModalLabel">Chi tiết danh mục</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="categoryDetailsContent">
+                <!-- Content will be loaded dynamically by AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Delete button functionality
+        document.querySelectorAll(".btn-delete").forEach(button => {
+            button.addEventListener("click", function () {
+                let categoryId = this.getAttribute("data-id");
+
+                Swal.fire({
+                    title: "Bạn có chắc chắn muốn xóa?",
+                    text: "Hành động này không thể hoàn tác!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/Admin/Categories/Delete`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-Requested-With": "XMLHttpRequest"
+                            },
+                            body: JSON.stringify({ id: categoryId })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire("Đã xóa!", data.message, "success");
+                                    setTimeout(() => location.reload(), 1500);
+                                } else {
+                                    Swal.fire("Lỗi!", data.message, "error");
+                                }
+                            })
+                            .catch(() => {
+                                Swal.fire("Lỗi!", "Không thể kết nối đến máy chủ.", "error");
+                            });
+                    }
+                });
+            });
+        });
+
+        // View button (AJAX to load category details into modal)
+        document.querySelectorAll(".btn-view").forEach(button => {
+            button.addEventListener("click", function () {
+                let categoryId = this.getAttribute("data-id");
+
+                // Open modal and load details via AJAX
+                fetch(`/Admin/Categories/Details/${categoryId}`, {
+                    method: "GET",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        // Set the content of modal
+                        document.getElementById('categoryDetailsContent').innerHTML = data;
+                        // Show modal
+                        new bootstrap.Modal(document.getElementById('categoryDetailsModal')).show();
+                    })
+                    .catch(() => {
+                        Swal.fire("Lỗi!", "Không thể tải chi tiết danh mục.", "error");
+                    });
+            });
+        });
+    });
+</script>

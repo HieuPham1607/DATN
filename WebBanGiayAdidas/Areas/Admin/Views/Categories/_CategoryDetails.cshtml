@@ -1,0 +1,60 @@
+﻿@model WebBanGiayAdidas.Models.Category
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">@Model.Title</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><strong>Mô tả:</strong></h5>
+                    <p>@Model.Description</p>
+                </div>
+                <div class="col-md-6">
+                    <h5><strong>Thứ tự:</strong></h5>
+                    <p>@Model.Position</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><strong>Seo Title:</strong></h5>
+                    <p>@Model.SeoTitle</p>
+                </div>
+                <div class="col-md-6">
+                    <h5><strong>Seo Description:</strong></h5>
+                    <p>@Model.SeoDescripyion</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><strong>Seo Keywords:</strong></h5>
+                    <p>@Model.SeoKeywords</p>
+                </div>
+                <div class="col-md-6">
+                    <h5><strong>Ngày thêm:</strong></h5>
+                    <p>@Model.CreatedDate</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><strong>Người thêm:</strong></h5>
+                    <p>@Model.CreatedBy</p>
+                </div>
+                <div class="col-md-6">
+                    <h5><strong>Ngày sửa:</strong></h5>
+                    <p>@Model.ModifierDate</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><strong>Người sửa:</strong></h5>
+                    <p>@Model.ModifierBy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

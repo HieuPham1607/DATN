@@ -1,0 +1,195 @@
+﻿@model WebBanGiayAdidas.Models.ProductCategory
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Admin.cshtml";
+}
+
+@* <h1>Edit</h1>
+
+<h4>ProductCategory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Icon" class="control-label"></label>
+                <input asp-for="Icon" class="form-control" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifierDate" class="control-label"></label>
+                <input asp-for="ModifierDate" class="form-control" />
+                <span asp-validation-for="ModifierDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifierBy" class="control-label"></label>
+                <input asp-for="ModifierBy" class="form-control" />
+                <span asp-validation-for="ModifierBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div> *@
+@section naviheader {
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="ProductCategories" asp-action="Index" class="nav-link">Danh mục sản phẩm</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="ProductCategories" asp-action="Edit" class="nav-link">Chỉnh sửa</a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật bài viết</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    @*                     <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="News" asp-action="Index">Tin tức</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li> *@
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin bài viết</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label">Tên danh mục</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Icon" class="control-label">Icon</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input asp-for="Icon" type="file" class="custom-file-input" id="imageUpload" name="imageFile" accept="image/*" />
+                            <label class="custom-file-label" for="imageUpload">Chọn ảnh</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Tải lên</span>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Icon" class="text-danger"></span>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.Icon))
+                {
+                    <img id="previewImage" src="@Model.Icon" alt="Ảnh xem trước" style="max-width: 200px; display: block; margin-top: 10px;" />
+                }
+                else
+                {
+                    <img id="previewImage" src="#" alt="Ảnh xem trước" style="max-width: 200px; display: none; margin-top: 10px;" />
+                }
+                <img id="previewImage" src="#" alt="Ảnh xem trước" style="max-width: 200px; display: none; margin-top: 10px;" />
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Mô tả</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                @* <div class="form-group">
+                    <label asp-for="CreatedDate" class="control-label"></label>
+                    <input asp-for="CreatedDate" class="form-control" />
+                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreatedBy" class="control-label"></label>
+                    <input asp-for="CreatedBy" class="form-control" />
+                    <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                </div> *@
+                <div class="form-group">
+                <label asp-for="ModifierDate" class="control-label"></label>
+                <input asp-for="ModifierDate" class="form-control" />
+                <span asp-validation-for="ModifierDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                <label asp-for="ModifierBy" class="control-label"></label>
+                <input asp-for="ModifierBy" class="form-control" />
+                <span asp-validation-for="ModifierBy" class="text-danger"></span>
+                </div>
+                <a asp-action="Index" class="btn btn-danger">Quay lại</a>
+                <button type="submit" value="Edit" class="btn btn-primary">Sửa</button>
+            </form>
+        </div>
+        <!-- /.card-body -->
+        @* <div class="card-footer">
+        Footer
+        </div> *@
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+<script>
+    document.getElementById('imageUpload').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Hiển thị tên tệp đã chọn
+            this.nextElementSibling.innerText = file.name;
+
+            // Xem trước ảnh
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const preview = document.getElementById('previewImage');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

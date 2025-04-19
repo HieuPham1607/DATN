@@ -1,0 +1,120 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6C3200BB-F41B-491A-B473-11788F3BE8A7}|TestProject1\\TestProject1.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\testproject1\\productmodeltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C3200BB-F41B-491A-B473-11788F3BE8A7}|TestProject1\\TestProject1.csproj|solutionrelative:testproject1\\productmodeltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C3200BB-F41B-491A-B473-11788F3BE8A7}|TestProject1\\TestProject1.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\testproject1\\testproject1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6C3200BB-F41B-491A-B473-11788F3BE8A7}|TestProject1\\TestProject1.csproj|solutionrelative:testproject1\\testproject1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C3200BB-F41B-491A-B473-11788F3BE8A7}|TestProject1\\TestProject1.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\testproject1\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C3200BB-F41B-491A-B473-11788F3BE8A7}|TestProject1\\TestProject1.csproj|solutionrelative:testproject1\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\areas\\admin\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\areas\\admin\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TestProject1",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\TestProject1\\TestProject1.csproj",
+              "RelativeDocumentMoniker": "TestProject1\\TestProject1.csproj",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\TestProject1\\TestProject1.csproj",
+              "RelativeToolTip": "TestProject1\\TestProject1.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-19T04:02:20.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductModelTests.cs",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\TestProject1\\ProductModelTests.cs",
+              "RelativeDocumentMoniker": "TestProject1\\ProductModelTests.cs",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\TestProject1\\ProductModelTests.cs",
+              "RelativeToolTip": "TestProject1\\ProductModelTests.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAjwC4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T03:58:42.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\TestProject1\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "TestProject1\\UnitTest1.cs",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\TestProject1\\UnitTest1.cs",
+              "RelativeToolTip": "TestProject1\\UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T03:57:04.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Models\\Product.cs",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Models\\Product.cs",
+              "RelativeToolTip": "WebBanGiayAdidas\\Models\\Product.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T03:42:03.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "RelativeToolTip": "WebBanGiayAdidas\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAAABgBAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-18T10:18:38.825Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "WebBanGiayAdidas\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-18T10:18:34.05Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

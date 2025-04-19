@@ -1,0 +1,345 @@
+﻿@model IEnumerable<WebBanGiayAdidas.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Admin.cshtml";
+}
+@section naviheader {
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link">Sản phẩm</a>
+        </li>
+    </ul>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản lý sản phẩm</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    @*                     <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Danh mục</li> *@
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách sản phẩm</h3>
+
+            <div class="card-tools">
+                <a class="btn btn-primary " asp-action="Create">Thêm mới</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>
+                            Tên sản phẩm
+                        </th>
+                        <th>
+                            Ảnh đại diện
+                        </th>
+                        <th>
+                            Mô tả
+                        </th>
+                        @* <th>
+                        @Html.DisplayNameFor(model => model.Detail)
+                        </th> *@
+                        <th>
+                            Giá
+                        </th>
+                        @* <th>
+                        @Html.DisplayNameFor(model => model.PriceSale)
+                        </th> *@
+                        <th>
+                            Số lượng
+                        </th>
+                        @* <th>
+                        @Html.DisplayNameFor(model => model.SeoTitle)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.SeoDescripyion)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.SeoKeywords)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.CreatedDate)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.CreatedBy)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.ModifierDate)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.ModifierBy)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.IsHome)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.IsHot)
+                        </th> *@
+                        @* <th>
+                        @Html.DisplayNameFor(model => model.IsFeature)
+                        </th> *@
+                        <th>
+                            Danh mục sản phẩm
+                        </th>
+                        <th>
+                            Trạng thái
+                        </th>
+                        <th>Công cụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = 1;
+                    @foreach (var item in Model)
+                    {
+                        var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                        <tr>
+                            <td>@i</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Image))
+                                    {
+                                        <img src="@item.Image" alt="@item.Title" class="img-thumbnail" style="width: 65px; height: auto;" />
+                                    }
+                                    else
+                                    {
+                                        <span>No Image</span>
+                                    }
+                                </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            @* <td>
+                        @Html.DisplayFor(modelItem => item.Detail)
+                        </td> *@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            @* <td>
+                        @Html.DisplayFor(modelItem => item.PriceSale)
+                        </td> *@
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        @* <td>
+                        @Html.DisplayFor(modelItem => item.SeoTitle)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.SeoDescripyion)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.SeoKeywords)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.ModifierDate)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.ModifierBy)
+                        </td> *@
+                            @* <td>
+                        @Html.DisplayFor(modelItem => item.IsHome)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.IsHot)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.IsFeature)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.IsSale)
+                        </td> *@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductCategory.Title)
+                            </td>
+                            <td>
+                                <span class="btnActive toggle-status" data-id="@item.Id" style="cursor:pointer;">
+                                        @Html.Raw(strCheck)
+                                </span>
+                            </td>
+                            <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Sửa</a> |
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-info btn-view" data-id="@item.Id">Xem</a> |
+                                    <button class="btn btn-sm btn-danger btn-delete" data-id="@item.Id">Xóa</button>
+                            </td>
+                        </tr>
+                            i++;
+                    }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-danger">
+                                Thông tin không tồn tại.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center mt-3">
+                <nav>
+                    <ul class="pagination justify-content-center">
+
+                        @* Nút Previous - chỉ hiển thị nếu không ở trang đầu *@
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-keyword="@ViewBag.Keyword" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+
+                        @* Các nút số trang *@
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-keyword="@ViewBag.Keyword">@i</a>
+                            </li>
+                        }
+
+                        @* Nút Next - chỉ hiển thị nếu chưa ở trang cuối *@
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-keyword="@ViewBag.Keyword" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.toggle-status').click(function () {
+                var span = $(this);
+                var id = span.data('id');
+
+                $.ajax({
+                    url: '/Admin/Products/ToggleStatus',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (res) {
+                        if (res.success) {
+                            if (res.isActive) {
+                                span.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                span.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        } else {
+                            alert("Lỗi: " + res.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Đã xảy ra lỗi khi thay đổi trạng thái.");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.btn-delete').click(function () {
+                var id = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Bạn có chắc muốn xóa?',
+                    text: "Hành động này không thể hoàn tác!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/Admin/Products/Delete',
+                            type: 'POST',
+                            data: { id: id },
+                            success: function (res) {
+                                if (res.success) {
+                                    Swal.fire('Đã xóa!', res.message, 'success').then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire('Lỗi!', res.message, 'error');
+                                }
+                            },
+                            error: function () {
+                                Swal.fire('Lỗi!', 'Không thể xóa. Vui lòng thử lại.', 'error');
+                            }
+                        });
+                    }
+                });
+            });
+            // View button (AJAX to load new details into modal)
+            // document.querySelectorAll(".btn-view").forEach(button => {
+            //     button.addEventListener("click", function () {
+            //         let postId = this.getAttribute("data-id");
+
+            //         // Open modal and load new via AJAX
+            //         fetch(`/Admin/Posts/Details/${postId}`, {
+            //             method: "GET",
+            //             headers: {
+            //                 "X-Requested-With": "XMLHttpRequest"
+            //             }
+            //         })
+            //             .then(response => response.text())
+            //             .then(data => {
+            //                 // Set the content of modal
+            //                 document.getElementById('postDetailsContent').innerHTML = data;
+            //                 // Show modal
+            //                 new bootstrap.Modal(document.getElementById('postDetailsModal')).show();
+            //             })
+            //             .catch(() => {
+            //                 Swal.fire("Lỗi!", "Không thể tải chi tiết danh mục.", "error");
+            //             });
+            //     });
+            // });
+        });
+    </script>
+}
