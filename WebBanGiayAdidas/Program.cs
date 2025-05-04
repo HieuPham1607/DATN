@@ -3,48 +3,91 @@ using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            var connectionString = builder.Configuration.GetConnectionString("AppConnectionString");
-            builder.Services.AddDbContext<WebBanGiayAdidasContext>(x => x.UseSqlServer(connectionString));
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+			builder.Services.AddDistributedMemoryCache();
+			builder.Services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30); 
+				options.Cookie.HttpOnly = true;
+				options.Cookie.IsEssential = true;
+			});
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+			var connectionString = builder.Configuration.GetConnectionString("AppConnectionString");
+			builder.Services.AddDbContext<WebBanGiayAdidasContext>(x => x.UseSqlServer(connectionString));
 
+			var app = builder.Build();
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseRouting();
+			if (!app.Environment.IsDevelopment())
+			{
+				app.UseExceptionHandler("/Home/Error");
+				app.UseHsts();
+			}
 
+			app.UseHttpsRedirection();
+			app.UseStaticFiles();
+			app.UseRouting();
 
-            app.UseRouting();
+			app.UseSession();
 
-            app.UseAuthorization();
+			app.UseAuthorization();
 
-            app.MapControllerRoute(
-                            name: "areas",
-                            pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+			app.MapControllerRoute(
+				name: "areas",
+				pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+			app.MapControllerRoute(
+				name: "ShopCart",
+				pattern: "gio-hang/{alias?}",
+				defaults: new { controller = "ShopCart", action = "Index" });
 
-            app.Run();
-        }
-    }
+			app.MapControllerRoute(
+				name: "News",
+				pattern: "tin-tuc/{alias?}",
+				defaults: new { controller = "New", action = "Index" });
+
+			app.MapControllerRoute(
+				name: "Contact",
+				pattern: "lien-he/{alias?}",
+				defaults: new { controller = "Contact", action = "Index" });
+
+			app.MapControllerRoute(
+				name: "Blog",
+				pattern: "bai-viet/{alias?}",
+				defaults: new { controller = "Blog", action = "Index" });
+
+			app.MapControllerRoute(
+				name: "Home",
+				pattern: "trang-chu/{alias?}",
+				defaults: new { controller = "Home", action = "Index" });
+
+			app.MapControllerRoute(
+				name: "Product",
+				pattern: "san-pham/{alias?}",
+				defaults: new { controller = "Product", action = "Index" });
+
+			app.MapControllerRoute(
+				name: "ProductCategory",
+				pattern: "danh-muc-san-pham/{alias}-{id}",
+				defaults: new { controller = "Product", action = "ProductCategory" });
+
+			app.MapControllerRoute(
+				name: "DetailProduct",
+				pattern: "chi-tiet/{alias}-p{id}",
+				defaults: new { controller = "Product", action = "Detail" });
+
+			app.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Home}/{action=Index}/{id?}");
+
+			app.Run();
+		}
+	}
 }

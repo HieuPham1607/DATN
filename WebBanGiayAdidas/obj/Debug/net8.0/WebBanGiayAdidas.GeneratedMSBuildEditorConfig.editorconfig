@@ -34,10 +34,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Areas/Admin/Views/Categories/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Areas/Admin/Views/Categories/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -162,6 +158,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Blog/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Contact/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -170,12 +174,60 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/New/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Product/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Product/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Product/ProductCategory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0Q2F0ZWdvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Components/MenuArrivals/_MenuArrivals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudUFycml2YWxzXF9NZW51QXJyaXZhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Components/MenuCategoryLeft/_MenuCategoryLeft.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudUNhdGVnb3J5TGVmdFxfTWVudUNhdGVnb3J5TGVmdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Components/MenuProductCategory/_MenuProductCategory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudVByb2R1Y3RDYXRlZ29yeVxfTWVudVByb2R1Y3RDYXRlZ29yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Components/MenuTop/_MenuTop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudVRvcFxfTWVudVRvcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Components/Pratical_CateId/_Pratical_CateId.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUHJhdGljYWxfQ2F0ZUlkXF9QcmF0aWNhbF9DYXRlSWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Components/ProductBestSeller/_ProductBestSeller.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUHJvZHVjdEJlc3RTZWxsZXJcX1Byb2R1Y3RCZXN0U2VsbGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Components/ProductSale/_ProductSale.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUHJvZHVjdFNhbGVcX1Byb2R1Y3RTYWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/ShopCart/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcENhcnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/linetx/Đồ Án Tốt Nghiệp/WebBanGiayAdidas/WebBanGiayAdidas/Views/_ViewImports.cshtml]

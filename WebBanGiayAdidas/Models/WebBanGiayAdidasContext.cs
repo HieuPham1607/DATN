@@ -67,6 +67,7 @@ public partial class WebBanGiayAdidasContext : DbContext
 
             entity.ToTable("Category");
 
+            entity.Property(e => e.Alias).HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(250);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(250);
@@ -108,6 +109,7 @@ public partial class WebBanGiayAdidasContext : DbContext
         {
             entity.ToTable("New");
 
+            entity.Property(e => e.Alias).HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(250);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Image).HasMaxLength(500);
@@ -157,6 +159,7 @@ public partial class WebBanGiayAdidasContext : DbContext
         {
             entity.ToTable("Post");
 
+            entity.Property(e => e.Alias).HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(250);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Image).HasMaxLength(500);
@@ -176,6 +179,7 @@ public partial class WebBanGiayAdidasContext : DbContext
         {
             entity.ToTable("Product");
 
+            entity.Property(e => e.Alias).HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(250);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Image).HasMaxLength(500);
@@ -198,6 +202,7 @@ public partial class WebBanGiayAdidasContext : DbContext
         {
             entity.ToTable("ProductCategory");
 
+            entity.Property(e => e.Alias).HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(250);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(500);

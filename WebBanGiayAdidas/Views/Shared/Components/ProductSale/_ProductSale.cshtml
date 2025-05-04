@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebBanGiayAdidas.Models.Product>
+
+@foreach (var item in Model)
+{
+    var price = item.Price ?? 0; // Nếu null thì gán 0
+    var priceSale = item.PriceSale ?? 0;
+    var percent = 0;
+
+    if (price > 0 && priceSale > 0 && priceSale < price)
+    {
+        percent = (int)Math.Round((price - priceSale) / price * 100);
+    }
+
+    <div class="owl-item product_slider_item">
+        <div class="product-item @item.Title">
+            <div class="product discount">
+                <div class="product_image">
+                    <img src="@item.Image" alt="@item.Title">
+                </div>
+                @* <div class="favorite favorite_left"></div> *@
+
+                @if (percent > 0)
+                {
+                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+                        <span>-@percent%</span>
+                    </div>
+                }
+
+                <div class="product_info">
+                    <h6 class="product_name">
+                        <a asp-controller="Product" asp-action="Detail" asp-route-alias="@item.Alias" asp-route-id="@item.Id">
+                            @item.Title
+                        </a>
+                    </h6>
+                    <div class="product_price">
+                        @String.Format("{0:#,##0}₫", priceSale).Replace(",", ".")
+                        <span>@String.Format("{0:#,##0}₫", price).Replace(",", ".")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

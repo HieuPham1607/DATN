@@ -74,6 +74,11 @@
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Alias" class="control-label">Alias</label>
+                            <input asp-for="Alias" class="form-control" />
+                            <span asp-validation-for="Alias" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="ProductCategoryId" class="control-label">Danh mục sản phẩm</label>
                             <select asp-for="ProductCategoryId" class="form-control" asp-items="ViewBag.ProductCategoryId"></select>
                         </div>
@@ -96,14 +101,14 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label asp-for="Price" class="control-label">Giá</label>
+                                    <label asp-for="Price" class="control-label">Giá cũ</label>
                                     <input asp-for="Price" class="form-control" />
                                     <span asp-validation-for="Price" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label asp-for="PriceSale" class="control-label">Giá khuyến mãi</label>
+                                    <label asp-for="PriceSale" class="control-label">Giá giá mới</label>
                                     <input asp-for="PriceSale" class="form-control" />
                                     <span asp-validation-for="PriceSale" class="text-danger"></span>
                                 </div>
@@ -120,6 +125,12 @@
                                 <div class="form-group form-check">
                                     <input class="form-check-input" asp-for="IsActive" />
                                     <label class="form-check-label" asp-for="IsActive">Trạng thái</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group form-check">
+                                    <input class="form-check-input" asp-for="IsHome" />
+                                    <label class="form-check-label" asp-for="IsHome">Trang chủ</label>
                                 </div>
                             </div>
 
@@ -187,10 +198,8 @@
                             </div>
 
                             <div id="imageChildrenContainer">
-                                <!-- JavaScript sẽ tự động thêm input ở đây -->
+                                <!-- JS sẽ chèn các .existing-image-wrapper vào đây -->
                             </div>
-
-                            <div id="previewContainer" class="d-flex flex-wrap gap-2 mt-3"></div>
                         </div>
                     </div>
                     <!-- Tab 3: SEO -->
@@ -292,19 +301,26 @@
         //     }
         // }
         // Hàm để thêm input ảnh mới (nút Thêm ảnh)
+        // Thêm một input file mới kèm preview và nút xóa
         function addImageInput() {
             var container = document.getElementById("imageChildrenContainer");
 
-            var inputGroup = document.createElement("div");
-            inputGroup.className = "input-group mb-2 align-items-center";
+            var wrapper = document.createElement("div");
+            wrapper.className = "input-group mb-2 align-items-center existing-image-wrapper";
 
-            // Tạo div.custom-file
-            var customFileDiv = document.createElement("div");
-            customFileDiv.className = "custom-file";
+            // 1. Ảnh preview (bật lên khi chọn file)
+            var img = document.createElement("img");
+            img.className = "img-preview mr-2";
+            img.style = "width:80px;height:80px;object-fit:cover;border-radius:4px;";
+            img.src = ""; // sẽ set khi chọn file
+
+            // 2. div.custom-file + input + label
+            var custom = document.createElement("div");
+            custom.className = "custom-file";
 
             var input = document.createElement("input");
             input.type = "file";
-            input.name = "imageChildren"; // Quan trọng!
+            input.name = "imageChildren";
             input.className = "custom-file-input";
             input.accept = "image/*";
 
@@ -312,126 +328,167 @@
             label.className = "custom-file-label";
             label.innerText = "Chọn ảnh";
 
-            // Cập nhật tên file khi chọn
+            // khi chọn file, cập nhật label và preview
             input.onchange = function () {
-                if (input.files.length > 0) {
-                    label.innerText = input.files[0].name;
-                } else {
-                    label.innerText = "Chọn ảnh";
-                }
-                refreshPreview();
+                if (!input.files.length) return;
+                label.innerText = input.files[0].name;
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
             };
 
-            customFileDiv.appendChild(input);
-            customFileDiv.appendChild(label);
+            custom.appendChild(input);
+            custom.appendChild(label);
 
-            var removeBtn = document.createElement("button");
-            removeBtn.type = "button";
-            removeBtn.className = "btn btn-danger btn-sm ml-2";
-            removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            removeBtn.title = "Hủy ảnh này";
-            removeBtn.onclick = function () {
-                container.removeChild(inputGroup);
-                refreshPreview();
+            // 3. nút xóa
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "btn btn-danger btn-sm ml-2";
+            btn.innerHTML = '<i class="fas fa-times"></i>';
+            btn.title = "Xóa ảnh này";
+            btn.onclick = function () {
+                container.removeChild(wrapper);
             };
 
-            inputGroup.appendChild(customFileDiv);
-            inputGroup.appendChild(removeBtn);
-            container.appendChild(inputGroup);
+            // ghép lại
+            wrapper.appendChild(img);
+            wrapper.appendChild(custom);
+            wrapper.appendChild(btn);
+            container.appendChild(wrapper);
         }
 
+        // Thêm nhiều file cùng lúc
+        function selectMultipleImages() {
+            var picker = document.createElement("input");
+            picker.type = "file";
+            picker.accept = "image/*";
+            picker.multiple = true;
+            picker.onchange = function () {
+                Array.from(picker.files).forEach(file => addImageInputWithFile(file));
+            };
+            picker.click();
+        }
+
+        // Cùng code như addImageInput nhưng khởi tạo với file sẵn có
         function addImageInputWithFile(file) {
             var container = document.getElementById("imageChildrenContainer");
 
-            var inputGroup = document.createElement("div");
-            inputGroup.className = "input-group mb-2 align-items-center";
+            var wrapper = document.createElement("div");
+            wrapper.className = "input-group mb-2 align-items-center existing-image-wrapper";
 
-            var customFileDiv = document.createElement("div");
-            customFileDiv.className = "custom-file";
+            var img = document.createElement("img");
+            img.className = "img-preview mr-2";
+            img.style = "width:80px;height:80px;object-fit:cover;border-radius:4px;";
+
+            var custom = document.createElement("div");
+            custom.className = "custom-file";
 
             var input = document.createElement("input");
             input.type = "file";
-            input.name = "imageChildren"; // Quan trọng!
+            input.name = "imageChildren";
             input.className = "custom-file-input";
             input.accept = "image/*";
 
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            input.files = dataTransfer.files;
+            // gán file vào input
+            var dt = new DataTransfer();
+            dt.items.add(file);
+            input.files = dt.files;
 
             var label = document.createElement("label");
             label.className = "custom-file-label";
             label.innerText = file.name;
 
             input.onchange = function () {
-                if (input.files.length > 0) {
-                    label.innerText = input.files[0].name;
-                } else {
-                    label.innerText = "Chọn ảnh";
-                }
-                refreshPreview();
+                if (!input.files.length) return;
+                label.innerText = input.files[0].name;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
             };
 
-            customFileDiv.appendChild(input);
-            customFileDiv.appendChild(label);
+            custom.appendChild(input);
+            custom.appendChild(label);
 
-            var removeBtn = document.createElement("button");
-            removeBtn.type = "button";
-            removeBtn.className = "btn btn-danger btn-sm ml-2";
-            removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            removeBtn.title = "Hủy ảnh này";
-            removeBtn.onclick = function () {
-                container.removeChild(inputGroup);
-                refreshPreview();
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "btn btn-danger btn-sm ml-2";
+            btn.innerHTML = '<i class="fas fa-times"></i>';
+            btn.title = "Xóa ảnh này";
+            btn.onclick = function () {
+                container.removeChild(wrapper);
             };
 
-            inputGroup.appendChild(customFileDiv);
-            inputGroup.appendChild(removeBtn);
-            container.appendChild(inputGroup);
-
-            showPreview(file);
-        }
-
-        function selectMultipleImages() {
-            var input = document.createElement("input");
-            input.type = "file";
-            input.accept = "image/*";
-            input.multiple = true;
-            input.onchange = function () {
-                var files = this.files;
-                Array.from(files).forEach(file => {
-                    addImageInputWithFile(file);
-                });
-            };
-            input.click();
-        }
-
-        function showPreview(file) {
-            const reader = new FileReader();
+            // preview ngay
+            var reader = new FileReader();
             reader.onload = function (e) {
-                const img = document.createElement("img");
                 img.src = e.target.result;
-                img.style.width = "100px";
-                img.style.height = "100px";
-                img.style.objectFit = "cover";
-                img.style.margin = "5px";
-                img.className = "img-thumbnail";
-                document.getElementById("previewContainer").appendChild(img);
             };
             reader.readAsDataURL(file);
+
+            wrapper.appendChild(img);
+            wrapper.appendChild(custom);
+            wrapper.appendChild(btn);
+            container.appendChild(wrapper);
         }
 
-        function refreshPreview() {
-            var previewContainer = document.getElementById("previewContainer");
-            previewContainer.innerHTML = "";
+        // function showPreview(file) {
+        //     const reader = new FileReader();
+        //     reader.onload = function (e) {
+        //         const img = document.createElement("img");
+        //         img.src = e.target.result;
+        //         img.style.width = "100px";
+        //         img.style.height = "100px";
+        //         img.style.objectFit = "cover";
+        //         img.style.margin = "5px";
+        //         img.className = "img-thumbnail";
+        //         document.getElementById("previewContainer").appendChild(img);
+        //     };
+        //     reader.readAsDataURL(file);
+        // }
 
-            const inputs = document.querySelectorAll('input[type="file"][name="imageChildren"]');
-            inputs.forEach(input => {
-                if (input.files && input.files[0]) {
-                    showPreview(input.files[0]);
-                }
-            });
-        }
+        // function refreshPreview() {
+        //     var previewContainer = document.getElementById("previewContainer");
+        //     previewContainer.innerHTML = "";
+
+        //     const inputs = document.querySelectorAll('input[type="file"][name="imageChildren"]');
+        //     inputs.forEach(input => {
+        //         if (input.files && input.files[0]) {
+        //             showPreview(input.files[0]);
+        //         }
+        //     });
+        // }
     </script>
+    <script>
+        function formatCurrency(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value === '') {
+                input.value = '';
+                return;
+            }
+            input.value = new Intl.NumberFormat('vi-VN').format(value);
+        }
+
+        $(document).ready(function () {
+            $('input[name="Price"], input[name="PriceSale"]').on('input', function () {
+                formatCurrency(this);
+            });
+        });
+        function removeDot(input) {
+            // Bỏ dấu chấm và ký tự không phải số
+            return input.value.replace(/\./g, '').replace(/\D/g, '');
+        }
+
+        $('form').on('submit', function () {
+            $('input[name="Price"], input[name="PriceSale"]').each(function () {
+                this.value = removeDot(this);
+            });
+        });
+    </script>
+
 }
 

@@ -82,7 +82,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Icon,CreatedDate,CreatedBy,ModifierDate,ModifierBy")] ProductCategory productCategory, IFormFile imageFile)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Icon,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] ProductCategory productCategory, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +95,15 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     }
                     productCategory.Icon = "/uploads/productcategories/" + imageFile.FileName;
                 }
+                // Nếu Alias bị bỏ trống thì tạo từ Title
+                if (string.IsNullOrEmpty(productCategory.Alias))
+                {
+                    productCategory.Alias = productCategory.Title;
+                }
+
+                // Chuẩn hoá Alias
+                productCategory.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(productCategory.Alias);
+
                 _context.Add(productCategory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

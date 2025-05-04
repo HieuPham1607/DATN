@@ -1,0 +1,86 @@
+﻿@model WebBanGiayAdidas.Models.ShopCart
+<head>
+	<link rel="stylesheet" type="text/css" href="~/assets/styles/categories_styles.css">
+@* 	<link rel="stylesheet" type="text/css" href="~/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css"> *@
+@* 	<link rel="stylesheet" type="text/css" href="~/assets/styles/categories_responsive.css"> *@
+</head>
+
+<div class="container product_section_container">
+	<div class="row">
+		<div class="col product_section clearfix">
+
+			<!-- Breadcrumbs -->
+
+			<div class="breadcrumbs d-flex flex-row align-items-center">
+				<ul>
+					<li><a asp-controller="Home" asp-action="Index">Home</a></li>
+					<li><a asp-controller="ShopCart" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+				</ul>
+			</div>
+
+			<!-- Main Content -->
+
+			<div class="main_content">
+                @if (Model.items.Any())
+                {
+                    var i = 0;
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên Sản phẩm</th>
+                                <th>Ảnh Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.items)
+                            {
+                                <tr>
+                                    <td>@(i+1)</td>
+                                    <td>
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-alias="@item.Alias" asp-route-id="@item.Id">
+                                        @item.Name
+                                        </a>
+                                    </td>
+                                    <td><img src="@item.Img" alt="@item.Name" style="width: 60px; height: 60px;" /></td>
+                                    <td>@String.Format("{0:#,##0}₫", item.Price).Replace(",", ".")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@String.Format("{0:#,##0}₫", item.TotalPrice).Replace(",", ".")</td>
+                                    <td>
+                                        <button class="btn btn-danger btnRemoveFromCart" data-id="@item.Id">Xóa</button>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <strong>Tổng cộng: @String.Format("{0:#,##0}₫", Model.GetTotalPrice()).Replace(",", ".")</strong>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary" id="btnClearCart">Xóa tất cả</button>
+                        <a href="#" class="btn btn-success">Thanh toán</a>
+                    </div>
+                }
+                else
+                {
+                    <p>Giỏ hàng của bạn hiện tại trống.</p>
+                }
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		<script src="~/assets/js/categories_custom.js"></script>
+		<script src="~/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
+

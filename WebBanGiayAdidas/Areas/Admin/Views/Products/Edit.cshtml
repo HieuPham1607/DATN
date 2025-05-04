@@ -72,6 +72,11 @@
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Alias" class="control-label">Alias</label>
+                            <input asp-for="Alias" class="form-control" />
+                            <span asp-validation-for="Alias" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="ProductCategoryId" class="control-label">Danh mục sản phẩm</label>
                             <select asp-for="ProductCategoryId" class="form-control" asp-items="ViewBag.ProductCategoryId"></select>
                         </div>
@@ -94,15 +99,17 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label asp-for="Price" class="control-label">Giá</label>
-                                    <input asp-for="Price" class="form-control" />
+                                    <label asp-for="Price" class="control-label">Giá cũ</label>
+                                    <input type="text" name="Price" class="form-control"
+                                           value="@((Model?.Price.HasValue ?? false) ? String.Format("{0:#,##0}", Model.Price).Replace(",", ".") : "")" />
                                     <span asp-validation-for="Price" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label asp-for="PriceSale" class="control-label">Giá khuyến mãi</label>
-                                    <input asp-for="PriceSale" class="form-control" />
+                                    <label asp-for="PriceSale" class="control-label">Giá mới</label>
+                                    <input type="text" name="PriceSale" class="form-control"
+                                           value="@((Model?.PriceSale.HasValue ?? false) ? String.Format("{0:#,##0}", Model.PriceSale).Replace(",", ".") : "")" />
                                     <span asp-validation-for="PriceSale" class="text-danger"></span>
                                 </div>
                             </div>
@@ -118,6 +125,12 @@
                                 <div class="form-group form-check">
                                     <input class="form-check-input" asp-for="IsActive" />
                                     <label class="form-check-label" asp-for="IsActive">Trạng thái</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group form-check">
+                                    <input class="form-check-input" asp-for="IsHome" />
+                                    <label class="form-check-label" asp-for="IsHome">Trang chủ</label>
                                 </div>
                             </div>
 
@@ -195,33 +208,26 @@
                             </div>
 
                             <div id="imageChildrenContainer">
-                                <!-- Hiển thị các input ảnh con đã có (nếu có) -->
                                 @if (ViewBag.ExistingChildImages != null)
                                 {
                                     foreach (var image in ViewBag.ExistingChildImages)
                                     {
-                                        <div class="input-group mb-2 align-items-center">
+                                        <div class="input-group mb-2 align-items-center existing-image-wrapper" data-image-id="@image.Id">
+                                            <!-- Ảnh preview -->
+                                            <img src="@image.ImagePath" class="img-preview mr-2" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;" />
+
+                                            <!-- Input file -->
                                             <div class="custom-file">
                                                 <input type="file" name="imageChildren" class="custom-file-input" accept="image/*" onchange="updateLabel(this)">
-                                                <label class="custom-file-label">@image.ImagePath</label>
+                                                <label class="custom-file-label">Chọn ảnh</label>
                                             </div>
-                                            <button type="button" class="btn btn-danger btn-sm ml-2" title="Hủy ảnh này" onclick="removeImageInput(this, '@image.ImagePath')">
+
+                                            <!-- Nút xoá ảnh -->
+                                            <button type="button" class="btn btn-danger btn-sm ml-2" title="Xóa ảnh này" onclick="removeExistingChildImage(this, '@image.Id')">
                                                 <i class="fas fa-times"></i>
                                             </button>
                                         </div>
                                     }
-                                }
-                            </div>
-                            
-                            <div id="previewContainer" class="d-flex flex-wrap gap-2 mt-3">
-                                @if (ViewBag.ExistingChildImages != null)
-                                {
-                                @foreach (var image in ViewBag.ExistingChildImages)
-                                {
-                                    <div class="col-md-3 mb-2 position-relative">
-                                        <img src="@image.ImagePath" class="img-thumbnail" style="max-height:100px;max-width: 100px; object-fit: cover;" />
-                                    </div>
-                                }
                                 }
                             </div>
                         </div>
@@ -335,25 +341,40 @@
                 } else {
                     label.innerText = "Chọn ảnh";
                 }
-                refreshPreview();
             };
 
             customFileDiv.appendChild(input);
             customFileDiv.appendChild(label);
 
+            // Thêm ảnh preview mặc định
+            var imgPreview = document.createElement("img");
+            imgPreview.className = "img-preview mr-2";
+            imgPreview.style = "width: 80px; height: 80px; object-fit: cover; border-radius: 4px;";
+            imgPreview.src = ""; // Mặc định là rỗng, sẽ được cập nhật sau khi chọn ảnh
+
+            // Nút xóa ảnh
             var removeBtn = document.createElement("button");
             removeBtn.type = "button";
             removeBtn.className = "btn btn-danger btn-sm ml-2";
             removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            removeBtn.title = "Hủy ảnh này";
+            removeBtn.title = "Xóa ảnh này";
             removeBtn.onclick = function () {
                 container.removeChild(inputGroup);
-                refreshPreview();
             };
 
+            inputGroup.appendChild(imgPreview);
             inputGroup.appendChild(customFileDiv);
             inputGroup.appendChild(removeBtn);
             container.appendChild(inputGroup);
+
+            // Cập nhật ảnh preview khi người dùng chọn ảnh
+            input.addEventListener("change", function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            });
         }
 
         function addImageInputWithFile(file) {
@@ -385,27 +406,38 @@
                 } else {
                     label.innerText = "Chọn ảnh";
                 }
-                refreshPreview();
             };
 
             customFileDiv.appendChild(input);
             customFileDiv.appendChild(label);
 
+            // Thêm ảnh preview
+            var imgPreview = document.createElement("img");
+            imgPreview.className = "img-preview mr-2";
+            imgPreview.style = "width: 80px; height: 80px; object-fit: cover; border-radius: 4px;";
+            imgPreview.src = ""; // Mặc định là rỗng, sẽ được cập nhật sau khi chọn ảnh
+
+            // Nút xóa ảnh
             var removeBtn = document.createElement("button");
             removeBtn.type = "button";
             removeBtn.className = "btn btn-danger btn-sm ml-2";
             removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            removeBtn.title = "Hủy ảnh này";
+            removeBtn.title = "Xóa ảnh này";
             removeBtn.onclick = function () {
                 container.removeChild(inputGroup);
-                refreshPreview();
             };
 
+            inputGroup.appendChild(imgPreview);
             inputGroup.appendChild(customFileDiv);
             inputGroup.appendChild(removeBtn);
             container.appendChild(inputGroup);
 
-            showPreview(file);
+            // Hiển thị preview ngay khi ảnh được thêm vào
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
 
         function selectMultipleImages() {
@@ -422,17 +454,12 @@
             input.click();
         }
 
-        function showPreview(file) {
+        function showPreview(file, imgElement) {
+            if (!file || !imgElement) return;
+
             const reader = new FileReader();
             reader.onload = function (e) {
-                const img = document.createElement("img");
-                img.src = e.target.result;
-                img.style.width = "100px";
-                img.style.height = "100px";
-                img.style.objectFit = "cover";
-                img.style.margin = "5px";
-                img.className = "img-thumbnail";
-                document.getElementById("previewContainer").appendChild(img);
+                imgElement.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -452,26 +479,82 @@
             var container = document.getElementById("imageChildrenContainer");
             container.removeChild(button.parentNode);
 
-            // Nếu cần xóa ảnh con khỏi cơ sở dữ liệu, bạn có thể thực hiện một yêu cầu Ajax để xóa ảnh đó
-            // Ví dụ:
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/Admin/Products/DeleteChildImage",
-            //     data: { imagePath: imagePath },
-            //     success: function(response) {
-            //         alert(response.message);
-            //     }
-            // });
-
             refreshPreview();
         }
         function updateLabel(input) {
             var label = input.nextElementSibling;
+
             if (input.files && input.files[0]) {
                 label.innerText = input.files[0].name;
+
+                // Giữ 1 file duy nhất
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(input.files[0]);
+                input.files = dataTransfer.files;
+
+                var wrapper = input.closest(".existing-image-wrapper");
+                if (!wrapper) return;
+
+                var imageId = wrapper.getAttribute("data-image-id");
+
+                // Đổi name input file thành ReplacedChildImages
+                input.name = "ReplacedChildImages";
+
+                // Nếu chưa có hidden input ghi id ảnh thay thế, thì thêm vào
+                if (!wrapper.querySelector('input[type="hidden"][name="ReplacedImageIds"]')) {
+                    var idInput = document.createElement("input");
+                    idInput.type = "hidden";
+                    idInput.name = "ReplacedImageIds";
+                    idInput.value = imageId;
+                    wrapper.appendChild(idInput);
+                }
+
+                // Không cần thêm vào DeletedChildImageIds nữa
+                // Cập nhật ảnh preview tại chỗ
+                showPreview(input.files[0], wrapper.querySelector("img.img-preview"));
             } else {
                 label.innerText = "Chọn ảnh";
             }
         }
+        function removeExistingChildImage(button, imageId) {
+            // Ẩn ảnh đang hiển thị
+            var wrapper = button.closest(".existing-image-wrapper");
+            wrapper.style.display = "none";
+
+            // Tạo input hidden để gửi ID về controller
+            var hiddenInput = document.createElement("input");
+            hiddenInput.type = "hidden";
+            hiddenInput.name = "DeletedChildImageIds";
+            hiddenInput.value = imageId;
+
+            // Thêm input vào form (bạn có thể gắn vào imageChildrenContainer hoặc form)
+            document.getElementById("imageChildrenContainer").appendChild(hiddenInput);
+        }
+    </script>
+    <script>
+        function formatCurrency(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value === '') {
+                input.value = '';
+                return;
+            }
+            input.value = new Intl.NumberFormat('vi-VN').format(value);
+        }
+
+        $(document).ready(function () {
+            $('input[name="Price"], input[name="PriceSale"]').on('input', function () {
+                formatCurrency(this);
+            });
+        });
+        function removeDot(input) {
+            // Bỏ dấu chấm và ký tự không phải số
+            return input.value.replace(/\./g, '').replace(/\D/g, '');
+        }
+
+        $('form').on('submit', function () {
+            $('input[name="Price"], input[name="PriceSale"]').each(function () {
+                this.value = removeDot(this);
+            });
+        });
     </script>
 }

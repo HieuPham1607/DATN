@@ -82,7 +82,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Id,Title,ProductCategoryId,ProductCode,Description,Detail,Image,Price,PriceSale,Quantity,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale")] Product product,
+            [Bind("Id,Title,ProductCategoryId,ProductCode,Description,Detail,Image,Price,PriceSale,Quantity,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale,Alias")] Product product,
             IFormFile imageFile,
             List<IFormFile> imageChildren)
         {
@@ -106,7 +106,10 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     product.Image = "/uploads/product/" + fileName;
                 }
 
-                _context.Add(product);
+				// Chuẩn hoá Alias
+				product.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(product.Alias);
+
+				_context.Add(product);
                 await _context.SaveChangesAsync(); // Lưu để có product.Id
 
                 // Upload ảnh con (ChildImages)
@@ -173,10 +176,16 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Admin/Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ProductCategoryId,ProductCode,Description,Detail,Image,Price,PriceSale,Quantity,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale")] Product product, IFormFile imageFile, List<IFormFile> imageChildren)
+        public async Task<IActionResult> Edit(
+    int id,
+    [Bind("Id,Title,ProductCategoryId,ProductCode,Description,Detail,Image,Price,PriceSale,Quantity,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale,Alias")] Product product,
+    IFormFile imageFile,
+    List<IFormFile> imageChildren,
+    List<IFormFile> ReplacedChildImages,
+    List<int> ReplacedImageIds,
+    List<int> DeletedChildImageIds)
         {
             if (id != product.Id)
             {
@@ -187,6 +196,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             {
                 try
                 {
+                    // Xử lý ảnh đại diện
                     if (imageFile != null && imageFile.Length > 0)
                     {
                         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "product", imageFile.FileName);
@@ -196,30 +206,25 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                         }
                         product.Image = "/uploads/product/" + imageFile.FileName;
                     }
-                    else
-                    {
-                        _context.Entry(product).Property(p => p.Image).IsModified = true;
-                    }
 
+                    // Chuẩn hoá Alias
+                    product.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(product.Alias);
+
+                    // Cập nhật thông tin sản phẩm
                     _context.Update(product);
 
-                    // Xử lý ảnh con (child images)
+                    var childFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "product-images");
+                    if (!Directory.Exists(childFolder))
+                        Directory.CreateDirectory(childFolder);
+
+                    // 1. Xử lý ảnh con mới
                     if (imageChildren != null && imageChildren.Count > 0)
                     {
-                        var childFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "product-images");
-                        if (!Directory.Exists(childFolder))
-                            Directory.CreateDirectory(childFolder);
-
-                        // Xóa ảnh con cũ (nếu có)
-                        var existingChildImages = _context.ChildImages.Where(c => c.ProductId == product.Id).ToList();
-                        _context.ChildImages.RemoveRange(existingChildImages);
-
-                        // Thêm ảnh con mới
                         foreach (var image in imageChildren)
                         {
                             if (image != null && image.Length > 0)
                             {
-                                var childFileName = Path.GetFileName(image.FileName);
+                                var childFileName = $"{Guid.NewGuid()}_{Path.GetFileName(image.FileName)}";
                                 var childPath = Path.Combine(childFolder, childFileName);
 
                                 using (var stream = new FileStream(childPath, FileMode.Create))
@@ -238,6 +243,57 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                         }
                     }
 
+                    // 2. Xử lý thay thế ảnh con cũ
+                    if (ReplacedChildImages != null && ReplacedChildImages.Count > 0 && ReplacedImageIds != null)
+                    {
+                        for (int i = 0; i < ReplacedChildImages.Count; i++)
+                        {
+                            var file = ReplacedChildImages[i];
+                            if (i >= ReplacedImageIds.Count) break; // tránh lỗi vượt chỉ số
+                            var imageId = ReplacedImageIds[i];
+
+                            var existingImage = await _context.ChildImages.FirstOrDefaultAsync(ci => ci.Id == imageId);
+                            if (existingImage != null && file != null && file.Length > 0)
+                            {
+                                // Xóa file ảnh cũ nếu có
+                                var oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", existingImage.ImagePath.TrimStart('/'));
+                                if (System.IO.File.Exists(oldPath))
+                                {
+                                    System.IO.File.Delete(oldPath);
+                                }
+
+                                // Lưu ảnh mới
+                                var newFileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                                var newPath = Path.Combine(childFolder, newFileName);
+
+                                using (var stream = new FileStream(newPath, FileMode.Create))
+                                {
+                                    await file.CopyToAsync(stream);
+                                }
+
+                                // Cập nhật đường dẫn ảnh mới
+                                existingImage.ImagePath = "/uploads/product-images/" + newFileName;
+                                _context.ChildImages.Update(existingImage);
+                            }
+                        }
+                    }
+
+                    // 3. Xử lý xóa ảnh con
+                    if (DeletedChildImageIds != null && DeletedChildImageIds.Count > 0)
+                    {
+                        var imagesToDelete = _context.ChildImages.Where(ci => DeletedChildImageIds.Contains(ci.Id)).ToList();
+                        foreach (var img in imagesToDelete)
+                        {
+                            var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", img.ImagePath.TrimStart('/'));
+                            if (System.IO.File.Exists(fullPath))
+                            {
+                                System.IO.File.Delete(fullPath);
+                            }
+                            _context.ChildImages.Remove(img);
+                        }
+                    }
+
+                    // Lưu thay đổi
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -251,6 +307,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
 

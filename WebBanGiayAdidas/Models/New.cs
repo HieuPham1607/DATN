@@ -9,6 +9,8 @@ public partial class New
 
     public string Title { get; set; } = null!;
 
+    public string Alias { get; set; } = null!;
+
     public int? CategoryId { get; set; }
 
     public string? Description { get; set; }

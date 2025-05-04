@@ -5,6 +5,394 @@
       "PackagePath": "staticwebassets\\WebBanGiayAdidas.bundle.scp.css"
     },
     {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\Logo.png",
+      "PackagePath": "staticwebassets\\assets\\images\\Logo.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\banner_1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banner_1.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\banner_2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banner_2.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\banner_3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banner_3.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\blog_1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog_1.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\blog_2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog_2.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\blog_3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog_3.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\deal_ofthe_week.png",
+      "PackagePath": "staticwebassets\\assets\\images\\deal_ofthe_week.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\desc_1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\desc_1.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\desc_2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\desc_2.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\desc_3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\desc_3.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\map_marker.png",
+      "PackagePath": "staticwebassets\\assets\\images\\map_marker.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_1.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_10.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_10.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_2.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_2.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_3.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_4.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_4.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_5.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_5.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_6.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_6.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_7.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_7.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_8.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_8.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\product_9.png",
+      "PackagePath": "staticwebassets\\assets\\images\\product_9.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\single_1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\single_1.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\single_1_thumb.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\single_1_thumb.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\single_2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\single_2.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\single_2_thumb.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\single_2_thumb.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\single_3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\single_3.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\single_3_thumb.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\single_3_thumb.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\images\\slider_1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider_1.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\js\\categories_custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\categories_custom.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\js\\contact_custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\contact_custom.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\js\\custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\js\\jquery-3.2.1.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery-3.2.1.min.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\js\\single_custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\single_custom.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\Isotope\\isotope.pkgd.min.js",
+      "PackagePath": "staticwebassets\\assets\\plugins\\Isotope\\isotope.pkgd.min.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\OwlCarousel2-2.2.1\\ajax-loader.gif",
+      "PackagePath": "staticwebassets\\assets\\plugins\\OwlCarousel2-2.2.1\\ajax-loader.gif"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\OwlCarousel2-2.2.1\\animate.css",
+      "PackagePath": "staticwebassets\\assets\\plugins\\OwlCarousel2-2.2.1\\animate.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.carousel.css",
+      "PackagePath": "staticwebassets\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.carousel.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.carousel.js",
+      "PackagePath": "staticwebassets\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.carousel.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.theme.default.css",
+      "PackagePath": "staticwebassets\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.theme.default.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.video.play.png",
+      "PackagePath": "staticwebassets\\assets\\plugins\\OwlCarousel2-2.2.1\\owl.video.play.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\easing\\easing.js",
+      "PackagePath": "staticwebassets\\assets\\plugins\\easing\\easing.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\HELP-US-OUT.txt",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\HELP-US-OUT.txt"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\css\\font-awesome.css",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\css\\font-awesome.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\css\\font-awesome.min.css",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\css\\font-awesome.min.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\fonts\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\fonts\\FontAwesome.otf"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\animated.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\animated.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\bordered-pulled.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\bordered-pulled.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\core.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\core.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\fixed-width.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\fixed-width.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\font-awesome.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\font-awesome.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\icons.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\icons.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\larger.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\larger.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\list.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\list.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\mixins.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\mixins.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\path.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\path.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\rotated-flipped.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\rotated-flipped.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\screen-reader.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\screen-reader.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\stacked.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\stacked.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\less\\variables.less",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\less\\variables.less"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_animated.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_animated.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_bordered-pulled.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_bordered-pulled.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_core.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_core.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_fixed-width.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_fixed-width.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_icons.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_icons.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_larger.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_larger.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_list.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_list.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_mixins.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_mixins.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_path.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_path.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_rotated-flipped.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_rotated-flipped.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_screen-reader.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_screen-reader.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_stacked.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_stacked.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\_variables.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\_variables.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\font-awesome-4.7.0\\scss\\font-awesome.scss",
+      "PackagePath": "staticwebassets\\assets\\plugins\\font-awesome-4.7.0\\scss\\font-awesome.scss"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\jquery-ui-1.12.1.custom\\jquery-ui.css",
+      "PackagePath": "staticwebassets\\assets\\plugins\\jquery-ui-1.12.1.custom\\jquery-ui.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\jquery-ui-1.12.1.custom\\jquery-ui.js",
+      "PackagePath": "staticwebassets\\assets\\plugins\\jquery-ui-1.12.1.custom\\jquery-ui.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\themify-icons\\fonts\\themify.eot",
+      "PackagePath": "staticwebassets\\assets\\plugins\\themify-icons\\fonts\\themify.eot"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\themify-icons\\fonts\\themify.svg",
+      "PackagePath": "staticwebassets\\assets\\plugins\\themify-icons\\fonts\\themify.svg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\themify-icons\\fonts\\themify.ttf",
+      "PackagePath": "staticwebassets\\assets\\plugins\\themify-icons\\fonts\\themify.ttf"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\themify-icons\\fonts\\themify.woff",
+      "PackagePath": "staticwebassets\\assets\\plugins\\themify-icons\\fonts\\themify.woff"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\plugins\\themify-icons\\themify-icons.css",
+      "PackagePath": "staticwebassets\\assets\\plugins\\themify-icons\\themify-icons.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\bootstrap4\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\bootstrap4\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\bootstrap4\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\assets\\styles\\bootstrap4\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\bootstrap4\\popper.js",
+      "PackagePath": "staticwebassets\\assets\\styles\\bootstrap4\\popper.js"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\categories_responsive.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\categories_responsive.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\categories_styles.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\categories_styles.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\contact_responsive.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\contact_responsive.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\contact_styles.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\contact_styles.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\main_styles.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\main_styles.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\responsive.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\responsive.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\single_responsive.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\single_responsive.css"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\assets\\styles\\single_styles.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\single_styles.css"
+    },
+    {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\ckeditor.rar",
       "PackagePath": "staticwebassets\\ckeditor.rar"
     },
@@ -11525,6 +11913,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\js\\ShopCart.js",
+      "PackagePath": "staticwebassets\\js\\ShopCart.js"
+    },
+    {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
@@ -11813,8 +12205,36 @@
       "PackagePath": "staticwebassets\\uploads\\post\\8.png.jfif"
     },
     {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\00c99646-72cf-4c56-95b7-504bfa4a0f23_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-7.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\00c99646-72cf-4c56-95b7-504bfa4a0f23_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-7.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\03_originals_ss25_the_original_introduce_catlp_tc_spezial_d_cea77b9cc0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\03_originals_ss25_the_original_introduce_catlp_tc_spezial_d_cea77b9cc0.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\0777eaa9-8b34-474b-8bdc-6d94765ca24e_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\0777eaa9-8b34-474b-8bdc-6d94765ca24e_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-4.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\22e9cdc7-814d-4432-ab43-c787b5dd59cc_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\22e9cdc7-814d-4432-ab43-c787b5dd59cc_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-2.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\4a2ddb10-b431-47a0-8551-cd9de763b196_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-9.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\4a2ddb10-b431-47a0-8551-cd9de763b196_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-9.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\7919063d-5638-4223-b1ec-e7581cf69f6d_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\7919063d-5638-4223-b1ec-e7581cf69f6d_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-6.jpg"
+    },
+    {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\8.png.jfif",
       "PackagePath": "staticwebassets\\uploads\\product-images\\8.png.jfif"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\9c053bdb-c154-4e80-b9a5-dbf176de7a8c_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\9c053bdb-c154-4e80-b9a5-dbf176de7a8c_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-5.jpg"
     },
     {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\Giay_Adizero_Aruku_Hong_JQ2732_00_plp_standard - Copy.png",
@@ -11823,6 +12243,54 @@
     {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\Giay_Adizero_Aruku_Hong_JQ2732_00_plp_standard.png",
       "PackagePath": "staticwebassets\\uploads\\product-images\\Giay_Adizero_Aruku_Hong_JQ2732_00_plp_standard.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\a760cd5b-f9d0-4c05-8738-be2351739b7e_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-8.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\a760cd5b-f9d0-4c05-8738-be2351739b7e_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-8.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\c568a4ee-682d-4915-b750-bea82323cfd4_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\c568a4ee-682d-4915-b750-bea82323cfd4_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-3.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\e305fc7a-c266-4163-95e3-72145b3659f6_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-1-1732786311.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\e305fc7a-c266-4163-95e3-72145b3659f6_gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-1-1732786311.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\giay-samba-og-2.png",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\giay-samba-og-2.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\giay-samba-og-tre-em.png",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\giay-samba-og-tre-em.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\giay-samba-og.png",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\giay-samba-og.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-1-1732786311.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-1-1732786311.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-2.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-3.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-5.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-6.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-7.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product-images\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-7.jpg"
     },
     {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product-images\\shoe-sneakers-adidas-computer-icons-boot-png-favpng-b6LqDfja05nUmTNdMEb0fLfN3.jpg",
@@ -11841,6 +12309,22 @@
       "PackagePath": "staticwebassets\\uploads\\product-images\\Đại học NT Logo.png"
     },
     {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\01_originals_ss25_the_original_introduce_catlp_tc_gazelle_d_e61f3a2d99.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product\\01_originals_ss25_the_original_introduce_catlp_tc_gazelle_d_e61f3a2d99.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\02_originals_ss25_the_original_introduce_catlp_tc_samba_d_1cb1fa7a9f.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product\\02_originals_ss25_the_original_introduce_catlp_tc_samba_d_1cb1fa7a9f.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\06_originals_ss25_the_original_introduce_catlp_tc_taekwondo_d_c6b8d2f4d4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product\\06_originals_ss25_the_original_introduce_catlp_tc_taekwondo_d_c6b8d2f4d4.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\07_originals_ss25_the_original_introduce_catlp_tc_campus_d_0237f8c49b.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product\\07_originals_ss25_the_original_introduce_catlp_tc_campus_d_0237f8c49b.jpg"
+    },
+    {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\2.png.jfif",
       "PackagePath": "staticwebassets\\uploads\\product\\2.png.jfif"
     },
@@ -11853,12 +12337,80 @@
       "PackagePath": "staticwebassets\\uploads\\product\\4.png.jfif"
     },
     {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\GIAY_ADIDAS_DISNEY_PIXAR_ADIFOM_GAZELLE_360_mau_xanh_la_JI3094_01_00_standard.avif",
+      "PackagePath": "staticwebassets\\uploads\\product\\GIAY_ADIDAS_DISNEY_PIXAR_ADIFOM_GAZELLE_360_mau_xanh_la_JI3094_01_00_standard.avif"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\GIAY_ADIDAS_DISNEY_PIXAR_ADIFOM_GAZELLE_360_mau_xanh_la_JI3094_01_00_standard.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\GIAY_ADIDAS_DISNEY_PIXAR_ADIFOM_GAZELLE_360_mau_xanh_la_JI3094_01_00_standard.png"
+    },
+    {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\Giay_Adizero_Aruku_Hong_JQ2732_00_plp_standard - Copy.png",
       "PackagePath": "staticwebassets\\uploads\\product\\Giay_Adizero_Aruku_Hong_JQ2732_00_plp_standard - Copy.png"
     },
     {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\Giay_Adizero_Aruku_Hong_JQ2732_00_plp_standard.png",
       "PackagePath": "staticwebassets\\uploads\\product\\Giay_Adizero_Aruku_Hong_JQ2732_00_plp_standard.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\Giay_Campus_Lea_Tet_JR0093_01_00_standard.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\Giay_Campus_Lea_Tet_JR0093_01_00_standard.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\Giay_Gazelle_Hong_JH7213_01_00_standard.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\Giay_Gazelle_Hong_JH7213_01_00_standard.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\Giay_Gazelle_Indoor_x_Liberty_London_trang_JH7370_01_00_standard.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\Giay_Gazelle_Indoor_x_Liberty_London_trang_JH7370_01_00_standard.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\SAMBA_OG_W_DJen_IE5836_00_plp_standard.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\SAMBA_OG_W_DJen_IE5836_00_plp_standard.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\campus-2.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\campus-2.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-campus-00s-beta.avif",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-campus-00s-beta.avif"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-campus-00s-beta.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-campus-00s-beta.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-campus-00s.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-campus-00s.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-gazelle-indoor.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-gazelle-indoor.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-samba-og-2.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-samba-og-2.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-samba-og-tre-em.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-samba-og-tre-em.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-samba-og.avif",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-samba-og.avif"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\giay-samba-og.png",
+      "PackagePath": "staticwebassets\\uploads\\product\\giay-samba-og.png"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-1-1732786311.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product\\gy0042-giay-adidas-campus-00s-gia-tot-den-king-shoes-1-1732786311.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\shoe-sneakers-adidas-computer-icons-boot-png-favpng-b6LqDfja05nUmTNdMEb0fLfN3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\product\\shoe-sneakers-adidas-computer-icons-boot-png-favpng-b6LqDfja05nUmTNdMEb0fLfN3.jpg"
     },
     {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\product\\skin-java.png",
@@ -11877,12 +12429,28 @@
       "PackagePath": "staticwebassets\\uploads\\product\\Đại học NT Logo.png"
     },
     {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\productcategories\\01_originals_ss25_the_original_introduce_catlp_tc_gazelle_d_e61f3a2d99.jpg",
+      "PackagePath": "staticwebassets\\uploads\\productcategories\\01_originals_ss25_the_original_introduce_catlp_tc_gazelle_d_e61f3a2d99.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\productcategories\\02_ss25_anthony_edwards_1_artic_night_launch_catlp_mta_tc_d_f53d80b3b4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\productcategories\\02_ss25_anthony_edwards_1_artic_night_launch_catlp_mta_tc_d_f53d80b3b4.jpg"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\productcategories\\07_originals_ss25_the_original_introduce_catlp_tc_campus_d_0237f8c49b.jpg",
+      "PackagePath": "staticwebassets\\uploads\\productcategories\\07_originals_ss25_the_original_introduce_catlp_tc_campus_d_0237f8c49b.jpg"
+    },
+    {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\productcategories\\2.png.jfif",
       "PackagePath": "staticwebassets\\uploads\\productcategories\\2.png.jfif"
     },
     {
       "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\productcategories\\4.png.jfif",
       "PackagePath": "staticwebassets\\uploads\\productcategories\\4.png.jfif"
+    },
+    {
+      "Id": "D:\\linetx\\Đồ Án Tốt Nghiệp\\WebBanGiayAdidas\\WebBanGiayAdidas\\wwwroot\\uploads\\productcategories\\Giay_Superstar_trang_JP9678_00_plp_standard.jpg",
+      "PackagePath": "staticwebassets\\uploads\\productcategories\\Giay_Superstar_trang_JP9678_00_plp_standard.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WebBanGiayAdidas.Microsoft.AspNetCore.StaticWebAssets.props",

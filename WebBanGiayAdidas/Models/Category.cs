@@ -29,6 +29,8 @@ public partial class Category
 
     public bool IsActive { get; set; }
 
+    public string Alias { get; set; } = null!;
+
     public virtual ICollection<New> News { get; set; } = new List<New>();
 
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();

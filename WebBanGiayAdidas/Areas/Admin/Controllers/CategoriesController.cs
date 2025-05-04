@@ -56,10 +56,23 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/Categories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,SeoTitle,SeoDescripyion,SeoKeywords,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Title,SeoTitle,SeoDescripyion,SeoKeywords,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
         {
             if (ModelState.IsValid)
             {
+                // Nếu Alias bị bỏ trống thì tạo từ Title
+                if (string.IsNullOrEmpty(category.Alias))
+                {
+                    category.Alias = category.Title;
+                }
+
+                // Chuẩn hoá Alias
+                category.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(category.Alias);
+
+                // Tự set ngày tạo nếu cần
+                category.CreatedDate = DateTime.Now;
+                category.IsActive = true;
+
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -97,6 +110,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             {
                 try
                 {
+                    category.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(category.Alias);
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                 }

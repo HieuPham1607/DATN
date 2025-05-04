@@ -56,18 +56,18 @@
                         <th>
                             Ảnh đại diện
                         </th>
-                        <th>
+@*                         <th>
                             Mô tả
-                        </th>
+                        </th> *@
                         @* <th>
                         @Html.DisplayNameFor(model => model.Detail)
+                        </th> *@
+                        @* <th>
+                            Giá cũ
                         </th> *@
                         <th>
                             Giá
                         </th>
-                        @* <th>
-                        @Html.DisplayNameFor(model => model.PriceSale)
-                        </th> *@
                         <th>
                             Số lượng
                         </th>
@@ -135,18 +135,18 @@
                                         <span>No Image</span>
                                     }
                                 </td>
-                            <td>
+                            @* <td>
                                 @Html.DisplayFor(modelItem => item.Description)
-                            </td>
+                            </td> *@
                             @* <td>
                         @Html.DisplayFor(modelItem => item.Detail)
                         </td> *@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price)
-                            </td>
                             @* <td>
-                        @Html.DisplayFor(modelItem => item.PriceSale)
-                        </td> *@
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td> *@
+                                <td>
+                                    @String.Format("{0:#,##0}₫", item.PriceSale ?? 0).Replace(",", ".")
+                                </td>
                         <td>
                         @Html.DisplayFor(modelItem => item.Quantity)
                         </td>

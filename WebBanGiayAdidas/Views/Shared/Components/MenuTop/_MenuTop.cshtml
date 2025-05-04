@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebBanGiayAdidas.Models.Category>
+
+<ul class="navbar_menu">
+    @foreach (var item in Model)
+    {
+        <li>
+            @if (item.Alias == "tin-tuc")
+            {
+                <a asp-controller="New" asp-action="Index">@item.Title</a>
+            }
+            else if (item.Alias == "lien-he")
+            {
+                <a asp-controller="Contact" asp-action="Index">@item.Title</a>
+            }
+            else if (item.Alias == "trang-chu")
+            {
+                <a asp-controller="Home" asp-action="Index">@item.Title</a>
+            }
+            else if (item.Alias == "san-pham")
+            {
+                <a asp-controller="Product" asp-action="Index">@item.Title</a>
+            }
+            else if (item.Alias == "bai-viet")
+            {
+                <a asp-controller="Blog" asp-action="Index">@item.Title</a>
+            }
+        </li>
+    }
+</ul>

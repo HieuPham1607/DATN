@@ -262,3 +262,4 @@ D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\n
 D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\CKFinder.pdb
 D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\PagedList.dll
 D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\PagedList.Mvc.dll
+D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\obj\Debug\net8.0\WebBanGiayAdidas.sourcelink.json

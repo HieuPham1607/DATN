@@ -9,6 +9,8 @@ public partial class ProductCategory
 
     public string Title { get; set; } = null!;
 
+    public string Alias { get; set; } = null!;
+
     public string? Description { get; set; }
 
     public string? Icon { get; set; }
