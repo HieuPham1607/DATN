@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebBanGiayAdidas.Filters;
 using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	[Area("Admin")]
     public class CategoriesController : Controller
     {
         private readonly WebBanGiayAdidasContext _context;
@@ -60,11 +63,11 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Nếu Alias bị bỏ trống thì tạo từ Title
-                if (string.IsNullOrEmpty(category.Alias))
-                {
-                    category.Alias = category.Title;
-                }
+                //// Nếu Alias bị bỏ trống thì tạo từ Title
+                //if (string.IsNullOrEmpty(category.Alias))
+                //{
+                //    category.Alias = category.Title;
+                //}
 
                 // Chuẩn hoá Alias
                 category.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(category.Alias);
@@ -99,7 +102,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,SeoTitle,SeoDescripyion,SeoKeywords,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,SeoTitle,SeoDescripyion,SeoKeywords,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
         {
             if (id != category.Id)
             {

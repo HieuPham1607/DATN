@@ -18,7 +18,7 @@
             <a asp-area="Admin" asp-controller="News" asp-action="Index" class="nav-link">Tin tức</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a asp-area="Admin" asp-controller="New" asp-action="Edit" class="nav-link">Cập nhật</a>
+            <a asp-area="Admin" asp-controller="News" asp-action="Edit" class="nav-link">Cập nhật</a>
         </li>
     </ul>
 }
@@ -53,32 +53,37 @@
 
                 <!-- Title -->
                 <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
+                    <label asp-for="Title" class="control-label">Tiêu đề</label>
                     <input asp-for="Title" class="form-control" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Image" class="control-label">Ảnh đại diện</label>
+                    <label asp-for="Alias" class="control-label"> Link</label>
+                    <input asp-for="Alias" class="form-control" />
+                    <span asp-validation-for="Alias" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="imageUpload" class="control-label">Ảnh đại diện</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input asp-for="Image" type="file" class="custom-file-input" id="imageUpload" name="imageFile" accept="image/*" />
+                            <input  type="file" class="custom-file-input" id="imageUpload" name="imageFile" accept="image/*" />
                             <label class="custom-file-label" for="imageUpload">Chọn ảnh</label>
                         </div>
                         <div class="input-group-append">
                             <span class="input-group-text">Tải lên</span>
                         </div>
                     </div>
-                    <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
                 @if (!string.IsNullOrEmpty(Model.Image))
                 {
                     <img id="previewImage" src="@Model.Image" alt="Ảnh xem trước" style="max-width: 200px; display: block; margin-top: 10px;" />
+                    <input asp-for="Image" class="form-control" />
                 }
                 else
                 {
                     <img id="previewImage" src="#" alt="Ảnh xem trước" style="max-width: 200px; display: none; margin-top: 10px;" />
                 }
-
+                
                 <!-- Category -->
                 <div class="form-group">
                     <label asp-for="CategoryId" class="control-label"></label>

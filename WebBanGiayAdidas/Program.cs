@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebBanGiayAdidas.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebBanGiayAdidas
 {
@@ -11,6 +12,7 @@ namespace WebBanGiayAdidas
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+			builder.Services.AddHttpContextAccessor();
 
 			builder.Services.AddDistributedMemoryCache();
 			builder.Services.AddSession(options =>
@@ -19,11 +21,19 @@ namespace WebBanGiayAdidas
 				options.Cookie.HttpOnly = true;
 				options.Cookie.IsEssential = true;
 			});
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; 
+        options.AccessDeniedPath = "/Account/AccessDenied"; 
+    });
 
-			var connectionString = builder.Configuration.GetConnectionString("AppConnectionString");
+
+            var connectionString = builder.Configuration.GetConnectionString("AppConnectionString");
 			builder.Services.AddDbContext<WebBanGiayAdidasContext>(x => x.UseSqlServer(connectionString));
 
-			var app = builder.Build();
+            builder.Services.AddSession();
+            var app = builder.Build();
 
 			if (!app.Environment.IsDevelopment())
 			{
@@ -37,18 +47,33 @@ namespace WebBanGiayAdidas
 
 			app.UseSession();
 
-			app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
 			app.MapControllerRoute(
 				name: "areas",
 				pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
-			app.MapControllerRoute(
+            app.MapControllerRoute(
+                name: "Login",
+                pattern: "dang-nhap/{alias?}",
+                defaults: new { controller = "Account", action = "Login" });
+
+            app.MapControllerRoute(
+                name: "Register",
+                pattern: "dang-ky/{alias?}",
+                defaults: new { controller = "Account", action = "Register" });
+
+            app.MapControllerRoute(
 				name: "ShopCart",
 				pattern: "gio-hang/{alias?}",
 				defaults: new { controller = "ShopCart", action = "Index" });
+            app.MapControllerRoute(
+                name: "CheckOut",
+                pattern: "thanh-toan/{alias?}",
+                defaults: new { controller = "ShopCart", action = "FormCheckOut" });
 
-			app.MapControllerRoute(
+            app.MapControllerRoute(
 				name: "News",
 				pattern: "tin-tuc/{alias?}",
 				defaults: new { controller = "New", action = "Index" });

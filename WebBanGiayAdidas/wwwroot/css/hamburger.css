@@ -1,0 +1,257 @@
+﻿/* Hamburger container */
+.hamburger_container3 {
+    display: none; /* Mặc định ẩn hamburger */
+    margin-left: 40px;
+}
+
+    .hamburger_container3 i {
+        font-size: 24px;
+        color: #1e1e27;
+        transition: all 300ms ease;
+    }
+
+    .hamburger_container3:hover i {
+        color: #b5aec4;
+    }
+
+/* Hamburger menu */
+.hamburger_menu3 {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Bắt đầu ngoài màn hình */
+    width: 400px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 10;
+    transition: all 300ms ease;
+}
+
+    /* Khi menu được kích hoạt, di chuyển vào trong */
+    .hamburger_menu3.active {
+        right: 0;
+    }
+
+/* Overlay khi menu mở */
+.fs_menu_overlay3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9;
+    background: rgba(255, 255, 255, 0);
+    pointer-events: none;
+    transition: all 200ms ease;
+}
+
+/* Nút đóng menu */
+.hamburger_close3 {
+    position: absolute;
+    top: 26px;
+    right: 10px;
+    padding: 10px;
+    z-index: 1;
+}
+
+    .hamburger_close3 i {
+        font-size: 24px;
+        color: #1e1e27;
+        transition: all 300ms ease;
+    }
+
+    .hamburger_close3:hover i {
+        color: #b5aec4;
+    }
+
+/* Nội dung menu */
+.hamburger_menu_content {
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    padding-right: 20px;
+}
+
+/* Các item trong menu */
+.menu_item {
+    display: block;
+    position: relative;
+    border-bottom: solid 1px #b5aec4;
+    vertical-align: middle;
+}
+
+    .menu_item > a {
+        display: block;
+        color: #1e1e27;
+        font-weight: 500;
+        height: 50px;
+        line-height: 50px;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+        .menu_item > a:hover {
+            color: #b5aec4;
+        }
+
+        .menu_item > a > i {
+            margin-left: 8px;
+        }
+
+    .menu_item.active .menu_selection {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+
+.menu_selection {
+    margin: 0;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+    .menu_selection li {
+        padding-left: 10px;
+        padding-right: 10px;
+        line-height: 50px;
+    }
+
+        .menu_selection li a {
+            display: block;
+            color: #232530;
+            border-bottom: solid 1px #dddddd;
+            font-size: 13px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+            .menu_selection li a:hover {
+                color: #b5aec4;
+            }
+
+        .menu_selection li:last-child a {
+            border-bottom: none;
+        }
+
+/* Media query: Hiển thị hamburger khi màn hình nhỏ hơn hoặc bằng 768px */
+@media (max-width: 991px) {
+    .hamburger_container3 {
+        display: block; /* Hiển thị hamburger */
+    }
+
+    .hamburger_menu3 {
+        position: fixed;
+        top: 0;
+        right: -400px; /* Bắt đầu ngoài màn hình */
+        width: 400px;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 10;
+        transition: all 300ms ease;
+    }
+
+        /* Khi menu được kích hoạt, di chuyển vào trong */
+        .hamburger_menu3.active {
+            right: 0;
+        }
+
+    .fs_menu_overlay3 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9;
+        background: rgba(255, 255, 255, 0);
+        pointer-events: none;
+        transition: all 200ms ease;
+    }
+
+    .hamburger_close3 {
+        position: absolute;
+        top: 26px;
+        right: 10px;
+        padding: 10px;
+        z-index: 1;
+    }
+
+        .hamburger_close3 i {
+            font-size: 24px;
+            color: #1e1e27;
+            transition: all 300ms ease;
+        }
+
+        .hamburger_close3:hover i {
+            color: #b5aec4;
+        }
+
+    .hamburger_menu_content {
+        padding-top: 100px;
+        width: 100%;
+        height: 100%;
+        padding-right: 20px;
+    }
+
+    .menu_item {
+        display: block;
+        position: relative;
+        border-bottom: solid 1px #b5aec4;
+        vertical-align: middle;
+    }
+
+        .menu_item > a {
+            display: block;
+            color: #1e1e27;
+            font-weight: 500;
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+            .menu_item > a:hover {
+                color: #b5aec4;
+            }
+
+            .menu_item > a > i {
+                margin-left: 8px;
+            }
+
+        .menu_item.active .menu_selection {
+            display: block;
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .menu_selection {
+        margin: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .menu_selection li {
+            padding-left: 10px;
+            padding-right: 10px;
+            line-height: 50px;
+        }
+
+            .menu_selection li a {
+                display: block;
+                color: #232530;
+                border-bottom: solid 1px #dddddd;
+                font-size: 13px;
+                text-transform: uppercase;
+                transition: all 0.3s ease;
+            }
+
+                .menu_selection li a:hover {
+                    color: #b5aec4;
+                }
+
+            .menu_selection li:last-child a {
+                border-bottom: none;
+            }
+}

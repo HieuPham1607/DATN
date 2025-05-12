@@ -28,17 +28,17 @@
 				items.Remove(checkExits);
 			}
 		}
-		public void Update(int id, int quantity) 
-		{
-			var checkExits = items.SingleOrDefault(x => x.Id == id);
-			if (checkExits != null)
-			{
-				checkExits.Quantity -= quantity;
-				checkExits.TotalPrice = checkExits.Price * checkExits.Quantity;
-			}
-		}
+        public void Update(int id, int quantity)
+        {
+            var existing = items.SingleOrDefault(x => x.Id == id);
+            if (existing != null)
+            {
+                existing.Quantity = quantity;
+                existing.TotalPrice = existing.Price * quantity;
+            }
+        }
 
-		public decimal GetTotalPrice()
+        public decimal GetTotalPrice()
 		{
 			return items.Sum(x => x.TotalPrice);
 		}

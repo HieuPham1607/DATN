@@ -36,7 +36,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>
+		<div class="red_button add_to_cart_button">
+			@if (Context.Session.GetInt32("UserId") != null)
+			{
+				<a href="#" class="btnAddToCart" data-id="@item.Id">Add to Cart</a>
+			}
+			else
+			{
+				<a href="/Account/Login" class="btnLoginFirst">Please login to add to cart</a>
+			}
+		</div>
 	</div>
 }
 

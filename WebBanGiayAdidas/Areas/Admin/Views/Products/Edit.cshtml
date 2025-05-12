@@ -169,21 +169,21 @@
                     <!-- Tab 2: Hình ảnh -->
                     <div class="tab-pane fade" id="timeline">
                         <div class="form-group">
-                            <label asp-for="Image" class="control-label">Hình ảnh</label>
+                            <label for="imageUpload" class="control-label">Ảnh đại diện</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input asp-for="Image" type="file" class="custom-file-input" id="imageUpload" name="imageFile" accept="image/*" />
+                                    <input type="file" class="custom-file-input" id="imageUpload" name="imageFile" accept="image/*" />
                                     <label class="custom-file-label" for="imageUpload">Chọn ảnh</label>
                                 </div>
                                 <div class="input-group-append">
                                     <span class="input-group-text">Tải lên</span>
                                 </div>
                             </div>
-                            <span asp-validation-for="Image" class="text-danger"></span>
                         </div>
                         @if (!string.IsNullOrEmpty(Model.Image))
                         {
                             <img id="previewImage" src="@Model.Image" alt="Ảnh xem trước" style="max-width: 200px; display: block; margin-top: 10px;" />
+                            <input asp-for="Image" class="form-control" />
                         }
                         else
                         {

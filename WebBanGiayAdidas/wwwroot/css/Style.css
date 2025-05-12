@@ -1,0 +1,70 @@
+﻿.user-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.logged-in {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* Menu ẩn mặc định */
+.user-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    box-sizing: border-box;
+    color: #333;
+    /* Ẩn mặc định */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+    /* Khi active thì hiển thị */
+    .user-menu.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .user-menu ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-menu li a:hover {
+        color: #007bff;
+    }
+
+    .user-menu .divider {
+        height: 1px;
+        width: 130px;
+        background-color: #ddd;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+.user-name-icon {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #333;
+}
+.user-menu ul li a {
+    white-space: nowrap;
+    padding-left:75px;
+    padding-right:75px;
+}

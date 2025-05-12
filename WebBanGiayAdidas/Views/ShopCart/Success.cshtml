@@ -1,0 +1,38 @@
+﻿@model WebBanGiayAdidas.Models.Order
+@{
+    var cart = ViewBag.Cart as WebBanGiayAdidas.Models.ShopCart;
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/assets/styles/categories_styles.css">
+</head>
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="ShopCart" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                    <li><a asp-controller="ShopCart" asp-action="FormCheckOut"><i class="fa fa-angle-right" aria-hidden="true"></i>Thông tin chi tiết</a></li>
+                </ul>
+            </div>
+            <!-- Main Content -->
+            <div class="main_content_cart" style="margin:auto; padding-left:34px; padding-right:34px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Đặt hàng thành công!</h2>
+                        <p>Cảm ơn bạn đã mua hàng. Chúng tôi sẽ liên hệ sớm nhất để xác nhận đơn hàng.</p>
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Về trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        <script src="~/assets/js/categories_custom.js"></script>
+        <script src="~/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

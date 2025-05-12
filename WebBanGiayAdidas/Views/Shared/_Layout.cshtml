@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Adidas Shop</title>
@@ -12,6 +14,8 @@
 	<link rel="stylesheet" type="text/css" href="~/assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 	<link rel="stylesheet" type="text/css" href="~/assets/plugins/OwlCarousel2-2.2.1/animate.css">
 	<link rel="stylesheet" type="text/css" href="~/assets/styles/responsive.css">
+	<link rel="stylesheet" type="text/css" href="~/css/hamburger.css">
+	<link rel="stylesheet" type="text/css" href="~/css/Style.css">
 		@* 
 	<link rel="stylesheet" type="text/css" href="~/assets/styles/contact_styles.css">
 	<link rel="stylesheet" type="text/css" href="~/assets/styles/contact_responsive.css"> *@
@@ -93,16 +97,6 @@
 											<li><a href="#">Spanish</a></li>
 										</ul>
 									</li>
-									<li class="account">
-										<a href="#">
-											My Account
-											<i class="fa fa-angle-down"></i>
-										</a>
-										<ul class="account_selection">
-											<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
-											<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
-										</ul>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -123,15 +117,59 @@
 								@await Component.InvokeAsync("MenuTop")
 								<ul class="navbar_user">
 									<li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-									<li class="checkout">
-										<a asp-controller="ShopCart" asp-action="Index">
-											<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-											<span id="checkout_items" class="checkout_items">0</span>
+								</ul>
+								<ul class="navbar_user">
+									<li class="user-icon-wrapper @((Context.Session.GetInt32("UserId") != null) ? "logged-in" : "")">
+										<a href="javascript:void(0);" class="user-toggle" onclick="toggleUserMenu()">
+											@if (Context.Session.GetInt32("UserId") != null)
+											{
+												<span class="user-name-icon">
+													<span class="user-name">@Context.Session.GetString("UserName")</span>
+													<i class="fa fa-user" aria-hidden="true"></i>
+												</span>
+											}
+											else
+											{
+												<i class="fa fa-user" aria-hidden="true"></i>
+											}
 										</a>
+										<div class="user-menu" id="userMenu">
+											<ul>
+												@if (Context.Session.GetInt32("UserId") != null)
+												{
+													<li><a href="#">Thông tin tài khoản</a></li>
+													<li class="divider"></li>
+													<li><a href="/ShopCart/MyOrders">Chi tiết đơn hàng</a></li>
+													<li class="divider"></li>
+													@if (HttpContextAccessor.HttpContext.User.IsInRole("Admin"))
+													{
+														<li><a href="/Admin/Dashboard">Quản trị viên</a></li>
+													}
+													<li class="divider"></li>
+													<li><a href="@Url.Action("Logout", "Account")">Đăng xuất</a></li>
+												}
+												else
+												{
+													<li><a asp-controller="Account" asp-action="Login">Đăng nhập</a></li>
+													<li class="divider"></li>
+													<li><a asp-controller="Account" asp-action="Register">Đăng ký</a></li>
+												}
+											</ul>
+										</div>
 									</li>
 								</ul>
-								<div class="hamburger_container">
+								<ul class="navbar_user">
+									<li class="checkout">
+										@if (Context.Session.GetInt32("UserId") != null)
+										{
+											<a asp-controller="ShopCart" asp-action="Index">
+												<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+												<span id="checkout_items" class="checkout_items">0</span>
+											</a>
+										}
+									</li>
+								</ul>
+								<div class="hamburger_container3">
 									<i class="fa fa-bars" aria-hidden="true"></i>
 								</div>
 							</nav>
@@ -142,9 +180,11 @@
 
 		</header>
 		
-		<div class="fs_menu_overlay"></div>
-		<div class="hamburger_menu">
-			<div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+		<div class="fs_menu_overlay3"></div>
+		<div class="hamburger_menu3">
+			<div class="hamburger_close3">
+				<i class="fa fa-times" aria-hidden="true"></i>
+			</div>
 			<div class="hamburger_menu_content text-right">
 				<ul class="menu_top_nav">
 					<li class="menu_item has-children">
@@ -177,16 +217,15 @@
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="menu_selection">
-							<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
-							<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+							<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a></li>
+							<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a></li>
 						</ul>
 					</li>
-					<li class="menu_item"><a href="#">home</a></li>
-					<li class="menu_item"><a href="#">shop</a></li>
-					<li class="menu_item"><a href="#">promotion</a></li>
-					<li class="menu_item"><a href="#">pages</a></li>
-					<li class="menu_item"><a href="#">blog</a></li>
-					<li class="menu_item"><a href="#">contact</a></li>
+					<li class="menu_item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+					<li class="menu_item"><a asp-controller="Product" asp-action="Index">shop</a></li>
+					<li class="menu_item"><a asp-controller="New" asp-action="Index">Tin tức</a></li>
+					<li class="menu_item"><a asp-controller="Blog" asp-action="Index">Bài Viết</a></li>
+					<li class="menu_item"><a asp-controller="Contact" asp-action="Index">Liên hệ</a></li>
 				</ul>
 			</div>
 		</div>
@@ -263,6 +302,24 @@
     <script src="~/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
     <script src="~/assets/plugins/easing/easing.js"></script>
     <script src="~/assets/js/custom.js"></script>
+	<script src="~/js/custom.js"></script>
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+			const userMenu = document.getElementById("userMenu");
+			const userIconWrapper = document.querySelector(".user-icon-wrapper");
+
+			window.toggleUserMenu = function () {
+				userMenu.classList.toggle("active");
+			};
+
+			document.addEventListener("click", function (event) {
+				if (!userIconWrapper.contains(event.target)) {
+					userMenu.classList.remove("active");
+				}
+			});
+	});
+	</script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,8 @@ using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	[Area("Admin")]
     public class ProductCategoriesController : Controller
     {
         private readonly WebBanGiayAdidasContext _context;

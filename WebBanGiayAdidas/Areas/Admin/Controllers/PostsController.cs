@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,8 @@ using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	[Area("Admin")]
     public class PostsController : Controller
     {
         private readonly WebBanGiayAdidasContext _context;
@@ -96,7 +98,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive")] Post post, IFormFile imageFile)
+        public async Task<IActionResult> Create([Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] Post post, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
@@ -109,6 +111,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     }
                     post.Image = "/uploads/post/" + imageFile.FileName;
                 }
+                post.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(post.Alias);
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -139,7 +142,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive")] Post post, IFormFile imageFile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] Post post, IFormFile? imageFile)
         {
             if (id != post.Id)
             {
@@ -159,6 +162,16 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                         }
                         post.Image = "/uploads/post/" + imageFile.FileName;
                     }
+                    else
+                    {
+                        // Nếu không có ảnh mới, lấy ảnh cũ từ cơ sở dữ liệu và giữ lại
+                        var existingNew = await _context.News.AsNoTracking().FirstOrDefaultAsync(n => n.Id == post.Id);
+                        if (existingNew != null)
+                        {
+                            post.Image = existingNew.Image;  // Giữ lại ảnh cũ
+                        }
+                    }
+                    post.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(post.Alias);
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }

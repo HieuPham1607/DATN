@@ -1,0 +1,33 @@
+﻿@model WebBanGiayAdidas.Models.ShopCart
+<table class="table table-bordered align-middle text-nowrap">
+    <thead>
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Ảnh</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <img src="@item.Img" alt="@item.Name" style="width: 50px; height: 50px;" />
+                </td>
+                <td>@String.Format("{0:#,##0}₫", item.Price).Replace(",", ".")</td>
+                <td>@item.Quantity</td>
+                <td>@String.Format("{0:#,##0}₫", item.TotalPrice).Replace(",", ".")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-end mt-2">
+    <strong>
+        Tổng cộng:
+        <span>@String.Format("{0:#,##0}₫", Model.GetTotalPrice()).Replace(",", ".")</span>
+    </strong>
+</div>

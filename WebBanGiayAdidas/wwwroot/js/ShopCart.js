@@ -59,15 +59,14 @@
             data: { id: id },
             success: function (response) {
                 if (response.success) {
-                    // Xóa dòng trong bảng
                     btn.closest('tr').remove();
 
-                    // Nếu không còn mặt hàng nào, hiển thị thông báo trống giỏ
                     if ($('tbody tr').length === 0) {
-                        $('.main_content').html('<p>Giỏ hàng của bạn hiện tại trống.</p>');
+                        $('.main_content_cart').html('<p>Giỏ hàng của bạn hiện tại trống.</p>');
+                    } else {
+                        $('strong').text('Tổng cộng: ' + Number(response.totalPrice).toLocaleString('vi-VN') + '₫');
                     }
 
-                    // Tải lại số lượng giỏ hàng và tổng tiền
                     loadCartCount();
                 } else {
                     alert(response.message);
@@ -89,7 +88,6 @@
             type: 'POST',
             success: function (response) {
                 if (response.success) {
-                    // Load lại trang để hiển thị giỏ rỗng
                     location.reload();
                 } else {
                     alert(response.message || 'Xóa giỏ hàng thất bại');
@@ -99,5 +97,65 @@
                 alert('Có lỗi xảy ra khi xóa giỏ hàng.');
             }
         });
+    });
+
+    // 5. Cập nhật số lượng sản phẩm (khi thay đổi input)
+    $('body').on('change', '.quantity-input', function () {
+        var input = $(this);
+        var id = input.data('id');
+        var qty = parseInt(input.val());
+
+        if (qty < 1 || isNaN(qty)) {
+            alert('Số lượng phải >= 1');
+            input.val(1);
+            qty = 1;
+        }
+
+        $.ajax({
+            url: '/ShopCart/Update',
+            type: 'POST',
+            data: { id: id, quantity: qty },
+            success: function (res) {
+                if (res.success) {
+                    var row = $('tr[data-id="' + id + '"]');
+                    row.find('.item-total')
+                        .text(res.itemTotal.toLocaleString('vi-VN') + '₫');
+
+                    $('#cart-total')
+                        .text(res.cartTotal.toLocaleString('vi-VN') + '₫');
+
+                    loadCartCount();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function () {
+                alert('Lỗi khi cập nhật số lượng.');
+            }
+        });
+    });
+
+    // 6. Nút tăng số lượng
+    $('body').on('click', '.btn-increase', function () {
+        var btn = $(this);
+        var id = btn.data('id');
+        var input = $('input.quantity-input[data-id="' + id + '"]');
+        var qty = parseInt(input.val()) + 1;
+        input.val(qty).trigger('change');
+    });
+
+    // 7. Nút giảm số lượng
+    $('body').on('click', '.btn-decrease', function () {
+        var btn = $(this);
+        var id = btn.data('id');
+        var input = $('input.quantity-input[data-id="' + id + '"]');
+        var qty = parseInt(input.val());
+
+        if (qty > 1) {
+            qty--;
+            input.val(qty).trigger('change');
+        } else {
+            alert('Số lượng phải >= 1');
+        }
     });
 });

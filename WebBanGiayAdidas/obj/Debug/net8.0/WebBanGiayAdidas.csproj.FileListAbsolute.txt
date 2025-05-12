@@ -263,3 +263,8 @@ D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\n
 D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\PagedList.dll
 D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\PagedList.Mvc.dll
 D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\obj\Debug\net8.0\WebBanGiayAdidas.sourcelink.json
+D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\linetx\Đồ Án Tốt Nghiệp\WebBanGiayAdidas\WebBanGiayAdidas\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll

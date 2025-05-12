@@ -3,6 +3,8 @@ using WebBanGiayAdidas.Models;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebBanGiayAdidas.Controllers
 {
@@ -20,13 +22,71 @@ namespace WebBanGiayAdidas.Controllers
 			var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
 			return View(cart);
 		}
-	
+        public IActionResult FormCheckOut()
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
+            ViewBag.Cart = cart;
+            return View(new Order()); 
+        }
+        public IActionResult Success()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult FormCheckOut(Order order)
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart");
+
+            if (cart == null || !cart.items.Any())
+            {
+                ModelState.AddModelError("", "Giỏ hàng trống.");
+                ViewBag.Cart = cart;
+                return View(order);
+            }
+
+            // Lấy user ID từ session
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId != null)
+            {
+                order.UserId = userId.Value;
+            }
+
+            // Gán thêm dữ liệu
+            order.TotalAmount = cart.GetTotalPrice();
+            order.Quantity = (int?)cart.GetTotalQuantity();
+            order.OrderCode = "OD" + DateTime.Now.Ticks;
+            //order.OrderDate = DateTime.Now; // nếu có OrderDate
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            // Lưu chi tiết đơn hàng
+            foreach (var item in cart.items)
+            {
+                var detail = new OrderDetail
+                {
+                    OrderId = order.Id,
+                    ProductId = item.Id,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                    TotalPrice = item.TotalPrice
+                };
+                _context.OrderDetails.Add(detail);
+            }
+            _context.SaveChanges();
+
+            HttpContext.Session.Remove("Cart");
+
+            return RedirectToAction("Success");
+        }
+
         [HttpGet]
         public IActionResult GetCartQuantity()
         {
             var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
-            var totalQuantity = cart.GetTotalQuantity();
-            return Json(new { success = true, totalQuantity });
+            int productCount = cart.items.Count;
+            return Json(new { success = true, totalQuantity = productCount });
         }
 
         [HttpPost]
@@ -50,37 +110,88 @@ namespace WebBanGiayAdidas.Controllers
                 TotalPrice = (product.PriceSale ?? 0) * quantity
             };
 
-            // Lấy giỏ hàng từ session (hoặc khởi tạo mới nếu chưa có)
             var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
             cart.AddToCart(item, quantity);
-            HttpContext.Session.SetObjectAsJson("Cart", cart);  // Lưu lại giỏ hàng vào Session
+            HttpContext.Session.SetObjectAsJson("Cart", cart); 
 
-            // Cập nhật số lượng giỏ hàng
-            var totalQuantity = cart.GetTotalQuantity();
+            var totalQuantity = cart.items.Count;
 
             return Json(new { success = true, message = "Đã thêm vào giỏ hàng!", totalQuantity });
         }
 
         [HttpPost]
-		public IActionResult Remove(int id)
-		{
-			var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
-			cart.Remove(id);
-			HttpContext.Session.SetObjectAsJson("Cart", cart);
+        public IActionResult Remove(int id)
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
+            cart.Remove(id);
+            HttpContext.Session.SetObjectAsJson("Cart", cart);
 
-			return Json(new { success = true, message = "Đã xóa sản phẩm khỏi giỏ hàng." });
+            var total = cart.GetTotalPrice();
+
+            return Json(new
+            {
+                success = true,
+                message = "Đã xóa sản phẩm khỏi giỏ hàng.",
+                totalPrice = total
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Update(int id, int quantity)
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart")
+                       ?? new ShopCart();
+
+            cart.Update(id, quantity);
+            HttpContext.Session.SetObjectAsJson("Cart", cart);
+
+            // Lấy lại item để trả về
+            var updatedItem = cart.items.FirstOrDefault(i => i.Id == id);
+            var itemTotal = updatedItem?.TotalPrice ?? 0;
+            var cartTotal = cart.GetTotalPrice();
+
+            return Json(new
+            {
+                success = true,
+                itemTotal,   
+                cartTotal       
+            });
+        }
+		[Authorize]
+		public async Task<IActionResult> MyOrders()
+		{
+			var userId = HttpContext.Session.GetInt32("UserId");
+
+			if (userId == null)
+				return RedirectToAction("Login", "Account");
+
+			var orders = await _context.Orders
+				.Where(o => o.UserId == userId)
+				//.OrderByDescending(o => o.OrderDate)
+				.ToListAsync();
+
+			return View(orders);
 		}
 
-		[HttpPost]
-		public IActionResult Update(int id, int quantity)
+		// Hiển thị chi tiết đơn hàng
+		[Authorize]
+		public async Task<IActionResult> OrderDetail(int id)
 		{
-			var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
-			cart.Update(id, quantity);
-			HttpContext.Session.SetObjectAsJson("Cart", cart);
+			var userId = HttpContext.Session.GetInt32("UserId");
 
-			return Json(new { success = true, message = "Đã cập nhật số lượng." });
+			if (userId == null)
+				return RedirectToAction("Login", "Account");
+
+			var order = await _context.Orders
+				.Include(o => o.OrderDetails)
+				.ThenInclude(od => od.Product)
+                .FirstOrDefaultAsync(o => o.Id == id && o.UserId == userId);
+
+            if (order == null)
+				return NotFound();
+
+			return View(order);
 		}
-
 		[HttpPost]
 		public IActionResult ClearCart()
 		{

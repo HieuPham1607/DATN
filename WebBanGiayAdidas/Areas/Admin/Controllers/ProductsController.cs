@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +12,8 @@ using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	[Area("Admin")]
     public class ProductsController : Controller
     {
         private readonly WebBanGiayAdidasContext _context;
@@ -181,7 +183,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(
     int id,
     [Bind("Id,Title,ProductCategoryId,ProductCode,Description,Detail,Image,Price,PriceSale,Quantity,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale,Alias")] Product product,
-    IFormFile imageFile,
+    IFormFile? imageFile,
     List<IFormFile> imageChildren,
     List<IFormFile> ReplacedChildImages,
     List<int> ReplacedImageIds,
@@ -206,9 +208,18 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                         }
                         product.Image = "/uploads/product/" + imageFile.FileName;
                     }
+					else
+					{
+						var existingNew = await _context.News.AsNoTracking().FirstOrDefaultAsync(n => n.Id == product.Id);
+						if (existingNew != null)
+						{
+							product.Image = existingNew.Image; // giữ lại ảnh cũ
+						}
+					}
 
-                    // Chuẩn hoá Alias
-                    product.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(product.Alias);
+
+					// Chuẩn hoá Alias
+					product.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(product.Alias);
 
                     // Cập nhật thông tin sản phẩm
                     _context.Update(product);

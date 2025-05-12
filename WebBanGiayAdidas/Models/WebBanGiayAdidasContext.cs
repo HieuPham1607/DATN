@@ -35,9 +35,15 @@ public partial class WebBanGiayAdidasContext : DbContext
 
     public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
+    public virtual DbSet<Role> Roles { get; set; }
+
     public virtual DbSet<Subscribe> Subscribes { get; set; }
 
     public virtual DbSet<SystemSetting> SystemSettings { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserRole> UserRoles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -130,14 +136,15 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.ToTable("Order");
 
             entity.Property(e => e.Address).HasMaxLength(500);
-            entity.Property(e => e.CreatedBy).HasMaxLength(250);
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.CustomerName).HasMaxLength(250);
-            entity.Property(e => e.ModifierBy).HasMaxLength(250);
-            entity.Property(e => e.ModifierDate).HasColumnType("datetime");
+            entity.Property(e => e.Email).HasMaxLength(250);
             entity.Property(e => e.OrderCode).HasMaxLength(50);
             entity.Property(e => e.Phone).HasMaxLength(20);
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 0)");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_Order_Users");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
@@ -145,6 +152,7 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.ToTable("OrderDetail");
 
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
@@ -212,6 +220,15 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.Property(e => e.Title).HasMaxLength(250);
         });
 
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Roles__3214EC071137C28E");
+
+            entity.HasIndex(e => e.RoleName, "UQ__Roles__8A2B616090A9A6A4").IsUnique();
+
+            entity.Property(e => e.RoleName).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Subscribe>(entity =>
         {
             entity.ToTable("Subscribe");
@@ -228,6 +245,33 @@ public partial class WebBanGiayAdidasContext : DbContext
 
             entity.Property(e => e.SettingKey).HasMaxLength(50);
             entity.Property(e => e.SettingDescription).HasMaxLength(250);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07C4666D15");
+
+            entity.HasIndex(e => e.UserName, "UQ__Users__C9F28456F874B6DA").IsUnique();
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Email).HasMaxLength(250);
+            entity.Property(e => e.PasswordHash).HasMaxLength(250);
+            entity.Property(e => e.UserName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__UserRole__3214EC07A4DA954E");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.UserRoles)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("FK__UserRoles__RoleI__27C3E46E");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserRoles)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__UserRoles__UserI__26CFC035");
         });
 
         OnModelCreatingPartial(modelBuilder);

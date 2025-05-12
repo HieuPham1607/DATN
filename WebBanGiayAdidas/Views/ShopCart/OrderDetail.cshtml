@@ -1,0 +1,78 @@
+﻿@model WebBanGiayAdidas.Models.Order
+<head>
+    <link rel="stylesheet" type="text/css" href="~/assets/styles/categories_styles.css">
+</head>
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+    }
+
+        .input-group button {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+</style>
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="ShopCart" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main_content_cart" style="margin:auto ;padding-left:34px;padding-right:34px  ">
+                <h2>Chi tiết đơn hàng - @Model.OrderCode</h2>
+
+                @* <p><strong>Ngày đặt:</strong> @Model.OrderDate?.ToString("dd/MM/yyyy")</p>
+                <p><strong>Trạng thái:</strong> @Model.Status</p> *@
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            <tr>
+                                <td>@item.Product?.Title</td>
+                                <td>@item.Price?.ToString("N0") VNĐ</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.TotalPrice?.ToString("N0") VNĐ</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <p><strong>Tổng đơn hàng:</strong> @Model.TotalAmount?.ToString("N0") VNĐ</p>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        <script src="~/assets/js/categories_custom.js"></script>
+        <script src="~/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

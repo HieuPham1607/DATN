@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PagedList;
+using WebBanGiayAdidas.Filters;
 using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	[Area("Admin")]
     public class NewsController : Controller
     {
         private readonly WebBanGiayAdidasContext _context;
@@ -79,7 +82,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/News/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive")] New @new, IFormFile imageFile)
+        public async Task<IActionResult> Create([Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] New @new, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
@@ -92,8 +95,8 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     }
                     @new.Image = "/uploads/new/" + imageFile.FileName;
                 }
-
-                _context.Add(@new);
+				@new.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(@new.Alias);
+				_context.Add(@new);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -120,7 +123,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/News/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive")] New @new, IFormFile imageFile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] New @new, IFormFile? imageFile)
         {
             if (id != @new.Id)
                 return NotFound();
@@ -131,20 +134,27 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                 {
                     if (imageFile != null && imageFile.Length > 0)
                     {
+                        // Nếu có ảnh mới, lưu ảnh và cập nhật đường dẫn
                         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "new", imageFile.FileName);
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             await imageFile.CopyToAsync(stream);
                         }
-                        @new.Image = "/uploads/new/" + imageFile.FileName;
+                        @new.Image = "/uploads/new/" + imageFile.FileName;  // Cập nhật ảnh mới
                     }
                     else
                     {
-                        _context.Entry(@new).Property(p => p.Image).IsModified = true;
+                        // Nếu không có ảnh mới, lấy ảnh cũ từ cơ sở dữ liệu và giữ lại
+                        var existingNew = await _context.News.AsNoTracking().FirstOrDefaultAsync(n => n.Id == @new.Id);
+                        if (existingNew != null)
+                        {
+                            @new.Image = existingNew.Image;  // Giữ lại ảnh cũ
+                        }
                     }
 
-                    _context.Update(@new);
-                    await _context.SaveChangesAsync();
+                    @new.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(@new.Alias);
+                    _context.Update(@new);  // Cập nhật đối tượng tin tức
+                    await _context.SaveChangesAsync();  // Lưu vào cơ sở dữ liệu
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -154,12 +164,14 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                         throw;
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));  // Điều hướng về danh sách
             }
 
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title", @new.CategoryId);
-            return View(@new);
+            return View(@new);  // Trả về lại View với model đã cập nhật
         }
+
+
 
         // POST: Admin/News/Delete
         [HttpPost]

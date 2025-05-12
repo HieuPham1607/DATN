@@ -7,9 +7,13 @@ public partial class Order
 {
     public int Id { get; set; }
 
+    public int? UserId { get; set; }
+
     public string? OrderCode { get; set; }
 
     public string? CustomerName { get; set; }
+
+    public string? Email { get; set; }
 
     public string? Phone { get; set; }
 
@@ -19,13 +23,9 @@ public partial class Order
 
     public int? Quantity { get; set; }
 
-    public DateTime? CreatedDate { get; set; }
-
-    public string? CreatedBy { get; set; }
-
-    public DateTime? ModifierDate { get; set; }
-
-    public string? ModifierBy { get; set; }
+    public int? Payment { get; set; }
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
+    public virtual User? User { get; set; }
 }
