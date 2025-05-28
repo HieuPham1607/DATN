@@ -22,10 +22,32 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         }
 
         // GET: Admin/OrderDetails
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string keyword, int? page)
         {
-            var webBanGiayAdidasContext = _context.OrderDetails.Include(o => o.Order).Include(o => o.Product);
-            return View(await webBanGiayAdidasContext.ToListAsync());
+            var pageSize = 5;
+            var pageIndex = page ?? 1;
+
+            var orderlist = _context.OrderDetails.Include(p => p.Order).Include(p => p.Product).AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                orderlist = orderlist.Where(n => n.Product.Title.Contains(keyword) || n.Order.CustomerName.Contains(keyword) || n.Order.OrderCode.Contains(keyword)
+                );
+            }
+
+            var totalItems = await orderlist.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var items = await orderlist
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.Keyword = keyword;
+
+            return View(items);
         }
 
         // GET: Admin/OrderDetails/Details/5

@@ -38,7 +38,7 @@
                                 <div class="col-md-6">
                                     <div class="form-block">
                                         <div class="text-center mb-5">
-                                            <h3>Login to <strong>Colorlib</strong></h3>
+                                            <h3>Login to <strong>Adidas</strong></h3>
                                             <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
                                         </div>
                                         <form asp-action="Login" method="post">
@@ -52,7 +52,9 @@
                                             </div>
 
                                             <div class="d-sm-flex mb-5 align-items-center">
-                                                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
+                                                <span class="ml-auto">
+                                                    <a asp-controller="Account" asp-action="ForgotPassword" class="forgot-pass">Quên mật khẩu?</a>
+                                                </span>
                                                 <span class="ml-auto"><a asp-action="Register">Chưa có tài khoản? Đăng ký</a></span>
                                             </div>
 

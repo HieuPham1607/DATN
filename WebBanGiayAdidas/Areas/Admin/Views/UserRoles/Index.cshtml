@@ -14,7 +14,7 @@
             <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a asp-area="Admin" asp-controller="UserRoles" asp-action="Index" class="nav-link">Bài viết</a>
+            <a asp-area="Admin" asp-controller="UserRoles" asp-action="Index" class="nav-link">Phân quyền</a>
         </li>
     </ul>
 }
@@ -48,15 +48,20 @@
                         <table class="table table-sm" style="text-align:center">
                             <thead>
                                 <tr>
+                                    <th>STT</th>
                                     <th>Tên tài khoản</th>
                                     <th>Email</th>
                                     <th>Phân quyền</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (Model != null && Model.Any())
+                    {
+                        var i = 1;
                                 @foreach (var item in Model)
                                 {
                                     <tr>
+                                        <td>@i</td>
                                         <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
                                         <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
                                         <td>
@@ -67,7 +72,17 @@
                                             </button>
                                         </td>
                                     </tr>
-                                }
+                                            i++;
+                                        }
+                                    }
+                                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="7" class="text-center text-danger">
+                                                Thông tin không tồn tại.
+                                            </td>
+                                        </tr>
+                                    }
                             </tbody>
                         </table>
 

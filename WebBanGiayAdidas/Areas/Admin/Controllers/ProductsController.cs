@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas.Areas.Admin.Controllers
@@ -29,7 +30,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             var pageSize = 5;
             var pageIndex = page ?? 1;
 
-            var postlist = _context.Products.Include(p => p.ProductCategory).AsQueryable();
+            var postlist = _context.Products.Include(p => p.ProductCategory).Include(p => p.ShoeColor).AsQueryable();
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -56,13 +57,13 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var product = await _context.Products
                 .Include(p => p.ProductCategory)
+                .Include(p => p.ShoeColor)
                 .Include(p => p.ChildImages)
+                .Include(p => p.ProductSizes)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (product == null)
@@ -70,13 +71,14 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(product);
+            return PartialView("_ProductDetails", product);
         }
 
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Title");
+            ViewData["ShoeColorId"] = new SelectList(_context.ShoeColors, "Id", "ColorName");
             return View();
         }
 
@@ -84,9 +86,10 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Id,Title,ProductCategoryId,ProductCode,Description,Detail,Image,Price,PriceSale,Quantity,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale,Alias")] Product product,
+            [Bind("Id,Title,ProductCategoryId,ShoeColorId,ProductCode,Description,Detail,Image,Price,PriceSale,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale,Alias,ProductGroupId")] Product product,
             IFormFile imageFile,
-            List<IFormFile> imageChildren)
+            List<IFormFile> imageChildren,
+            List<ProductSize> Sizes)
         {
             if (ModelState.IsValid)
             {
@@ -110,10 +113,19 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
 
 				// Chuẩn hoá Alias
 				product.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(product.Alias);
-
+				product.CreatedDate = DateTime.Now;
 				_context.Add(product);
                 await _context.SaveChangesAsync(); // Lưu để có product.Id
 
+                if (Sizes != null && Sizes.Any())
+                {
+                    foreach (var size in Sizes)
+                    {
+                        size.ProductId = product.Id;  // Gán khóa ngoại
+                        _context.ProductSizes.Add(size);
+                    }
+                    await _context.SaveChangesAsync();
+                }
                 // Upload ảnh con (ChildImages)
                 if (imageChildren != null && imageChildren.Count > 0)
                 {
@@ -150,6 +162,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             }
 
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Title", product.ProductCategoryId);
+            ViewData["ShoeColorId"] = new SelectList(_context.ShoeColors, "Id", "ColorName", product.ShoeColorId);
             return View(product);
         }
 
@@ -169,12 +182,15 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+			var sizes = _context.ProductSizes.Where(s => s.ProductId == id).ToList();
+			ViewBag.Sizes = sizes;
 
-            // Truyền ảnh đại diện và ảnh con vào View
-            ViewBag.ExistingMainImage = product.Image;
+			// Truyền ảnh đại diện và ảnh con vào View
+			ViewBag.ExistingMainImage = product.Image;
             ViewBag.ExistingChildImages = product.ChildImages;
 
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Title", product.ProductCategoryId);
+            ViewData["ShoeColorId"] = new SelectList(_context.ShoeColors, "Id", "ColorName", product.ShoeColorId);
             return View(product);
         }
 
@@ -182,12 +198,13 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
     int id,
-    [Bind("Id,Title,ProductCategoryId,ProductCode,Description,Detail,Image,Price,PriceSale,Quantity,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale,Alias")] Product product,
+    [Bind("Id,Title,ProductCategoryId,ShoeColorId,ProductCode,Description,Detail,Image,Price,PriceSale,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,IsHome,IsHot,IsFeature,IsSale,Alias,ProductGroupId")] Product product,
     IFormFile? imageFile,
     List<IFormFile> imageChildren,
     List<IFormFile> ReplacedChildImages,
     List<int> ReplacedImageIds,
-    List<int> DeletedChildImageIds)
+	List<ProductSize> Sizes,
+	List<int> DeletedChildImageIds)
         {
             if (id != product.Id)
             {
@@ -210,19 +227,19 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     }
 					else
 					{
-						var existingNew = await _context.News.AsNoTracking().FirstOrDefaultAsync(n => n.Id == product.Id);
-						if (existingNew != null)
+						var existingProducts = await _context.Products.AsNoTracking().FirstOrDefaultAsync(n => n.Id == product.Id);
+						if (existingProducts != null)
 						{
-							product.Image = existingNew.Image; // giữ lại ảnh cũ
+							product.Image = existingProducts.Image;
 						}
 					}
 
 
 					// Chuẩn hoá Alias
 					product.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(product.Alias);
-
-                    // Cập nhật thông tin sản phẩm
-                    _context.Update(product);
+					product.ModifierDate = DateTime.Now;
+					// Cập nhật thông tin sản phẩm
+					_context.Update(product);
 
                     var childFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "product-images");
                     if (!Directory.Exists(childFolder))
@@ -306,7 +323,22 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
 
                     // Lưu thay đổi
                     await _context.SaveChangesAsync();
-                }
+					// Xóa các size cũ của sản phẩm
+					var oldSizes = _context.ProductSizes.Where(s => s.ProductId == product.Id);
+					_context.ProductSizes.RemoveRange(oldSizes);
+					await _context.SaveChangesAsync();
+
+					// Thêm size mới
+					if (Sizes != null && Sizes.Any())
+					{
+						foreach (var size in Sizes)
+						{
+							size.ProductId = product.Id;
+							_context.ProductSizes.Add(size);
+						}
+						await _context.SaveChangesAsync();
+					}
+				}
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProductExists(product.Id))
@@ -323,6 +355,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             }
 
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Title", product.ProductCategoryId);
+            ViewData["ShoeColorId"] = new SelectList(_context.ShoeColors, "Id", "ColorName", product.ShoeColorId);
             return View(product);
         }
         // POST: Admin/Products/Delete/5

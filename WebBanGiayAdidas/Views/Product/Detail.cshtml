@@ -10,6 +10,115 @@
 		display: flex;
 		flex-direction: column; 
 	}
+
+	.product-sizes {
+		margin-top: 10px;
+	}
+
+	#sizeButtons {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.size-btn {
+		min-width: 50px;
+		padding: 8px 15px;
+		font-weight: 600;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s ease, color 0.3s ease;
+		border: 1px solid #ccc; /* viền xám nhạt */
+		background-color: #e0e0e0; /* nền bạc nhạt */
+		color: black; /* chữ đen */
+	}
+
+		.size-btn:hover {
+			background-color: black; /* nền đen khi hover */
+			color: white; /* chữ trắng khi hover */
+			border-color: black;
+		}
+
+		.size-btn.active,
+		.size-btn:focus {
+			background-color: black !important;
+			color: white !important;
+			border-color: black !important;
+			box-shadow: none !important;
+			outline: none;
+		}
+
+	#selectedQuantity {
+		font-size: 1rem;
+		color: #333;
+		font-weight: 600;
+	}
+
+	#mainImage {
+		background-size: 120%;
+		background-repeat: no-repeat;
+		transition: background-size 2s ease;
+		cursor: zoom-in;
+	}
+
+		#mainImage.zoomed {
+			background-size: 200%; /* Phóng to gấp đôi */
+			cursor: zoom-out;
+		}
+
+	 /* Phân trang */
+	.pagination-wrapper {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+		.pagination-wrapper .pagination {
+			display: inline-flex;
+			gap: 8px;
+			list-style: none;
+			padding-left: 0;
+			user-select: none;
+		}
+
+			.pagination-wrapper .pagination li {
+				display: inline;
+			}
+
+			.pagination-wrapper .pagination a,
+			.pagination-wrapper .pagination span {
+				display: inline-block;
+				padding: 6px 12px;
+				border: 1px solid #ddd;
+				color: #333;
+				text-decoration: none;
+				border-radius: 4px;
+				transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+				cursor: pointer;
+			}
+
+				.pagination-wrapper .pagination a:hover {
+					background-color: #f0ad4e;
+					color: white;
+					border-color: #f0ad4e;
+				}
+
+			.pagination-wrapper .pagination li.active > a {
+				background-color: #f0ad4e;
+				color: white;
+				border-color: #f0ad4e;
+				cursor: default;
+			}
+
+			/* Disabled state - nếu bạn cần */
+			.pagination-wrapper .pagination .disabled,
+			.pagination-wrapper .pagination li.disabled > a {
+				pointer-events: none;
+				color: #999;
+				border-color: #ddd;
+				background-color: #f9f9f9;
+				cursor: default;
+			}
+
 </style>
 <div class="container single_product_container">
 	<div class="row">
@@ -73,7 +182,9 @@
 				}
 				<div class="product_details_title">
 					<h2>@Model.Title</h2>
+					<p>Mã sản phẩm: @Model.ProductCode</p>
 					<p>@Model.Description</p>
+					
 				</div>
 					<div class="free_delivery d-flex flex-row align-items-center justify-content-center">
 						<span class="ti-truck"></span><span>free delivery</span>
@@ -90,14 +201,22 @@
 					<li><i class="fa fa-star" aria-hidden="true"></i></li>
 					<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
 				</ul> *@
-				<div class="product_color">
-					<span>Select Color:</span>
-					<ul>
-						<li style="background: #e54e5d"></li>
-						<li style="background: #252525"></li>
-						<li style="background: #60b3f3"></li>
-					</ul>
-				</div>
+					@await Component.InvokeAsync("ProductColors", new { product = Model })
+					<!-- Hiển thị danh sách Size và Quantity -->
+					<div class="product-sizes mb-3" style="margin-top:10px">
+						<div id="sizeButtons" class="btn-group" role="group" aria-label="Product Sizes">
+							@foreach (var ps in Model.ProductSizes)
+							{
+								<button type="button" class="btn btn-outline-primary size-btn" data-quantity="@ps.Quantity">
+									@ps.Size
+								</button>
+							}
+						</div>
+
+						<div class="mt-2" style="padding-top:10px">
+							<strong>Số lượng tồn kho:</strong> <span id="selectedQuantity">Select a size</span>
+						</div>
+					</div>
 				<div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
 					<span>Quantity:</span>
 					<div class="quantity_selector">
@@ -105,6 +224,7 @@
 						<span id="quantity_value">1</span>
 						<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
 					</div>
+						
 						<div class="red_button add_to_cart_button">
 							@if (Context.Session.GetInt32("UserId") != null)
 							{
@@ -132,8 +252,8 @@
 				<div class="tabs_container">
 					<ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
 						<li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
-						<li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>
-						<li class="tab" data-active-tab="tab_3"><span>Reviews (2)</span></li>
+						@* <li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li> *@
+						<li class="tab" data-active-tab="tab_3"><span>Reviews (@Model.Reviews.Count())</span></li>
 					</ul>
 				</div>
 			</div>
@@ -151,7 +271,7 @@
 
 				<!-- Tab Additional Info -->
 
-				<div id="tab_2" class="tab_container">
+				@* <div id="tab_2" class="tab_container">
 					<div class="row">
 						<div class="col additional_info_col">
 							<div class="tab_title additional_info_title">
@@ -161,93 +281,75 @@
 							<p>SIZE:<span>L,M,XL</span></p>
 						</div>
 					</div>
-				</div>
+				</div> *@
 
 				<!-- Tab Reviews -->
 
 				<div id="tab_3" class="tab_container">
 					<div class="row">
 
-						<!-- User Reviews -->
-
+						<!-- Hiển thị đánh giá -->
 						<div class="col-lg-6 reviews_col">
 							<div class="tab_title reviews_title">
-								<h4>Reviews (2)</h4>
+								<h4>Reviews (<span id="total-reviews">@Model.Reviews.Count()</span>)</h4>
 							</div>
 
-							<!-- User Review -->
-
-							<div class="user_review_container d-flex flex-column flex-sm-row">
-								<div class="user">
-									<div class="user_pic"></div>
-									<div class="user_rating">
-										<ul class="star_rating">
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-										</ul>
-									</div>
-								</div>
-								<div class="review">
-									<div class="review_date">27 Aug 2016</div>
-									<div class="user_name">Brandon William</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
+							<div id="review-list">
+								@{
+									var pageSize = 5;
+									var reviews = Model.Reviews.OrderByDescending(r => r.CreatedAt).Take(pageSize).ToList();
+									var totalReviews = Model.Reviews.Count();
+									var totalPages = (int)Math.Ceiling(totalReviews / (double)pageSize);
+									var currentPage = 1;
+								}
+								@await Html.PartialAsync("_ReviewsPartial", reviews)
 							</div>
 
-							<!-- User Review -->
+							<div class="pagination-wrapper">
+								<ul class="pagination" id="review-pagination" data-productid="@Model.Id" data-pagesize="@pageSize" data-currentpage="@currentPage" data-totalpages="@totalPages">
+									@* Mũi tên quay về đầu và trang trước *@
+									<li class="page-item" id="review-first" style="@(currentPage == 1 ? "display:none;" : "")">
+										<a class="page-link" href="#" aria-label="First">&laquo;</a>
+									</li>
+									<li class="page-item" id="review-prev" style="@(currentPage == 1 ? "display:none;" : "")">
+										<a class="page-link" href="#" aria-label="Previous">&lsaquo;</a>
+									</li>
 
-							<div class="user_review_container d-flex flex-column flex-sm-row">
-								<div class="user">
-									<div class="user_pic"></div>
-									<div class="user_rating">
-										<ul class="star_rating">
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-										</ul>
-									</div>
-								</div>
-								<div class="review">
-									<div class="review_date">27 Aug 2016</div>
-									<div class="user_name">Brandon William</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
+									@for (int i = 1; i <= totalPages; i++)
+									{
+										<li class="page-item @(i == currentPage ? "active" : "")">
+											<a class="page-link" href="#" data-page="@i">@i</a>
+										</li>
+									}
+
+									@* Mũi tên sang trang kế và cuối cùng *@
+									<li class="page-item" id="review-next" style="@(currentPage == totalPages || totalPages <= 1 ? "display:none;" : "")">
+										<a class="page-link" href="#" aria-label="Next">&rsaquo;</a>
+									</li>
+									<li class="page-item" id="review-last" style="@(currentPage == totalPages || totalPages <= 1 ? "display:none;" : "")">
+										<a class="page-link" href="#" aria-label="Last">&raquo;</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 
-						<!-- Add Review -->
-
+						<!-- Gửi đánh giá -->
 						<div class="col-lg-6 add_review_col">
+							<div id="review-message-area"></div> <!-- Thông báo sẽ hiển thị ở đây -->
 
 							<div class="add_review">
-								<form id="review_form" action="post">
+								<form id="reviewForm">
+									<input type="hidden" name="ProductId" value="@Model.Id" />
 									<div>
-										<h1>Add Review</h1>
-										<input id="review_name" class="form_input input_name" type="text" name="name" placeholder="Name*" required="required" data-error="Name is required.">
-										<input id="review_email" class="form_input input_email" type="email" name="email" placeholder="Email*" required="required" data-error="Valid email is required.">
+										<h1>Gửi đánh giá</h1>
+										<textarea id="review_message" class="input_review" name="Comment" placeholder="Nội dung đánh giá..." rows="4" required></textarea>
 									</div>
-									<div>
-										<h1>Your Rating:</h1>
-										<ul class="user_star_rating">
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-										</ul>
-										<textarea id="review_message" class="input_review" name="message" placeholder="Your Review" rows="4" required data-error="Please, leave us a review."></textarea>
-									</div>
+
 									<div class="text-left text-sm-right">
-										<button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>
+										<button type="submit" class="red_button review_submit_btn trans_300">Gửi đánh giá</button>
 									</div>
 								</form>
 							</div>
-
 						</div>
 
 					</div>
@@ -259,8 +361,189 @@
 
 </div>
 @section Scripts {
-	@{
-		<script src="~/assets/js/single_custom.js"></script>
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="~/assets/js/single_custom.js"></script>
+	<script>
+		$(document).ready(function () {
+			// Ajax submit đánh giá
+			$("#reviewForm").submit(function (e) {
+				e.preventDefault();
+
+				$.ajax({
+					url: '/Product/AddReview',
+					type: 'POST',
+					data: $(this).serialize(),
+					success: function (response) {
+						if (!response.success) {
+							if (response.redirectTo) {
+								window.location.href = response.redirectTo;
+								return;
+							}
+
+							let messageHtml = `<div class="alert alert-danger">${response.message}</div>`;
+							$("#review-message-area").html(messageHtml);
+							return;
+						}
+						$("#reviewForm")[0].reset();
+						// Thêm review mới vào đầu danh sách review
+						let newReviewHtml = `<div class="user_review_container d-flex flex-column flex-sm-row">
+												<div class="review">
+													<div class="review_date">${response.review.createdAt}</div>
+													<div class="user_name">${response.review.userName}</div>
+													<p>${response.review.comment}</p>
+												</div>
+											</div>`;
+						$("#review-list").prepend(newReviewHtml);
+
+						// Cập nhật số lượng review hiển thị trên tiêu đề
+						let countText = $(".reviews_title h4").text();
+						let match = countText.match(/\d+/);
+						if (match) {
+							let count = parseInt(match[0]) + 1;
+							$(".reviews_title h4").text(`Reviews (${count})`);
+						}
+
+						// Chuyển tab về Reviews
+						$('.tab').removeClass('active');
+						$('.tab_container').removeClass('active');
+
+						$(`.tab[data-active-tab="tab_3"]`).addClass('active');
+						$('#tab_3').addClass('active');
+					},
+					error: function () {
+						$("#review-message-area").html(`<div class="alert alert-danger">Đã xảy ra lỗi khi gửi đánh giá.</div>`);
+					}
+				});
+			});
+
+			// Xử lý chuyển tab khi click thủ công
+			$(".tab").click(function () {
+				$(".tab").removeClass("active");
+				$(".tab_container").removeClass("active");
+
+				$(this).addClass("active");
+				let activeTab = $(this).data("active-tab");
+				$("#" + activeTab).addClass("active");
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			const buttons = document.querySelectorAll(".size-btn");
+			const quantityDisplay = document.getElementById("selectedQuantity");
+
+			// Hàm để chọn 1 nút và cập nhật số lượng
+			function selectButton(btn) {
+				buttons.forEach(b => b.classList.remove("active"));
+				btn.classList.add("active");
+				quantityDisplay.textContent = btn.getAttribute("data-quantity");
+			}
+
+			buttons.forEach(btn => {
+				btn.addEventListener("click", function() {
+					selectButton(this);
+				});
+			});
+
+			// Mặc định chọn nút đầu tiên khi load trang nếu có nút
+			if (buttons.length > 0) {
+				selectButton(buttons[0]);
+			} else {
+				quantityDisplay.textContent = "Không có size";
+			}
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const mainImage = document.getElementById("mainImage");
+
+			mainImage.addEventListener("mousemove", (e) => {
+				const rect = mainImage.getBoundingClientRect();
+				// Tính vị trí con trỏ so với ảnh (tính theo %)
+				const x = ((e.clientX - rect.left) / rect.width) * 100;
+				const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+				mainImage.style.backgroundSize = "200%"; // Phóng to 2 lần
+				mainImage.style.backgroundPosition = `${x}% ${y}%`;
+				mainImage.style.cursor = "zoom-in";
+			});
+
+			mainImage.addEventListener("mouseleave", () => {
+				mainImage.style.backgroundSize = "120%";
+				mainImage.style.backgroundPosition = "center";
+				mainImage.style.cursor = "default";
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			function updatePaginationControls(currentPage, totalPages) {
+				if (currentPage <= 1) {
+					$("#review-first, #review-prev").hide();
+				} else {
+					$("#review-first, #review-prev").show();
+				}
+
+				if (currentPage >= totalPages) {
+					$("#review-next, #review-last").hide();
+				} else {
+					$("#review-next, #review-last").show();
+				}
+
+				$("#review-pagination li.page-item").removeClass("active");
+				$("#review-pagination li.page-item").each(function () {
+					var page = $(this).find("a.page-link").data("page");
+					if (page == currentPage) {
+						$(this).addClass("active");
+					}
+				});
+
+				$("#review-pagination").attr("data-currentpage", currentPage);
+			}
+
+			function loadReviewsPage(page) {
+				var productId = $("#review-pagination").data("productid");
+				var pageSize = $("#review-pagination").data("pagesize");
+				var totalPages = $("#review-pagination").data("totalpages");
+
+				if (page < 1 || page > totalPages) return;
+
+				$.ajax({
+					url: '@Url.Action("LoadReviews")',
+					data: { productId: productId, page: page, pageSize: pageSize },
+					success: function (result) {
+						$("#review-list").html(result);
+						updatePaginationControls(page, totalPages);
+					},
+					error: function () {
+						alert("Không thể tải reviews.");
+					}
+				});
+			}
+
+			$("#review-pagination").on("click", "a.page-link", function (e) {
+				e.preventDefault();
+
+				var currentPage = parseInt($("#review-pagination").attr("data-currentpage"));
+				var totalPages = parseInt($("#review-pagination").attr("data-totalpages"));
+				var clickedPage = $(this).data("page");
+				var ariaLabel = $(this).attr("aria-label");
+
+				if (ariaLabel === "First") {
+					loadReviewsPage(1);
+				} else if (ariaLabel === "Previous") {
+					loadReviewsPage(currentPage - 1);
+				} else if (ariaLabel === "Next") {
+					loadReviewsPage(currentPage + 1);
+				} else if (ariaLabel === "Last") {
+					loadReviewsPage(totalPages);
+				} else if (clickedPage) {
+					loadReviewsPage(clickedPage);
+				}
+			});
+
+			// Khởi tạo trạng thái phân trang lúc đầu
+			updatePaginationControls(1, parseInt($("#review-pagination").data("totalpages")));
+		});
+	</script>
 }

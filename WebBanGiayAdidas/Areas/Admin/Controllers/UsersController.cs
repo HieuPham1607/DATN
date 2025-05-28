@@ -22,9 +22,32 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string keyword, int? page)
         {
-            return View(await _context.Users.ToListAsync());
+            var pageSize = 5;
+            var pageIndex = page ?? 1;
+
+            var postlist = _context.Users.AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                postlist = postlist.Where(n => n.UserName.Contains(keyword) || n.Email.Contains(keyword));
+            }
+
+            var totalItems = await postlist.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var items = await postlist
+                .OrderByDescending(n => n.CreatedAt)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.Keyword = keyword;
+
+            return View(items);
         }
 
         // GET: Admin/Users/Details/5
@@ -118,37 +141,67 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             return View(user);
         }
 
-        // GET: Admin/Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Admin/Users/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
+        //    var user = await _context.Users
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(user);
+        //}
+
+        //// POST: Admin/Users/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var user = await _context.Users.FindAsync(id);
+        //    if (user != null)
+        //    {
+        //        _context.Users.Remove(user);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
             var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(o => o.UserRoles) // Nạp luôn danh sách OrderDetails liên quan
+                .FirstOrDefaultAsync(o => o.Id == id);
+
             if (user == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Đơn hàng không tồn tại." });
             }
 
-            return View(user);
-        }
-
-        // POST: Admin/Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
+            try
             {
-                _context.Users.Remove(user);
-            }
+                // Xóa tất cả OrderDetails liên quan
+                _context.UserRoles.RemoveRange(user.UserRoles);
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                // Sau đó xóa Order
+                _context.Users.Remove(user);
+
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Xóa thành công." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi khi xóa: " + ex.Message });
+            }
         }
 
         private bool UserExists(int id)

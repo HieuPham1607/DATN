@@ -25,6 +25,8 @@ public partial class Order
 
     public int? Payment { get; set; }
 
+    public DateTime? CreateDate { get; set; }
+
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual User? User { get; set; }

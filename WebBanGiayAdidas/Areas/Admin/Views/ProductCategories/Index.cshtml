@@ -57,9 +57,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Icon)
                         </th>
-                        <th>
+                        @* <th>
                             Mô tả
-                        </th>
+                        </th> *@
                         @* <th>
                         @Html.DisplayNameFor(model => model.CreatedDate)
                         </th>
@@ -96,9 +96,9 @@
                                     <span>No Icon</span>
                                 }
                             </td>
-                            <td>
+                            @* <td>
                                 @Html.DisplayFor(modelItem => item.Description)
-                            </td>
+                            </td> *@
                             @* <td>
                         @Html.DisplayFor(modelItem => item.CreatedDate)
                         </td>
@@ -113,7 +113,6 @@
                         </td> *@
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Sửa</a> |
-                                <a href="javascript:void(0);" class="btn btn-sm btn-info btn-view" data-id="@item.Id">Xem</a> |
                                 <button class="btn btn-sm btn-danger btn-delete" data-id="@item.Id">Xóa</button>
                             </td>
                             </tr>
@@ -208,30 +207,7 @@
                     }
                 });
             });
-            // View button (AJAX to load new details into modal)
-            document.querySelectorAll(".btn-view").forEach(button => {
-                button.addEventListener("click", function () {
-                    let postId = this.getAttribute("data-id");
 
-                    // Open modal and load new via AJAX
-                    fetch(`/Admin/Posts/Details/${postId}`, {
-                        method: "GET",
-                        headers: {
-                            "X-Requested-With": "XMLHttpRequest"
-                        }
-                    })
-                        .then(response => response.text())
-                        .then(data => {
-                            // Set the content of modal
-                            document.getElementById('postDetailsContent').innerHTML = data;
-                            // Show modal
-                            new bootstrap.Modal(document.getElementById('postDetailsModal')).show();
-                        })
-                        .catch(() => {
-                            Swal.fire("Lỗi!", "Không thể tải chi tiết danh mục.", "error");
-                        });
-                });
-            });
         });
     </script>
 }

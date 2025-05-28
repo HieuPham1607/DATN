@@ -25,14 +25,6 @@ public partial class Product
 
     public decimal? PriceSale { get; set; }
 
-    public int? Quantity { get; set; }
-
-    public string? SeoTitle { get; set; }
-
-    public string? SeoDescripyion { get; set; }
-
-    public string? SeoKeywords { get; set; }
-
     public DateTime? CreatedDate { get; set; }
 
     public string? CreatedBy { get; set; }
@@ -51,9 +43,19 @@ public partial class Product
 
     public bool IsSale { get; set; }
 
+    public int? ShoeColorId { get; set; }
+
+    public int? ProductGroupId { get; set; }
+
     public virtual ICollection<ChildImage> ChildImages { get; set; } = new List<ChildImage>();
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual ProductCategory? ProductCategory { get; set; }
+
+    public virtual ICollection<ProductSize> ProductSizes { get; set; } = new List<ProductSize>();
+
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+    public virtual ShoeColor? ShoeColor { get; set; }
 }

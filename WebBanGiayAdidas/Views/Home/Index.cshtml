@@ -17,6 +17,28 @@
 		</div>
 	</div>
 </div>
+@if (ViewBag.TotalPages > 1)
+{
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+			@for (int i = 1; i <= ViewBag.TotalPages; i++)
+			{
+				if (i == ViewBag.CurrentPage)
+				{
+					<li class="page-item active">
+						<span class="page-link">@i</span>
+					</li>
+				}
+				else
+				{
+					<li class="page-item">
+						<a class="page-link" href="@Url.Action("Search", new { keyword = ViewBag.Keyword, page = i, pageSize = ViewBag.PageSize })">@i</a>
+					</li>
+				}
+			}
+		</ul>
+	</nav>
+}
 <!-- Banner -->
 @await Component.InvokeAsync("MenuProductCategory")
 
@@ -39,9 +61,9 @@
 			<div class="col-lg-6 text-right deal_ofthe_week_col">
 				<div class="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
 					<div class="section_title">
-						<h2>Deal Of The Week</h2>
+						<h2>Giao dịch trong tuần</h2>
 					</div>
-					<ul class="timer">
+					@* <ul class="timer">
 						<li class="d-inline-flex flex-column justify-content-center align-items-center">
 							<div id="day" class="timer_num">03</div>
 							<div class="timer_unit">Day</div>
@@ -58,8 +80,8 @@
 							<div id="second" class="timer_num">23</div>
 							<div class="timer_unit">Sec</div>
 						</li>
-					</ul>
-					<div class="red_button deal_ofthe_week_button"><a href="#">shop now</a></div>
+					</ul> *@
+					<div class="red_button deal_ofthe_week_button"><a asp-controller="Product" asp-action="Index">shop now</a></div>
 				</div>
 			</div>
 		</div>
@@ -102,7 +124,7 @@
 		<div class="row">
 			<div class="col text-center">
 				<div class="section_title new_arrivals_title">
-					<h2>Sale</h2>
+					<h2>Giảm giá</h2>
 				</div>
 			</div>
 		</div>
@@ -111,6 +133,35 @@
 				<div class="product_slider_container">
 					<div class="owl-carousel owl-theme product_slider">
 						@await Component.InvokeAsync("ProductSale")
+					</div>
+
+					<!-- Slider Navigation -->
+
+					<div class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
+						<i class="fa fa-chevron-left" aria-hidden="true"></i>
+					</div>
+					<div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+						<i class="fa fa-chevron-right" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="best_sellers">
+	<div class="container">
+		<div class="row">
+			<div class="col text-center">
+				<div class="section_title new_arrivals_title">
+					<h2>Nổi bật</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="product_slider_container">
+					<div class="owl-carousel owl-theme product_slider">
+						@await Component.InvokeAsync("ProductFeature")
 					</div>
 
 					<!-- Slider Navigation -->
@@ -173,7 +224,7 @@
 
 <!-- Blogs -->
 
-<div class="blogs">
+@* <div class="blogs">
 	<div class="container">
 		<div class="row">
 			<div class="col text-center">
@@ -215,5 +266,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> *@
 

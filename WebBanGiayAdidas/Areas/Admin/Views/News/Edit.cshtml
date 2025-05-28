@@ -83,14 +83,6 @@
                 {
                     <img id="previewImage" src="#" alt="Ảnh xem trước" style="max-width: 200px; display: none; margin-top: 10px;" />
                 }
-                
-                <!-- Category -->
-                <div class="form-group">
-                    <label asp-for="CategoryId" class="control-label"></label>
-                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div>
-
 
                 <!-- Description -->
                 <div class="form-group">
@@ -108,7 +100,7 @@
 
                 <!-- Image -->
                 <!-- SEO Title -->
-                <div class="form-group">
+                @* <div class="form-group">
                     <label asp-for="SeoTitle" class="control-label"></label>
                     <input asp-for="SeoTitle" class="form-control" />
                     <span asp-validation-for="SeoTitle" class="text-danger"></span>
@@ -126,11 +118,16 @@
                     <label asp-for="SeoKeywords" class="control-label"></label>
                     <input asp-for="SeoKeywords" class="form-control" />
                     <span asp-validation-for="SeoKeywords" class="text-danger"></span>
-                </div>
+                </div> *@
                 <div class="form-group">
                     <label asp-for="IsActive" class="control-label"></label>
                     <input asp-for="IsActive" type="checkbox" />
                     <span asp-validation-for="IsActive" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreatedDate" class="control-label"></label>
+                    <input asp-for="CreatedDate" class="form-control" />
+                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
                 </div>
                 <!-- Modifier Date and Modifier By -->
                 <div class="form-group">

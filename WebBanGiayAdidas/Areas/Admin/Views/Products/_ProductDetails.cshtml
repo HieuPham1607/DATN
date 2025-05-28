@@ -1,0 +1,54 @@
+﻿@model WebBanGiayAdidas.Models.Product
+
+<div class="modal-body">
+    <h4>@Model.Title</h4>
+    <p><strong>Mã sản phẩm:</strong> @Model.ProductCode</p>
+    <img src="@Model.Image" alt="@Model.Title" style="width: 150px; height: 150px; " />
+    <p>
+        <strong>Ảnh con:</strong> <div class="d-flex flex-wrap gap-2">
+            @foreach (var image in Model.ChildImages)
+            {
+                <img src="@image.ImagePath" class="img-thumbnail" style="width: 120px; height: 120px; object-fit: cover;" alt="Image Child" />
+            }
+        </div>
+    </p>
+    <p><strong>Thông tin Size & Số lượng:</strong></p>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>Size</th>
+                <th>Số lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var size in Model.ProductSizes)
+            {
+                <tr>
+                    <td>@size.Size</td>
+                    <td>@size.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p><strong>Giá cũ:</strong> @String.Format("{0:#,##0}₫", Model.Price ?? 0).Replace(",", ".")</p>
+    <p><strong>Giá:</strong> @String.Format("{0:#,##0}₫", Model.PriceSale ?? 0).Replace(",", ".")</p>
+    <p><strong>Màu:</strong> @Model.ShoeColor.ColorName</p>
+    <p><strong>Loại sản phẩm:</strong> @Model.ProductCategory.Title</p>
+    <p><strong>Nhóm sản phẩm:</strong> @Model.ProductGroupId</p>
+    <p><strong>Mô tả:</strong> @Model.Description</p>
+    <p><strong>Chi tiết:</strong>@Html.Raw(Model.Detail)</p>
+    @* <p><strong>Chi tiết:</strong> @Html.Raw(@Model.Detail)</p> *@
+    <p><strong>Trạng thái:</strong> @Html.Raw(Model.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>")</p>
+    <p><strong>Phổ biến:</strong> @Html.Raw(Model.IsFeature ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>")</p>
+    <p><strong>Trang chủ:</strong> @Html.Raw(Model.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>")</p>
+    <p><strong>Hot:</strong> @Html.Raw(Model.IsHot ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>")</p>
+    <p><strong>Khuyến mãi:</strong> @Html.Raw(Model.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>")</p>
+    @* <p><strong>Seo Title:</strong> @Model.SeoTitle</p>
+    <p><strong>Seo Descripyion:</strong> @Model.SeoDescripyion</p>
+    <p><strong>Seo Keywords:</strong> @Model.SeoKeywords</p> *@
+    <p><strong>Ngày tạo:</strong> @Model.CreatedDate?.ToString("dd/MM/yyyy")</p>
+    <p><strong>Người tạo:</strong> @Model.CreatedBy</p>
+    <p><strong>Ngày sửa:</strong> @Model.ModifierDate?.ToString("dd/MM/yyyy")</p>
+    <p><strong>Người sửa:</strong> @Model.ModifierBy</p>
+</div>

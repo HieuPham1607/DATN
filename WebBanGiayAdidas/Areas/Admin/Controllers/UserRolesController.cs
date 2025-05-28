@@ -22,10 +22,32 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         }
 
         // GET: Admin/UserRoles
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string keyword, int? page)
         {
-            var webBanGiayAdidasContext = _context.UserRoles.Include(u => u.Role).Include(u => u.User);
-            return View(await webBanGiayAdidasContext.ToListAsync());
+            var pageSize = 5;
+            var pageIndex = page ?? 1;
+
+            var orderlist = _context.UserRoles.Include(p => p.Role).Include(p => p.User).AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                orderlist = orderlist.Where(n => n.User.UserName.Contains(keyword) || n.User.Email.Contains(keyword)
+                );
+            }
+
+            var totalItems = await orderlist.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var items = await orderlist
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.Keyword = keyword;
+
+            return View(items);
         }
 
         // GET: Admin/UserRoles/Details/5

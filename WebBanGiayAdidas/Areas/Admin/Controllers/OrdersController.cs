@@ -22,10 +22,31 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string keyword, int? page)
         {
-            var postlist = _context.Orders.Include(n => n.User).AsQueryable();
-            return View(await postlist.ToListAsync());
+            var pageSize = 5;
+            var pageIndex = page ?? 1;
+
+            var orderlist = _context.Orders.Include(p => p.User).AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                orderlist = orderlist.Where(n => n.CustomerName.Contains(keyword));
+            }
+            var totalItems = await orderlist.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var items = await orderlist
+                .OrderByDescending(n => n.CreateDate)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.Keyword = keyword;
+
+            return View(items);
         }
 
         // GET: Admin/Orders/Details/5
@@ -119,37 +140,35 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             return View(order);
         }
 
-        // GET: Admin/Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
             var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(o => o.OrderDetails) // Nạp luôn danh sách OrderDetails liên quan
+                .FirstOrDefaultAsync(o => o.Id == id);
+
             if (order == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Đơn hàng không tồn tại." });
             }
 
-            return View(order);
-        }
-
-        // POST: Admin/Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var order = await _context.Orders.FindAsync(id);
-            if (order != null)
+            try
             {
-                _context.Orders.Remove(order);
-            }
+                // Xóa tất cả OrderDetails liên quan
+                _context.OrderDetails.RemoveRange(order.OrderDetails);
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                // Sau đó xóa Order
+                _context.Orders.Remove(order);
+
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Xóa thành công." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi khi xóa: " + ex.Message });
+            }
         }
 
         private bool OrderExists(int id)

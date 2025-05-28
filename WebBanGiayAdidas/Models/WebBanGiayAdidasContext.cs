@@ -15,8 +15,6 @@ public partial class WebBanGiayAdidasContext : DbContext
     {
     }
 
-    public virtual DbSet<Advertisement> Advertisements { get; set; }
-
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<ChildImage> ChildImages { get; set; }
@@ -35,11 +33,13 @@ public partial class WebBanGiayAdidasContext : DbContext
 
     public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
+    public virtual DbSet<ProductSize> ProductSizes { get; set; }
+
+    public virtual DbSet<Review> Reviews { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Subscribe> Subscribes { get; set; }
-
-    public virtual DbSet<SystemSetting> SystemSettings { get; set; }
+    public virtual DbSet<ShoeColor> ShoeColors { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -51,22 +51,6 @@ public partial class WebBanGiayAdidasContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Advertisement>(entity =>
-        {
-            entity.ToTable("Advertisement");
-
-            entity.Property(e => e.CreatedBy).HasMaxLength(250);
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Description).HasMaxLength(500);
-            entity.Property(e => e.Image).HasMaxLength(500);
-            entity.Property(e => e.Link)
-                .HasMaxLength(10)
-                .IsFixedLength();
-            entity.Property(e => e.ModifierBy).HasMaxLength(250);
-            entity.Property(e => e.ModifierDate).HasColumnType("datetime");
-            entity.Property(e => e.Title).HasMaxLength(250);
-        });
-
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Menu");
@@ -79,9 +63,6 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(250);
             entity.Property(e => e.ModifierBy).HasMaxLength(250);
             entity.Property(e => e.ModifierDate).HasColumnType("datetime");
-            entity.Property(e => e.SeoDescripyion).HasMaxLength(550);
-            entity.Property(e => e.SeoKeywords).HasMaxLength(250);
-            entity.Property(e => e.SeoTitle).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
         });
 
@@ -102,11 +83,8 @@ public partial class WebBanGiayAdidasContext : DbContext
         {
             entity.ToTable("Contact");
 
-            entity.Property(e => e.CreatedBy).HasMaxLength(250);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(250);
-            entity.Property(e => e.ModifierBy).HasMaxLength(250);
-            entity.Property(e => e.ModifierDate).HasColumnType("datetime");
             entity.Property(e => e.Name).HasMaxLength(250);
             entity.Property(e => e.Website).HasMaxLength(250);
         });
@@ -121,14 +99,7 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.Property(e => e.Image).HasMaxLength(500);
             entity.Property(e => e.ModifierBy).HasMaxLength(250);
             entity.Property(e => e.ModifierDate).HasColumnType("datetime");
-            entity.Property(e => e.SeoDescripyion).HasMaxLength(550);
-            entity.Property(e => e.SeoKeywords).HasMaxLength(250);
-            entity.Property(e => e.SeoTitle).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
-
-            entity.HasOne(d => d.Category).WithMany(p => p.News)
-                .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK_New_Category");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -136,6 +107,7 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.ToTable("Order");
 
             entity.Property(e => e.Address).HasMaxLength(500);
+            entity.Property(e => e.CreateDate).HasColumnType("datetime");
             entity.Property(e => e.CustomerName).HasMaxLength(250);
             entity.Property(e => e.Email).HasMaxLength(250);
             entity.Property(e => e.OrderCode).HasMaxLength(50);
@@ -152,6 +124,7 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.ToTable("OrderDetail");
 
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Size).HasMaxLength(10);
             entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
@@ -173,14 +146,7 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.Property(e => e.Image).HasMaxLength(500);
             entity.Property(e => e.ModifierBy).HasMaxLength(250);
             entity.Property(e => e.ModifierDate).HasColumnType("datetime");
-            entity.Property(e => e.SeoDescripyion).HasMaxLength(550);
-            entity.Property(e => e.SeoKeywords).HasMaxLength(250);
-            entity.Property(e => e.SeoTitle).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
-
-            entity.HasOne(d => d.Category).WithMany(p => p.Posts)
-                .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK_Post_Category1");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -196,14 +162,15 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.PriceSale).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.ProductCode).HasMaxLength(50);
-            entity.Property(e => e.SeoDescripyion).HasMaxLength(550);
-            entity.Property(e => e.SeoKeywords).HasMaxLength(250);
-            entity.Property(e => e.SeoTitle).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
 
             entity.HasOne(d => d.ProductCategory).WithMany(p => p.Products)
                 .HasForeignKey(d => d.ProductCategoryId)
                 .HasConstraintName("FK_Product_ProductCategory");
+
+            entity.HasOne(d => d.ShoeColor).WithMany(p => p.Products)
+                .HasForeignKey(d => d.ShoeColorId)
+                .HasConstraintName("FK_Product_ShoeColor");
         });
 
         modelBuilder.Entity<ProductCategory>(entity =>
@@ -220,6 +187,37 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.Property(e => e.Title).HasMaxLength(250);
         });
 
+        modelBuilder.Entity<ProductSize>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__ProductS__3214EC0747542826");
+
+            entity.Property(e => e.Size).HasMaxLength(10);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductSizes)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_ProductSizes_Product");
+        });
+
+        modelBuilder.Entity<Review>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Reviews__3214EC076450E5D8");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Reviews)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Reviews_Product");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Reviews)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Reviews_Users");
+        });
+
         modelBuilder.Entity<Role>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Roles__3214EC071137C28E");
@@ -229,27 +227,21 @@ public partial class WebBanGiayAdidasContext : DbContext
             entity.Property(e => e.RoleName).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<Subscribe>(entity =>
+        modelBuilder.Entity<ShoeColor>(entity =>
         {
-            entity.ToTable("Subscribe");
+            entity.HasKey(e => e.Id).HasName("PK__ShoeColo__3214EC0783065507");
 
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Email).HasMaxLength(250);
-        });
-
-        modelBuilder.Entity<SystemSetting>(entity =>
-        {
-            entity.HasKey(e => e.SettingKey);
-
-            entity.ToTable("SystemSetting");
-
-            entity.Property(e => e.SettingKey).HasMaxLength(50);
-            entity.Property(e => e.SettingDescription).HasMaxLength(250);
+            entity.Property(e => e.ColorCode)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.ColorName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07C4666D15");
+
+            entity.HasIndex(e => e.Email, "UQ_Users_Email").IsUnique();
 
             entity.HasIndex(e => e.UserName, "UQ__Users__C9F28456F874B6DA").IsUnique();
 

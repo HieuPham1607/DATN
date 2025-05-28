@@ -52,7 +52,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên danh mục</th>
-                        <th>Mô tả</th>
+                        @* <th>Mô tả</th> *@
                         <th>Thứ tự</th>
                         <th>Công cụ</th>
                     </tr>
@@ -66,7 +66,7 @@
                             <tr>
                                 <td>@i</td>
                                 <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                @* <td>@Html.DisplayFor(modelItem => item.Description)</td> *@
                                 <td>@Html.DisplayFor(modelItem => item.Position)</td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Sửa</a> |

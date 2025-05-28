@@ -114,6 +114,36 @@ namespace WebBanGiayAdidas.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        // GET: /Account/ForgotPassword
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string username, string email, string newPassword, string confirmPassword)
+        {
+            if (newPassword != confirmPassword)
+            {
+                ViewBag.Message = "Mật khẩu xác nhận không khớp.";
+                return View();
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username && u.Email == email);
+            if (user == null)
+            {
+                ViewBag.Message = "Không tìm thấy tài khoản với thông tin đã nhập.";
+                return View();
+            }
+
+            user.PasswordHash = HashPassword(newPassword);
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
+            ViewBag.Message = "Đặt lại mật khẩu thành công. Bạn có thể đăng nhập với mật khẩu mới.";
+            return View();
+        }
 
         // GET: /Account/Logout
         public async Task<IActionResult> Logout()

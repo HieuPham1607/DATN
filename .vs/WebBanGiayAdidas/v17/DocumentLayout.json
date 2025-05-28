@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\product\\productcategory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\product\\productcategory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,79 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Product.cs",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Models\\Product.cs",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Models\\Product.cs",
-              "RelativeToolTip": "WebBanGiayAdidas\\Models\\Product.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T04:47:20.217Z",
+              "Title": "ProductCategory.cshtml",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
+              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
+              "RelativeToolTip": "WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAALgAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T03:09:33.638Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Models\\User.cs",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Models\\User.cs",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Models\\User.cs",
-              "RelativeToolTip": "WebBanGiayAdidas\\Models\\User.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T04:31:27.792Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "WebBanGiayAdidas\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAA6wCAAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T04:23:24.52Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AccessDenied.cshtml",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Account\\AccessDenied.cshtml",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\Account\\AccessDenied.cshtml",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Account\\AccessDenied.cshtml",
-              "RelativeToolTip": "WebBanGiayAdidas\\Views\\Account\\AccessDenied.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAALgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-12T04:23:11.99Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Account\\Login.cshtml",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\Account\\Login.cshtml",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Account\\Login.cshtml",
-              "RelativeToolTip": "WebBanGiayAdidas\\Views\\Account\\Login.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAmwFUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-12T04:10:00.418Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Account\\Register.cshtml",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\Account\\Register.cshtml",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Account\\Register.cshtml",
-              "RelativeToolTip": "WebBanGiayAdidas\\Views\\Account\\Register.cshtml",
-              "ViewState": "AgIAACAAAAAAAAAAAAAmwCwAAAB5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-12T04:09:54.488Z",
+              "WhenOpened": "2025-05-28T03:05:45.191Z",
               "EditorCaption": ""
             }
           ]

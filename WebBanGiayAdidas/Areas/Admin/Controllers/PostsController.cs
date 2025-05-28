@@ -27,7 +27,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             var pageSize = 5;
             var pageIndex = page ?? 1;
 
-            var postlist = _context.Posts.Include(n => n.Category).AsQueryable();
+            var postlist = _context.Posts.AsQueryable();
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -57,9 +57,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             if (id == null)
                 return NotFound();
 
-            var postitem = await _context.Posts
-                .Include(n => n.Category)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var postitem = await _context.Posts.FirstOrDefaultAsync(m => m.Id == id);
 
             if (postitem == null)
             {
@@ -89,7 +87,6 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // GET: Admin/Posts/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title");
             return View();
         }
 
@@ -98,7 +95,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] Post post, IFormFile imageFile)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Detail,Image,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] Post post, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
@@ -112,11 +109,11 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     post.Image = "/uploads/post/" + imageFile.FileName;
                 }
                 post.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(post.Alias);
+                post.CreatedDate = DateTime.Now;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title", post.CategoryId);
             return View(post);
         }
 
@@ -133,7 +130,6 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", post.CategoryId);
             return View(post);
         }
 
@@ -142,7 +138,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] Post post, IFormFile? imageFile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Detail,Image,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] Post post, IFormFile? imageFile)
         {
             if (id != post.Id)
             {
@@ -165,13 +161,14 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     else
                     {
                         // Nếu không có ảnh mới, lấy ảnh cũ từ cơ sở dữ liệu và giữ lại
-                        var existingNew = await _context.News.AsNoTracking().FirstOrDefaultAsync(n => n.Id == post.Id);
-                        if (existingNew != null)
+                        var existingPost = await _context.Posts.AsNoTracking().FirstOrDefaultAsync(n => n.Id == post.Id);
+                        if (existingPost != null)
                         {
-                            post.Image = existingNew.Image;  // Giữ lại ảnh cũ
+                            post.Image = existingPost.Image;  // Giữ lại ảnh cũ
                         }
                     }
                     post.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(post.Alias);
+                    post.ModifierDate = DateTime.Now;
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
@@ -188,7 +185,6 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", post.CategoryId);
             return View(post);
         }
 

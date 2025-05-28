@@ -63,6 +63,10 @@ namespace WebBanGiayAdidas
                 name: "Register",
                 pattern: "dang-ky/{alias?}",
                 defaults: new { controller = "Account", action = "Register" });
+            app.MapControllerRoute(
+                name: "ForgotPassword",
+                pattern: "quen-mat-khau/{alias?}",
+                defaults: new { controller = "Account", action = "ForgotPassword" });
 
             app.MapControllerRoute(
 				name: "ShopCart",

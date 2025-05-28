@@ -1,0 +1,231 @@
+﻿@model IEnumerable<WebBanGiayAdidas.Models.Contact>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Admin.cshtml";
+}
+
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-area="Admin" asp-controller="Contacts" asp-action="Index" class="nav-link">Liên hệ</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản lý liên hệ</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách liên hệ</h3>
+        </div>
+        <div class="card-body">
+            <table class="table" id="contactsTable">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên người liên hệ</th>
+                        <th>@Html.DisplayNameFor(model => model.Website)</th>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.Read)</th>
+                        <th>Đọc nội dung</th>
+                        <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th>Công cụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = 1;
+                    @foreach (var item in Model)
+                    {
+                        <tr data-contact-id="@item.Id">
+                                <td>@i</td>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Website)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td class="read-status">
+                                @if (item.Read == true)
+                                {
+                                    <span class="badge bg-success">Đã đọc</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Chưa đọc</span>
+                                }
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary btn-read" data-id="@item.Id">Đọc tin nhắn</button>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger btn-delete" data-id="@item.Id">Xóa</button>
+                            </td>
+                        </tr>
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-danger">
+                                Thông tin không tồn tại.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-center mt-3">
+                <nav>
+                    <ul class="pagination justify-content-center">
+
+                        @* Nút Previous - chỉ hiển thị nếu không ở trang đầu *@
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-keyword="@ViewBag.Keyword" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+
+                        @* Các nút số trang *@
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-keyword="@ViewBag.Keyword">@i</a>
+                            </li>
+                        }
+
+                        @* Nút Next - chỉ hiển thị nếu chưa ở trang cuối *@
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-keyword="@ViewBag.Keyword" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal đọc tin nhắn -->
+<div class="modal fade" id="contactDetailsModal" tabindex="-1" aria-labelledby="contactDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactDetailsModalLabel">Đọc liên hệ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="contactDetailsContent">
+                <!-- Nội dung sẽ được tải AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            // Xử lý nút đọc tin nhắn
+            $('.btn-read').click(function () {
+                var id = $(this).data('id');
+
+                // Gửi AJAX gọi action MarkAsRead và load nội dung message
+                $.ajax({
+                    url: '/Admin/Contacts/MarkAsRead',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (res) {
+                        if (res.success) {
+                            // Cập nhật trạng thái badge "Đã đọc"
+                            var row = $('tr[data-contact-id="' + id + '"]');
+                            row.find('.read-status').html('<span class="badge bg-success">Đã đọc</span>');
+
+                            // Sau đó gọi AJAX load partial message vào modal
+                            $.ajax({
+                                url: '/Admin/Contacts/Details/' + id,
+                                type: 'GET',
+                                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                                success: function (html) {
+                                    $('#contactDetailsContent').html(html);
+                                    var modal = new bootstrap.Modal(document.getElementById('contactDetailsModal'));
+                                    modal.show();
+                                },
+                                error: function () {
+                                    Swal.fire('Lỗi!', 'Không thể tải chi tiết liên hệ.', 'error');
+                                }
+                            });
+                        } else {
+                            Swal.fire('Lỗi!', res.message || 'Không thể cập nhật trạng thái.', 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Lỗi!', 'Không thể cập nhật trạng thái.', 'error');
+                    }
+                });
+            });
+
+            // Xử lý nút xóa (nếu bạn muốn xóa bằng ajax)
+            $(document).ready(function () {
+                $('.btn-delete').click(function () {
+                    var id = $(this).data('id');
+
+                    Swal.fire({
+                        title: 'Bạn có chắc muốn xóa?',
+                        text: "Hành động này không thể hoàn tác!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/Admin/Contacts/Delete',
+                                type: 'POST',
+                                data: { id: id },
+                                success: function (res) {
+                                    if (res.success) {
+                                        Swal.fire('Đã xóa!', res.message, 'success').then(() => {
+                                            location.reload();
+                                        });
+                                    } else {
+                                        Swal.fire('Lỗi!', res.message, 'error');
+                                    }
+                                },
+                                error: function () {
+                                    Swal.fire('Lỗi!', 'Không thể xóa. Vui lòng thử lại.', 'error');
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}

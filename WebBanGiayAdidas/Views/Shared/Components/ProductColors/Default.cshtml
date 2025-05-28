@@ -1,0 +1,15 @@
+﻿@model List<WebBanGiayAdidas.Models.Product>
+
+<div class="product_color">
+    <span>Chọn màu:</span>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="@Url.Action("Detail", "Product", new { alias = item.Alias, id = item.Id })"
+                   title="@item.ShoeColor?.ColorName" style="display:inline-block; width:15px; height:15px; border-radius:50%; background:@item.ShoeColor?.ColorCode">
+                </a>
+            </li>
+        }
+    </ul>
+</div>

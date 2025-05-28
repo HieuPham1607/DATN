@@ -59,7 +59,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/Categories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,SeoTitle,SeoDescripyion,SeoKeywords,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,SeoTitle,SeoDescripyion,SeoKeywords,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
         {
             if (id != category.Id)
             {

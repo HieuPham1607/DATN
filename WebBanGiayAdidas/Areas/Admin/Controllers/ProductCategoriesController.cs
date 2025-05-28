@@ -134,7 +134,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Icon,CreatedDate,CreatedBy,ModifierDate,ModifierBy")] ProductCategory productCategory, IFormFile imageFile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Icon,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] ProductCategory productCategory, IFormFile? imageFile)
         {
             if (id != productCategory.Id)
             {
@@ -154,6 +154,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                         }
                         productCategory.Icon = "/uploads/productcategories/" + imageFile.FileName;
                     }
+                    productCategory.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(productCategory.Alias);
                     _context.Update(productCategory);
                     await _context.SaveChangesAsync();
                 }

@@ -1,0 +1,37 @@
+﻿@model WebBanGiayAdidas.Models.New
+
+<style>
+    .view-detail-container {
+        display: flex;
+        justify-content: center; /* Căn giữa */
+        margin-top: 20px;
+    }
+
+        .view-detail-container a {
+            font-size: 20px;
+            color: #bd945f;
+            text-decoration: none;
+        }
+
+            .view-detail-container a:hover {
+                color: #d0a670;
+            }
+</style>
+
+<h2><i class="fa fa-newspaper-o" style="margin-right: 8px;"></i> @Model.Title</h2>
+
+<p><i class="fa fa-align-left" style="margin-right: 6px;"></i> @Model.Description</p>
+
+<div class="imgnews">
+    <img src="@Model.Image" alt="@Model.Title" />
+</div>
+
+<div class="view-detail-container">
+    <a asp-controller="New" asp-action="Detail" asp-route-alias="@Model.Alias" asp-route-id="@Model.Id">
+        <i class="fa fa-info-circle" style="margin-right: 6px;"></i> Thông tin chi tiết
+    </a>
+</div>
+
+<p><i class="fa fa-tag" style="margin-right: 6px;"></i> @Model.Title</p>
+
+<p><i class="fa fa-pencil-square-o" style="margin-right: 6px;"></i> @Model.Description</p>

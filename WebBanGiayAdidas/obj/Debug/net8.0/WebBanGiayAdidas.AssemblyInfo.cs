@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebBanGiayAdidas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10996179d87b1355fa97d538e459ce971c71cfde")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ea0f953493f39491fcb86a78d07f8508b333752")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebBanGiayAdidas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebBanGiayAdidas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

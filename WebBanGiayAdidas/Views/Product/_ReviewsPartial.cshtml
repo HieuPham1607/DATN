@@ -1,0 +1,19 @@
+﻿@model List<Review>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var review in Model)
+    {
+        <div class="user_review_container d-flex flex-column flex-sm-row">
+            <div class="review">
+                <div class="review_date">@review.CreatedAt?.ToString("dd MMM yyyy")</div>
+                <div class="user_name">@review.User?.UserName</div>
+                <p>@review.Comment</p>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Chưa có đánh giá nào.</p>
+}

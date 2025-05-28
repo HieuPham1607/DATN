@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<WebBanGiayAdidas.Models.Product>
 
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Admin.cshtml";
@@ -67,9 +68,6 @@
                         </th> *@
                         <th>
                             Giá
-                        </th>
-                        <th>
-                            Số lượng
                         </th>
                         @* <th>
                         @Html.DisplayNameFor(model => model.SeoTitle)
@@ -147,9 +145,9 @@
                                 <td>
                                     @String.Format("{0:#,##0}₫", item.PriceSale ?? 0).Replace(",", ".")
                                 </td>
-                        <td>
+                        @* <td>
                         @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
+                        </td> *@
                         @* <td>
                         @Html.DisplayFor(modelItem => item.SeoTitle)
                         </td>
@@ -250,6 +248,20 @@
     </div>
     <!-- /.card -->
 </section>
+<!-- Modal for product News -->
+<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productDetailsModalLabel">Chi tiết bài viết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="productDetailsContent">
+                <!-- Content will be loaded dynamically by AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -317,29 +329,29 @@
                 });
             });
             // View button (AJAX to load new details into modal)
-            // document.querySelectorAll(".btn-view").forEach(button => {
-            //     button.addEventListener("click", function () {
-            //         let postId = this.getAttribute("data-id");
+            document.querySelectorAll(".btn-view").forEach(button => {
+                button.addEventListener("click", function () {
+                    let productId = this.getAttribute("data-id");
 
-            //         // Open modal and load new via AJAX
-            //         fetch(`/Admin/Posts/Details/${postId}`, {
-            //             method: "GET",
-            //             headers: {
-            //                 "X-Requested-With": "XMLHttpRequest"
-            //             }
-            //         })
-            //             .then(response => response.text())
-            //             .then(data => {
-            //                 // Set the content of modal
-            //                 document.getElementById('postDetailsContent').innerHTML = data;
-            //                 // Show modal
-            //                 new bootstrap.Modal(document.getElementById('postDetailsModal')).show();
-            //             })
-            //             .catch(() => {
-            //                 Swal.fire("Lỗi!", "Không thể tải chi tiết danh mục.", "error");
-            //             });
-            //     });
-            // });
+                    // Open modal and load new via AJAX
+                    fetch(`/Admin/Products/Details/${productId}`, {
+                        method: "GET",
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest"
+                        }
+                    })
+                        .then(response => response.text())
+                        .then(data => {
+                            // Set the content of modal
+                            document.getElementById('productDetailsContent').innerHTML = data;
+                            // Show modal
+                            new bootstrap.Modal(document.getElementById('productDetailsModal')).show();
+                        })
+                        .catch(() => {
+                            Swal.fire("Lỗi!", "Không thể tải chi tiết danh mục.", "error");
+                        });
+                });
+            });
         });
     </script>
 }

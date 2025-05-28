@@ -1,5 +1,190 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<WebBanGiayAdidas.Models.New>
 @{
+    var mainNews = ViewBag.MainNews as WebBanGiayAdidas.Models.New;
+    int totalPages = ViewBag.TotalPages;
+    int currentPage = ViewBag.CurrentPage;
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/assets/styles/categories_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/css/News.css">
+    @* <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> *@
+
+</head>
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                    <li><a asp-controller="New" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Tin tức</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main_content_cart">
+                <!-- Thêm khung bao quanh bên ngoài -->
+                    <div class="news">
+                        <div class="transition">
+                            <div class="containerNew">
+                                @if (Model != null && Model.Any())
+                                {
+                                    var firstItem = Model.First();
+                                    var otherItems = Model.Skip(1).ToList();
+
+                                    <div class="left" id="mainNewsContainer">
+                                        <h2><i class="fa fa-newspaper-o" style="margin-right: 6px;"></i> @mainNews?.Title</h2>
+                                        <p>
+                                            <i class="fa fa-align-left" style="margin-right: 6px;"></i> @mainNews?.Description
+                                        </p>
+
+                                        <div class="imgnews">
+                                            <img src="@mainNews?.Image" alt="@mainNews?.Title" />
+                                        </div>
+
+                                        <!-- Thêm phần "Chi tiết" vào đây -->
+                                        <div class="view-detail-container">
+                                            <a asp-controller="New" asp-action="Detail" asp-route-alias="@mainNews?.Alias" asp-route-id="@mainNews?.Id" class="color">
+                                                <i class="fa fa-info-circle" style="margin-right: 6px;"></i> Thông tin chi tiết
+                                            </a>
+                                        </div>
+                                        <p><i class="fa fa-tag" style="margin-right: 6px;"></i> @mainNews?.Title</p>
+
+                                        <p><i class="fa fa-pencil-square-o" style="margin-right: 6px;"></i> @mainNews?.Description</p>
+                                    </div>
+
+                                    <div class="show-more-container d-md-none">
+                                        <button id="showMoreNews" class="btn btn-outline-warning">Xem thêm tin khác</button>
+                                    </div>
+
+                                    <div class="right">
+                                        <h2><i class="fa fa-list" style="margin-right: 6px;"></i> Tin khác</h2>
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="rowNew">
+                                                <div class="colNew">
+                                                    <!-- Ảnh -->
+                                                    <a href="javascript:void(0);" class="view-detail-link" data-id="@item.Id">
+                                                        <img src="@item.Image" alt="@item.Title" />
+                                                    </a>
+                                                </div>
+                                                <div class="collumNew">
+                                                    <!-- Nội dung -->
+                                                    <p>
+                                                        <a href="javascript:void(0);" class="view-detail-link color" data-id="@item.Id">
+                                                            <i class="fa fa-info-circle" style="margin-right: 6px;"></i> @item.Title
+                                                        </a>
+                                                    </p>
+                                                    <p>
+                                                        <i class="fa fa-clock-o" style="margin-right: 6px;"></i> @item.CreatedDate?.ToString("dd/MM/yyyy")
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <!-- Phân trang -->
+                                    <div class="pagination-wrapper" style="margin-top: 20px; display: flex; justify-content: center;">
+                                        <ul class="pagination" style="list-style: none; padding: 0; margin: 0; display: inline-flex; gap: 8px;">
+                                            @if (currentPage > 1)
+                                            {
+                                                <li>
+                                                    <a asp-action="Index" asp-route-page="1" class="pagination-link" data-page="1" style="padding: 6px 12px; border: 1px solid #ddd; color: #333; border-radius: 4px;">&laquo;</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="Index" asp-route-page="@(currentPage - 1)" class="pagination-link" data-page="@(currentPage - 1)" style="padding: 6px 12px; border: 1px solid #ddd; color: #333; border-radius: 4px;">&lsaquo;</a>
+                                                </li>
+                                            }
+
+                                            @for (int i = 1; i <= totalPages; i++)
+                                            {
+                                                if (i == currentPage)
+                                                {
+                                                    <li>
+                                                        <span class="pagination-link" style="font-weight: bold; margin: 0 5px; padding: 6px 12px; border: 1px solid #ddd; color: white; background-color: #ffc107; border-radius: 4px;">
+                                                            @i
+                                                        </span>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <a asp-action="Index" asp-route-page="@i" class="pagination-link" data-page="@i" style="padding: 6px 12px; border: 1px solid #ddd; color: #333; border-radius: 4px;">
+                                                            @i
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+
+                                            @if (currentPage < totalPages)
+                                            {
+                                                <li>
+                                                    <a asp-action="Index" asp-route-page="@(currentPage + 1)" class="pagination-link" data-page="@(currentPage + 1)" style="padding: 6px 12px; border: 1px solid #ddd; color: #333; border-radius: 4px;">&rsaquo;</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="Index" asp-route-page="@totalPages" class="pagination-link" data-page="@totalPages" style="padding: 6px 12px; border: 1px solid #ddd; color: #333; border-radius: 4px;">&raquo;</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p>Không có tin tức nào.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* <div class="news-wrapper" style="border: 2px solid #ddd; padding: 20px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 1500px; width: 100%; margin: 0 auto;">
+</div> *@
+@section Scripts {
+    <script src="~/assets/js/categories_custom.js"></script>
+    <script src="~/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script>
+        // Sự kiện khi nhấn vào ảnh hoặc tiêu đề để thay đổi nội dung mainNews bằng AJAX
+        $(document).on("click", ".view-detail-link", function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+            var url = "/New/LoadMainNews/" + id; // Tạo một route mới để tải nội dung bài viết chính
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    $("#mainNewsContainer").html(data); // Cập nhật phần mainNews (bên trái)
+                },
+                error: function () {
+                    alert("Không thể tải bài viết.");
+                }
+            });
+        });
+
+        // Sự kiện phân trang bằng AJAX
+        $(document).on("click", ".pagination-link", function (e) {
+            e.preventDefault();
+            var page = $(this).data("page");
+            var url = "/New/Index?page=" + page;
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    $(".right").html($(data).find(".right").html()); // Cập nhật danh sách bài viết bên phải
+                },
+                error: function () {
+                    alert("Không thể tải dữ liệu phân trang.");
+                }
+            });
+        });
+    </script>
+    <script>
+        $("#showMoreNews").click(function () {
+            $(".right").slideToggle(); // Hiện/ẩn phần tin khác
+        });
+    </script>
+
 }

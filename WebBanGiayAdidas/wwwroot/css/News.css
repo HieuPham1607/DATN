@@ -1,0 +1,222 @@
+﻿.news .transition {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+}
+
+.containerNew {
+    display: flex;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 110%; 
+    max-width: none;
+    margin-left: -5%; 
+    margin-right: -5%; 
+}
+
+
+
+.left {
+    width: 65%;
+    padding-right: 20px;
+}
+
+.right {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    margin-left: 50px;
+    gap: 20px;
+}
+
+.rowNew {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+    .rowNew .colNew {
+        flex: 0 0 auto;
+        width: 120px;
+    }
+
+        .rowNew .colNew img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .rowNew .colNew img:hover {
+                transform: scale(1.1);
+            }
+
+.collumNew {
+    flex: 1;
+    margin-left: 15px;
+}
+
+    .collumNew p {
+        font-size: 16px;
+        margin: 5px 0;
+        color: #555;
+    }
+
+        .collumNew p:first-child {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .collumNew p:last-child {
+            font-size: 14px;
+            color: #999;
+        }
+
+.imgnews {
+    width: 100%;
+    margin-top: 20px;
+}
+
+    .imgnews img {
+        width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+h2 {
+    color: #bd945f;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.color {
+    color: #bd945f;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+    .color:hover {
+        color: #d0a670;
+    }
+
+.right h3 {
+    margin-bottom: 20px;
+}
+
+.view-detail-container {
+    display: flex;
+    justify-content: center; /* Căn giữa cả desktop và mobile */
+    margin-top: 20px;
+}
+
+    .view-detail-container a {
+        font-size: 20px;
+        color: #bd945f;
+        text-decoration: none;
+    }
+
+        .view-detail-container a:hover {
+            color: #d0a670;
+        }
+@media screen and (max-width: 768px) {
+    .containerNew {
+        flex-direction: column;
+        padding: 10px;
+        align-items: center; /* Căn giữa */
+    }
+
+    .left {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 30px;
+        text-align: center; /* Căn giữa nội dung trong .left */
+    }
+
+    .right {
+        display: none; /* Ẩn phần tin khác */
+    }
+
+    .rowNew {
+        flex-direction: column;
+        align-items: center; /* Căn giữa các phần tử trong .rowNew */
+    }
+
+        .rowNew .colNew {
+            width: 100%;
+            text-align: center; /* Căn giữa nội dung trong .colNew */
+        }
+
+            .rowNew .colNew img {
+                width: 100%;
+                height: auto;
+                display: block; /* Đảm bảo ảnh hiển thị đúng */
+                margin: 0 auto; /* Căn giữa ảnh */
+            }
+
+    .collumNew {
+        margin-left: 0;
+        margin-top: 10px;
+        text-align: center; /* Căn giữa nội dung trong .collumNew */
+    }
+
+    .breadcrumbs ul {
+        flex-wrap: wrap;
+        justify-content: center; /* Căn giữa các phần tử breadcrumbs */
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center; /* Căn giữa phân trang */
+    }
+
+    .view-detail-container {
+        display: flex;
+        justify-content: center; /* Căn giữa các liên kết "Thông tin chi tiết" */
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .show-more-container {
+        display: none;
+    }
+}
+.rowNew {
+    align-items: center; /* Căn giữa dọc nội dung */
+}
+
+.colNew {
+    display: flex;
+    align-items: center; /* Căn giữa ảnh theo chiều dọc */
+    justify-content: center; /* Căn giữa ảnh theo chiều ngang */
+    height: 120px; /* Đảm bảo chiều cao ảnh nhất quán */
+}
+
+    .colNew img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+.collumNew {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa phần text với ảnh */
+}
+
+

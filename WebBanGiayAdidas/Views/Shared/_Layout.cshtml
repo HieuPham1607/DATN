@@ -16,9 +16,6 @@
 	<link rel="stylesheet" type="text/css" href="~/assets/styles/responsive.css">
 	<link rel="stylesheet" type="text/css" href="~/css/hamburger.css">
 	<link rel="stylesheet" type="text/css" href="~/css/Style.css">
-		@* 
-	<link rel="stylesheet" type="text/css" href="~/assets/styles/contact_styles.css">
-	<link rel="stylesheet" type="text/css" href="~/assets/styles/contact_responsive.css"> *@
 </head>
 <body>
     @* <header>
@@ -116,8 +113,24 @@
 							<nav class="navbar">
 								@await Component.InvokeAsync("MenuTop")
 								<ul class="navbar_user">
-									<li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+									<li id="searchIconContainer">
+										<a href="#" id="searchToggle"><i class="fa fa-search" aria-hidden="true"></i></a>
+									</li>
 								</ul>
+
+								<!-- Form tìm kiếm ẩn ban đầu -->
+								<form asp-controller="Product" asp-action="Search" method="get" class="search_form" style="display: none; margin-top: 5px; flex-wrap: nowrap; position: relative;">
+									<input type="text" id="searchInput" name="keyword" placeholder="Tìm kiếm sản phẩm..."
+										   style="padding: 5px; border-radius: 4px 0 0 4px; border: 1px solid #ccc;" autocomplete="off" required />
+									<button type="submit" style="padding: 5px; background: #333; color: white; border: none; border-radius: 0 4px 4px 0;">
+										<i class="fa fa-search" aria-hidden="true"></i>
+									</button>
+
+									<!-- Box hiển thị gợi ý -->
+									<div id="searchSuggestions" style="position: absolute; top: 40px; left: 0; right: 0; background: white; border: 1px solid #ccc; z-index: 9999; display: none; max-height: 250px; overflow-y: auto;">
+										<!-- kết quả sẽ được đẩy vào đây -->
+									</div>
+								</form>
 								<ul class="navbar_user">
 									<li class="user-icon-wrapper @((Context.Session.GetInt32("UserId") != null) ? "logged-in" : "")">
 										<a href="javascript:void(0);" class="user-toggle" onclick="toggleUserMenu()">
@@ -319,7 +332,90 @@
 			});
 	});
 	</script>
+	<script>
+		const searchToggle = document.getElementById('searchToggle');
+		const searchIconContainer = document.getElementById('searchIconContainer');
+		const searchForm = document.querySelector('.search_form');
 
+		// Khi bấm vào icon search
+		searchToggle.addEventListener('click', function (e) {
+			e.preventDefault();
+			searchIconContainer.style.display = 'none'; // Ẩn icon
+			searchForm.style.display = 'flex'; // Hiện form
+			searchForm.querySelector('input[name="keyword"]').focus(); // Focus vào ô tìm kiếm
+		});
+
+		// Khi bấm ra ngoài thì ẩn form, hiện lại icon
+		document.addEventListener('click', function (e) {
+			const isClickInsideForm = searchForm.contains(e.target);
+			const isClickOnIcon = searchIconContainer.contains(e.target);
+
+			if (!isClickInsideForm && !isClickOnIcon) {
+				searchForm.style.display = 'none'; // Ẩn form
+				searchIconContainer.style.display = 'block'; // Hiện lại icon
+			}
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			const $input = $('#searchInput');
+			const $suggestions = $('#searchSuggestions');
+
+			$input.on('input', function () {
+				const term = $(this).val().trim();
+
+				if (term.length === 0) {
+					$suggestions.hide();
+					$suggestions.empty();
+					return;
+				}
+
+				$.ajax({
+					url: '/Product/SearchSuggestions',
+					type: 'GET',
+					data: { term: term },
+					success: function (data) {
+						$suggestions.empty();
+
+						if (data.length === 0) {
+							$suggestions.hide();
+							return;
+						}
+
+						data.forEach(item => {
+							const suggestionItem = `
+				<div class="suggestion-item" data-id="${item.id}" data-alias="${item.alias}" style="display: flex; align-items: center; padding: 5px; cursor: pointer; border-bottom: 1px solid #eee;">
+					<img src="${item.imageUrl}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: contain; margin-right: 10px;" />
+					<span>${item.title}</span>
+				</div>
+			`;
+							$suggestions.append(suggestionItem);
+						});
+
+						$suggestions.show();
+					},
+					error: function () {
+						$suggestions.hide();
+					}
+				});
+			});
+
+			$suggestions.on('click', '.suggestion-item', function () {
+				const productId = $(this).data('id');
+				const productAlias = $(this).data('alias');
+
+				// Chuyển đến URL đúng theo route "chi-tiet/{alias}-p{id}"
+				window.location.href = `/chi-tiet/${productAlias}-p${productId}`;
+			});
+
+			// Ẩn gợi ý khi click ra ngoài
+			$(document).click(function (e) {
+				if (!$(e.target).closest('#searchSuggestions, #searchInput').length) {
+					$suggestions.hide();
+				}
+			});
+		});
+	</script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

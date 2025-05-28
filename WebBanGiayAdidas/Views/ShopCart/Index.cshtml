@@ -47,6 +47,7 @@
                                 <th>STT</th>
                                 <th>Tên Sản phẩm</th>
                                 <th>Ảnh Sản phẩm</th>
+                                <th>Kích cơ</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
                                 <th>Tổng</th>
@@ -56,7 +57,7 @@
                         <tbody>
                             @foreach (var item in Model.items)
                             {
-                                <tr data-id="@item.Id">
+                                <tr data-id="@item.Id" data-size="@item.Size">
                                     <td>@(++i)</td>
                                     <td>
                                         <a asp-controller="Product" asp-action="Detail" asp-route-alias="@item.Alias" asp-route-id="@item.Id">
@@ -66,34 +67,52 @@
                                     <td>
                                         <img src="@item.Img" alt="@item.Name" style="width: 60px; height: 60px;" />
                                     </td>
+                                    <td>@item.Size</td>
                                     <td>@String.Format("{0:#,##0}₫", item.Price).Replace(",", ".")</td>
                                     <td>
                                         <div class="input-group" style="max-width: 30px;">
-                                            <button class="btn btn-outline-secondary btn-decrease" type="button" data-id="@item.Id">-</button>
+                                            <button class="btn btn-outline-secondary btn-decrease"
+                                                    type="button"
+                                                    data-id="@item.Id"
+                                                    data-size="@item.Size">
+                                                -
+                                            </button>
+
                                             <input type="number"
                                                    class="form-control text-center quantity-input"
                                                    data-id="@item.Id"
+                                                   data-size="@item.Size"
+                                                   data-current="@item.Quantity"
                                                    value="@item.Quantity"
                                                    min="1"
                                                    style="width: 30px; height: 30px; font-size: 12px; padding: 0;" />
-                                            <button class="btn btn-outline-secondary btn-increase" type="button" data-id="@item.Id">+</button>
+
+                                            <button class="btn btn-outline-secondary btn-increase"
+                                                    type="button"
+                                                    data-id="@item.Id"
+                                                    data-size="@item.Size">
+                                                +
+                                            </button>
                                         </div>
                                     </td>
                                     <td class="item-total">
                                         @String.Format("{0:#,##0}₫", item.TotalPrice).Replace(",", ".")
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btnRemoveFromCart" data-id="@item.Id">Xóa</button>
+                                        <button class="btn btn-danger btnRemoveFromCart"
+                                                data-id="@item.Id"
+                                                data-size="@item.Size">
+                                            Xóa
+                                        </button>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
 
-                    <div class="mt-3">
+                    <div id="cart-summary" class="mt-3">
                         <strong>
-                            Tổng cộng:
-                            <span id="cart-total">@String.Format("{0:#,##0}₫", Model.GetTotalPrice()).Replace(",", ".")</span>
+                            Tổng cộng: <span id="cart-total">@String.Format("{0:#,##0}₫", Model.GetTotalPrice()).Replace(",", ".")</span>
                         </strong>
                     </div>
 

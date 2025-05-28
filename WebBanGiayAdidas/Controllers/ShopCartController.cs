@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace WebBanGiayAdidas.Controllers
 {
@@ -32,56 +33,67 @@ namespace WebBanGiayAdidas.Controllers
         {
             return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult FormCheckOut(Order order)
-        {
-            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart");
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult FormCheckOut(Order order)
+		{
+			var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart");
 
-            if (cart == null || !cart.items.Any())
-            {
-                ModelState.AddModelError("", "Giỏ hàng trống.");
-                ViewBag.Cart = cart;
-                return View(order);
-            }
+			if (cart == null || !cart.items.Any())
+			{
+				ModelState.AddModelError("", "Giỏ hàng trống.");
+				ViewBag.Cart = cart;
+				return View(order);
+			}
+			// Lấy user ID từ session
+			var userId = HttpContext.Session.GetInt32("UserId");
+			if (userId != null)
+			{
+				order.UserId = userId.Value;
+			}
 
-            // Lấy user ID từ session
-            var userId = HttpContext.Session.GetInt32("UserId");
-            if (userId != null)
-            {
-                order.UserId = userId.Value;
-            }
+			// Gán thêm dữ liệu
+			order.TotalAmount = cart.GetTotalPrice();
+			order.Quantity = (int?)cart.GetTotalQuantity();
+			order.OrderCode = "OD" + DateTime.Now.Ticks;
+			order.CreateDate = DateTime.Now;
 
-            // Gán thêm dữ liệu
-            order.TotalAmount = cart.GetTotalPrice();
-            order.Quantity = (int?)cart.GetTotalQuantity();
-            order.OrderCode = "OD" + DateTime.Now.Ticks;
-            //order.OrderDate = DateTime.Now; // nếu có OrderDate
+			_context.Orders.Add(order);
+			_context.SaveChanges();
 
-            _context.Orders.Add(order);
-            _context.SaveChanges();
+			// Lưu chi tiết đơn hàng + cập nhật tồn kho
+			foreach (var item in cart.items)
+			{
+				var detail = new OrderDetail
+				{
+					OrderId = order.Id,
+					ProductId = item.Id,
+					Quantity = item.Quantity,
+					Price = item.Price,
+					TotalPrice = item.TotalPrice,
+					Size = item.Size 
+				};
+				_context.OrderDetails.Add(detail);
 
-            // Lưu chi tiết đơn hàng
-            foreach (var item in cart.items)
-            {
-                var detail = new OrderDetail
-                {
-                    OrderId = order.Id,
-                    ProductId = item.Id,
-                    Quantity = item.Quantity,
-                    Price = item.Price,
-                    TotalPrice = item.TotalPrice
-                };
-                _context.OrderDetails.Add(detail);
-            }
-            _context.SaveChanges();
+				//// ✅ Giảm tồn kho theo từng Size
+				var productSize = _context.ProductSizes.FirstOrDefault(ps => ps.ProductId == item.Id && ps.Size == item.Size);
+				if (productSize != null)
+				{
+					productSize.Quantity -= item.Quantity;
 
-            HttpContext.Session.Remove("Cart");
+					if (productSize.Quantity < 0) // tránh âm
+						productSize.Quantity = 0;
+				}
+			}
 
-            return RedirectToAction("Success");
-        }
+			_context.SaveChanges(); // lưu cả OrderDetails và cập nhật tồn kho
 
-        [HttpGet]
+			HttpContext.Session.Remove("Cart");
+
+			return RedirectToAction("Success");
+		}
+		//lưu lại số lượng trong giỏ hàng
+		[HttpGet]
         public IActionResult GetCartQuantity()
         {
             var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
@@ -89,41 +101,62 @@ namespace WebBanGiayAdidas.Controllers
             return Json(new { success = true, totalQuantity = productCount });
         }
 
-        [HttpPost]
-        public IActionResult AddToCart(int id, int quantity)
+		[HttpPost]
+		public IActionResult AddToCart(int id, int quantity, string size)
+		{
+			var product = _context.Products.FirstOrDefault(p => p.Id == id);
+			if (product == null)
+			{
+				return Json(new { success = false, message = "Sản phẩm không tồn tại." });
+			}
+
+			// Tìm productSize theo size gửi lên
+			var productSize = _context.ProductSizes.FirstOrDefault(ps => ps.ProductId == id && ps.Size == size);
+
+			// Nếu không tồn tại size đó, lấy size đầu tiên trong danh sách sản phẩm
+			if (productSize == null)
+			{
+				productSize = _context.ProductSizes.FirstOrDefault(ps => ps.ProductId == id);
+				if (productSize == null)
+				{
+					return Json(new { success = false, message = "Sản phẩm không có size nào trong kho." });
+				}
+				// Gán lại size thành size đầu tiên lấy được
+				size = productSize.Size;
+			}
+
+			if (productSize.Quantity < quantity)
+			{
+				return Json(new { success = false, message = "Số lượng sản phẩm không đủ trong kho." });
+			}
+
+			var item = new ShopCartItem
+			{
+				Id = product.Id,
+				Name = product.Title,
+				Alias = product.Alias,
+				CateName = product.ProductCategory?.Title,
+				Img = product.Image,
+				Price = product.PriceSale ?? 0,
+				Quantity = quantity,
+				Size = size,
+				TotalPrice = (product.PriceSale ?? 0) * quantity
+			};
+
+			var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
+			cart.AddToCart(item, quantity);
+			HttpContext.Session.SetObjectAsJson("Cart", cart);
+
+			var totalQuantity = cart.items.Count;
+
+			return Json(new { success = true, message = "Đã thêm vào giỏ hàng!", totalQuantity });
+		}
+
+		[HttpPost]
+        public IActionResult Remove(int id, string size)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
-            {
-                return Json(new { success = false, message = "Sản phẩm không tồn tại." });
-            }
-
-            var item = new ShopCartItem
-            {
-                Id = product.Id,
-                Name = product.Title,
-                Alias = product.Alias,
-                CateName = product.ProductCategory?.Title,
-                Img = product.Image,
-                Price = product.PriceSale ?? 0,
-                Quantity = quantity,
-                TotalPrice = (product.PriceSale ?? 0) * quantity
-            };
-
             var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
-            cart.AddToCart(item, quantity);
-            HttpContext.Session.SetObjectAsJson("Cart", cart); 
-
-            var totalQuantity = cart.items.Count;
-
-            return Json(new { success = true, message = "Đã thêm vào giỏ hàng!", totalQuantity });
-        }
-
-        [HttpPost]
-        public IActionResult Remove(int id)
-        {
-            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
-            cart.Remove(id);
+            cart.Remove(id, size);
             HttpContext.Session.SetObjectAsJson("Cart", cart);
 
             var total = cart.GetTotalPrice();
@@ -136,28 +169,40 @@ namespace WebBanGiayAdidas.Controllers
             });
         }
 
-        [HttpPost]
-        public IActionResult Update(int id, int quantity)
-        {
-            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart")
-                       ?? new ShopCart();
 
-            cart.Update(id, quantity);
+        [HttpPost]
+        public IActionResult Update(int id, string size, int quantity)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Sản phẩm không tồn tại." });
+            }
+
+            var productSize = _context.ProductSizes.FirstOrDefault(ps => ps.ProductId == id && ps.Size == size);
+            if (productSize == null || productSize.Quantity < quantity)
+            {
+                return Json(new { success = false, message = "Số lượng sản phẩm không đủ trong kho." });
+            }
+
+            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
+            cart.Update(id, size, quantity);
             HttpContext.Session.SetObjectAsJson("Cart", cart);
 
             // Lấy lại item để trả về
-            var updatedItem = cart.items.FirstOrDefault(i => i.Id == id);
+            var updatedItem = cart.items.FirstOrDefault(i => i.Id == id && i.Size == size);
             var itemTotal = updatedItem?.TotalPrice ?? 0;
             var cartTotal = cart.GetTotalPrice();
 
             return Json(new
             {
                 success = true,
-                itemTotal,   
-                cartTotal       
+                itemTotal,
+                cartTotal
             });
         }
-		[Authorize]
+
+        [Authorize]
 		public async Task<IActionResult> MyOrders()
 		{
 			var userId = HttpContext.Session.GetInt32("UserId");

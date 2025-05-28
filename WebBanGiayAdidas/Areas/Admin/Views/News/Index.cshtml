@@ -48,7 +48,7 @@
                         <th>STT</th>
                         <th>Tiêu đề</th>
                         <th>Ảnh đại diện</th>
-                        <th>Mô tả</th>
+                        @* <th>Mô tả</th> *@
                         <th>Trạng thái</th>
                         <th>Công cụ</th>
                     </tr>
@@ -73,7 +73,7 @@
                                         <span>No Image</span>
                                     }
                                 </td>
-                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                @* <td>@Html.DisplayFor(modelItem => item.Description)</td> *@
                                 <td>
                                     <span class="btnActive toggle-status" data-id="@item.Id" style="cursor:pointer;">
                                         @Html.Raw(strCheck)

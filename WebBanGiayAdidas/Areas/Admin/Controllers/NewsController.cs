@@ -31,7 +31,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
             var pageSize = 5;
             var pageIndex = page ?? 1;
 
-            var newsList = _context.News.Include(n => n.Category).AsQueryable();
+            var newsList = _context.News.AsQueryable();
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -61,7 +61,6 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                 return NotFound();
 
             var newsItem = await _context.News
-                .Include(n => n.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (newsItem == null)
@@ -75,14 +74,13 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // GET: Admin/News/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title");
             return View();
         }
 
         // POST: Admin/News/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] New @new, IFormFile imageFile)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Detail,Image,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] New @new, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
@@ -96,12 +94,12 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     @new.Image = "/uploads/new/" + imageFile.FileName;
                 }
 				@new.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(@new.Alias);
-				_context.Add(@new);
+                @new.CreatedDate = DateTime.Now;
+                _context.Add(@new);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title", @new.CategoryId);
             return View(@new);
         }
 
@@ -116,14 +114,13 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                 return NotFound();
 
             ViewBag.ExistingMainImage = newsItem.Image;
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title", newsItem.CategoryId);
             return View(newsItem);
         }
 
         // POST: Admin/News/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CategoryId,Description,Detail,Image,SeoTitle,SeoDescripyion,SeoKeywords,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] New @new, IFormFile? imageFile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Detail,Image,CreatedDate,CreatedBy,ModifierDate,ModifierBy,IsActive,Alias")] New @new, IFormFile? imageFile)
         {
             if (id != @new.Id)
                 return NotFound();
@@ -153,6 +150,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                     }
 
                     @new.Alias = WebBanGiayAdidas.Models.Common.Filter.FilterChar(@new.Alias);
+                    @new.ModifierDate = DateTime.Now;
                     _context.Update(@new);  // Cập nhật đối tượng tin tức
                     await _context.SaveChangesAsync();  // Lưu vào cơ sở dữ liệu
                 }
@@ -167,7 +165,6 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));  // Điều hướng về danh sách
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title", @new.CategoryId);
             return View(@new);  // Trả về lại View với model đã cập nhật
         }
 

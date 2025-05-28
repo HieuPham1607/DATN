@@ -18,10 +18,4 @@ public partial class Contact
     public bool? Read { get; set; }
 
     public DateTime? CreatedDate { get; set; }
-
-    public string? CreatedBy { get; set; }
-
-    public DateTime? ModifierDate { get; set; }
-
-    public string? ModifierBy { get; set; }
 }
