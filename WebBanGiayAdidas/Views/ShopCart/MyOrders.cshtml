@@ -30,7 +30,7 @@
             <!-- Breadcrumbs -->
             <div class="breadcrumbs d-flex flex-row align-items-center">
                 <ul>
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                     <li><a asp-controller="ShopCart" asp-action="MyOrders"><i class="fa fa-angle-right" aria-hidden="true"></i>Đơn hàng</a></li>
                 </ul>
             </div>
@@ -49,22 +49,12 @@
             <th>Chi tiết</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
-            <tr>
-                <td>@order.OrderCode</td>
-                @* <td>@order.OrderDate?.ToString("dd/MM/yyyy")</td> *@
-                <td>@order.Quantity</td>
-                <td>@order.TotalAmount?.ToString("N0") VNĐ</td>
-                @* <td>@order.Status</td> *@
-                <td>
-                    <a href="@Url.Action("OrderDetail", "ShopCart", new { id = order.Id })">Xem</a>
-                </td>
-            </tr>
-        }
+    <tbody id="orderTableBody">
+        
     </tbody>
 </table>
+                <div id="loading" style="text-align:center; display:none;">Đang tải thêm...</div>
+
             </div>
         </div>
     </div>
@@ -75,4 +65,44 @@
         <script src="~/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        let page = 1;
+        let isLoading = false;
+        let hasMore = true;
+
+        async function loadOrders() {
+            if (isLoading || !hasMore) return;
+
+            isLoading = true;
+            $('#loading').show();
+
+            try {
+                const response = await fetch(`/ShopCart/GetOrders?page=${page}`);
+                const html = await response.text();
+
+                if (html.trim() === '') {
+                    hasMore = false;
+                } else {
+                    $('#orderTableBody').append(html);
+                    page++;
+                }
+            } catch (err) {
+                console.error("Lỗi khi tải đơn hàng:", err);
+            } finally {
+                isLoading = false;
+                $('#loading').hide();
+            }
+        }
+
+        // Gọi lần đầu khi vào trang
+        $(document).ready(() => {
+            loadOrders();
+
+            $(window).on('scroll', function () {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 200) {
+                    loadOrders();
+                }
+            });
+        });
+    </script>
 }

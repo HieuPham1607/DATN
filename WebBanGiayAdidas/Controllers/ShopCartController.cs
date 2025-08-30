@@ -6,94 +6,196 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
+using Newtonsoft.Json;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace WebBanGiayAdidas.Controllers
 {
-	public class ShopCartController : Controller
-	{
-		private readonly WebBanGiayAdidasContext _context;
+    public class ShopCartController : Controller
+    {
+        private readonly WebBanGiayAdidasContext _context;
 
-		public ShopCartController(WebBanGiayAdidasContext context)
-		{
-			_context = context;
-		}
+        public ShopCartController(WebBanGiayAdidasContext context)
+        {
+            _context = context;
+        }
 
-		public IActionResult Index()
-		{
-			var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
-			return View(cart);
-		}
+        public IActionResult Index()
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
+            return View(cart);
+        }
+
         public IActionResult FormCheckOut()
         {
             var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
             ViewBag.Cart = cart;
-            return View(new Order()); 
+            return View(new Order());
         }
+
         public IActionResult Success()
         {
             return View();
         }
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public IActionResult FormCheckOut(Order order)
-		{
-			var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart");
 
-			if (cart == null || !cart.items.Any())
-			{
-				ModelState.AddModelError("", "Giỏ hàng trống.");
-				ViewBag.Cart = cart;
-				return View(order);
-			}
-			// Lấy user ID từ session
-			var userId = HttpContext.Session.GetInt32("UserId");
-			if (userId != null)
-			{
-				order.UserId = userId.Value;
-			}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult FormCheckOut(Order order)
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart");
 
-			// Gán thêm dữ liệu
-			order.TotalAmount = cart.GetTotalPrice();
-			order.Quantity = (int?)cart.GetTotalQuantity();
-			order.OrderCode = "OD" + DateTime.Now.Ticks;
-			order.CreateDate = DateTime.Now;
+            if (cart == null || !cart.items.Any())
+            {
+                ModelState.AddModelError("", "Giỏ hàng trống.");
+                ViewBag.Cart = cart;
+                return View(order);
+            }
 
-			_context.Orders.Add(order);
-			_context.SaveChanges();
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId != null)
+            {
+                order.UserId = userId.Value;
+            }
 
-			// Lưu chi tiết đơn hàng + cập nhật tồn kho
-			foreach (var item in cart.items)
-			{
-				var detail = new OrderDetail
-				{
-					OrderId = order.Id,
-					ProductId = item.Id,
-					Quantity = item.Quantity,
-					Price = item.Price,
-					TotalPrice = item.TotalPrice,
-					Size = item.Size 
-				};
-				_context.OrderDetails.Add(detail);
+            order.TotalAmount = cart.GetTotalPrice();
+            order.Quantity = (int?)cart.GetTotalQuantity();
+            order.OrderCode = "OD" + DateTime.Now.Ticks;
+            order.CreateDate = DateTime.Now;
+            //order.Status = "Đang xử lý";
 
-				//// ✅ Giảm tồn kho theo từng Size
-				var productSize = _context.ProductSizes.FirstOrDefault(ps => ps.ProductId == item.Id && ps.Size == item.Size);
-				if (productSize != null)
-				{
-					productSize.Quantity -= item.Quantity;
+            _context.Orders.Add(order);
+            _context.SaveChanges();
 
-					if (productSize.Quantity < 0) // tránh âm
-						productSize.Quantity = 0;
-				}
-			}
+            foreach (var item in cart.items)
+            {
+                var detail = new OrderDetail
+                {
+                    OrderId = order.Id,
+                    ProductId = item.Id,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                    TotalPrice = item.TotalPrice,
+                    Size = item.Size
+                };
+                _context.OrderDetails.Add(detail);
 
-			_context.SaveChanges(); // lưu cả OrderDetails và cập nhật tồn kho
+                var productSize = _context.ProductSizes.FirstOrDefault(ps => ps.ProductId == item.Id && ps.Size == item.Size);
+                if (productSize != null)
+                {
+                    productSize.Quantity -= item.Quantity;
+                    if (productSize.Quantity < 0)
+                        productSize.Quantity = 0;
+                }
+            }
 
-			HttpContext.Session.Remove("Cart");
+            _context.SaveChanges();
 
-			return RedirectToAction("Success");
-		}
-		//lưu lại số lượng trong giỏ hàng
-		[HttpGet]
+            if (order.Payment == 2) // MoMo
+            {
+                return RedirectToAction("CreateMoMoPayment", new { orderId = order.Id });
+            }
+
+            HttpContext.Session.Remove("Cart");
+            return RedirectToAction("Success");
+        }
+
+        public async Task<IActionResult> CreateMoMoPayment(int orderId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null) return NotFound();
+
+            string endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+            string partnerCode = "MOMO_ATM_DEV";
+            string accessKey = "w9gEg8bjA2AM2Cvr";
+            string secretKey = "mD9QAVi4cm9N844jh5Y2tqjWaaJoGVFM";
+            string orderInfo = $"Thanh toán đơn hàng #{order.OrderCode}";
+            string requestId = Guid.NewGuid().ToString();
+            string orderIdStr = $"MM{order.Id}_0";
+            string amountStr = ((int)(order.TotalAmount ?? 0)).ToString();
+            string redirectUrl = Url.Action("MoMoCallback", "ShopCart", null, Request.Scheme);
+            string ipnUrl = redirectUrl;
+
+            string rawHash = $"accessKey={accessKey}&amount={amountStr}&extraData=&ipnUrl={ipnUrl}&orderId={orderIdStr}&orderInfo={orderInfo}&partnerCode={partnerCode}&redirectUrl={redirectUrl}&requestId={requestId}&requestType=payWithATM";
+            string signature = HmacSha256(secretKey, rawHash);
+
+            var requestBody = new
+            {
+                partnerCode,
+                partnerName = "Adidas Store",
+                storeId = "WebBanGiayAdidas",
+                requestId,
+                amount = amountStr,
+                orderId = orderIdStr,
+                orderInfo,
+                redirectUrl,
+                ipnUrl,
+                lang = "vi",
+                requestType = "payWithATM",
+                extraData = "",
+                signature
+            };
+
+            using var client = new HttpClient();
+            var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(endpoint, content);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            dynamic result = JsonConvert.DeserializeObject(jsonResponse);
+
+            if (result != null && result.payUrl != null)
+            {
+                return Redirect(result.payUrl.ToString());
+            }
+
+            return Content($"Lỗi khi tạo thanh toán MoMo. Phản hồi: {jsonResponse}");
+        }
+
+        public IActionResult MoMoCallback(string orderId, string resultCode)
+        {
+            if (string.IsNullOrEmpty(orderId) || !orderId.StartsWith("MM") || !orderId.Contains("_"))
+            {
+                TempData["Error"] = "Mã đơn hàng không hợp lệ.";
+                return RedirectToAction("FormCheckOut");
+            }
+
+            var parts = orderId.Substring(2).Split('_');
+            if (parts.Length != 2 || !int.TryParse(parts[0], out var parsedOrderId))
+            {
+                TempData["Error"] = "Định dạng mã đơn hàng sai.";
+                return RedirectToAction("FormCheckOut");
+            }
+
+            var order = _context.Orders.FirstOrDefault(o => o.Id == parsedOrderId);
+            if (order == null)
+            {
+                TempData["Error"] = "Không tìm thấy đơn hàng.";
+                return RedirectToAction("FormCheckOut");
+            }
+
+            if (resultCode == "0")
+            {
+                //order.Status = "Đã thanh toán";
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+
+                HttpContext.Session.Remove("Cart");
+                TempData["Success"] = "Thanh toán MoMo thành công.";
+                return RedirectToAction("Success");
+            }
+
+            TempData["Error"] = "Thanh toán thất bại.";
+            return RedirectToAction("FormCheckOut");
+        }
+
+        private string HmacSha256(string key, string data)
+        {
+            using var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key));
+            var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
+            return BitConverter.ToString(hash).Replace("-", "").ToLower();
+        }
+
+        //lưu lại số lượng trong giỏ hàng
+        [HttpGet]
         public IActionResult GetCartQuantity()
         {
             var cart = HttpContext.Session.GetObjectFromJson<ShopCart>("Cart") ?? new ShopCart();
@@ -203,20 +305,34 @@ namespace WebBanGiayAdidas.Controllers
         }
 
         [Authorize]
-		public async Task<IActionResult> MyOrders()
+		public IActionResult MyOrders()
 		{
 			var userId = HttpContext.Session.GetInt32("UserId");
 
 			if (userId == null)
 				return RedirectToAction("Login", "Account");
 
+			//var orders = await _context.Orders
+			//	.Where(o => o.UserId == userId)
+   //             .OrderByDescending(o => o.OrderCode)
+   //             .ToListAsync();
+
+			return View(/*orders*/);
+		}
+
+		public async Task<IActionResult> GetOrders(int page = 1, int pageSize = 10)
+		{
+			var userId = HttpContext.Session.GetInt32("UserId"); // hoặc cách bạn lấy user hiện tại
 			var orders = await _context.Orders
 				.Where(o => o.UserId == userId)
-				//.OrderByDescending(o => o.OrderDate)
+				.OrderByDescending(o => o.OrderCode)
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
 				.ToListAsync();
 
-			return View(orders);
+			return PartialView("_OrderRowPartial", orders);
 		}
+
 
 		// Hiển thị chi tiết đơn hàng
 		[Authorize]

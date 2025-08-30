@@ -59,7 +59,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/Categories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias,IsActive")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
         // POST: Admin/Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Position,CreatedDate,CreatedBy,ModifierDate,ModifierBy,Alias,IsActive")] Category category)
         {
             if (id != category.Id)
             {
@@ -193,7 +193,26 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
                 return Json(new { success = false, message = "Lỗi khi xóa: " + ex.Message });
             }
         }
+        // POST: Admin/Posts/ToggleStatus
+        [HttpPost]
+        public async Task<IActionResult> ToggleStatus(int id)
+        {
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy tin tức." });
+            }
 
+            category.IsActive = !category.IsActive;
+            _context.Update(category);
+            await _context.SaveChangesAsync();
+
+            return Json(new
+            {
+                success = true,
+                isActive = category.IsActive
+            });
+        }
         private bool CategoryExists(int id)
         {
             return _context.Categories.Any(e => e.Id == id);

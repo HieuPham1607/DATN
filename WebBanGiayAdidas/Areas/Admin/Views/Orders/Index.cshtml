@@ -12,7 +12,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Home</a>
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="nav-link">Đơn hàng</a>
@@ -57,7 +57,8 @@
                             <th>Địa chỉ</th>
                             <th>Số lượng</th>
                             <th>Tổng tiền</th>
-                            <th>Trạng thái</th>
+                            <th>Thới gian mua hàng</th>
+                            <th>Phương thức</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -81,8 +82,11 @@
                                     <td>
                                         @String.Format("{0:#,##0}₫", item.TotalAmount ?? 0).Replace(",", ".")
                                     </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreateDate)
+                                    </td>
                                 <td>
-                                    @(item.Payment == 1 ? "Thanh toán trực tiếp" : item.Payment == 2 ? "Chuyển khoản" : "Không xác định")
+                                    @(item.Payment == 1 ? "Thanh toán khi nhận hàng" : item.Payment == 2 ? "Chuyển khoản" : "Không xác định")
                                 </td>
                                 <td>
                                     <button class="btn btn-sm btn-danger btn-delete" data-id="@item.Id">Xóa</button>

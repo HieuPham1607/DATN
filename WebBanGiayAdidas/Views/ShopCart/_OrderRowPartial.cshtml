@@ -1,0 +1,13 @@
+﻿@model IEnumerable<WebBanGiayAdidas.Models.Order>
+
+@foreach (var order in Model)
+{
+    <tr>
+        <td>@order.OrderCode</td>
+        <td>@order.Quantity</td>
+        <td>@order.TotalAmount?.ToString("N0") VNĐ</td>
+        <td>
+            <a href="@Url.Action("OrderDetail", "ShopCart", new { id = order.Id })">Xem</a>
+        </td>
+    </tr>
+}

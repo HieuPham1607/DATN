@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebBanGiayAdidas.Filters;
+using Microsoft.EntityFrameworkCore;
+using WebBanGiayAdidas.Models;
 
 namespace WebBanGiayAdidas.Areas.Admin.Controllers
 {
@@ -8,8 +9,26 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
     [Area("Admin")]
     public class DashboardController : Controller
     {
-        public IActionResult Index()
+        private readonly WebBanGiayAdidasContext _context;
+
+        public DashboardController(WebBanGiayAdidasContext context)
         {
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.TotalProducts = await _context.Products.CountAsync();
+            ViewBag.NewOrders = await _context.Orders.CountAsync();
+            ViewBag.TotalUsers = await _context.Users.CountAsync();
+            var totalAdmins = await _context.UserRoles
+    .Where(ur => ur.Role != null && ur.Role.RoleName == "Admin")
+    .Select(ur => ur.UserId)
+    .Distinct()
+    .CountAsync();
+
+            ViewBag.TotalAdmins = totalAdmins;
+
             return View();
         }
     }

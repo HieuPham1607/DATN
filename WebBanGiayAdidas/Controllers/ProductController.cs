@@ -19,24 +19,21 @@ namespace WebBanGiayAdidas.Controllers
             IQueryable<Product> query = _context.Products.Where(p => p.IsActive)/*.Include(p => p.ProductCategory)*/.AsQueryable();
 
             if (id != null)
-            {
-                query = query.Where(p => p.ProductCategoryId == id);
+            { 
+                query = query.Where(p => p.ProductCategoryId == id); 
                 ViewBag.CateId = id;
             }
 
             int totalItems = await query.CountAsync();
 
-            var products = await query
-                .OrderByDescending(p => p.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            var products = await query.OrderByDescending(p => p.Id).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+                
 
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
-            ViewBag.IsSearch = false; // Đây không phải trang Search
+            ViewBag.IsSearch = false; 
             ViewBag.Keyword = null;
             ViewBag.CateId = id;
 
@@ -53,16 +50,11 @@ namespace WebBanGiayAdidas.Controllers
                 return RedirectToAction("Index");
             }
 
-            IQueryable<Product> query = _context.Products/*.Include(p => p.ProductCategory)*/
-                .Where(p => p.Title.Contains(keyword));
+            IQueryable<Product> query = _context.Products.Where(p => p.Title.Contains(keyword));
 
             int totalItems = await query.CountAsync();
 
-            var products = await query
-                .OrderByDescending(p => p.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            var products = await query.OrderByDescending(p => p.Id).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
@@ -82,30 +74,13 @@ namespace WebBanGiayAdidas.Controllers
                 return Json(new List<object>());
             }
 
-            var results = await _context.Products
-                .Where(p => p.IsActive && p.Title.Contains(term))
-                .Select(p => new
-                {
-                    p.Id,
-                    p.Title,
-                    p.Alias,
-                    ImageUrl = p.Image
-                })
-                .Take(5)
-                .ToListAsync();
-
+            var results = await _context.Products.Where(p => p.IsActive && p.Title.Contains(term)).Select(p => new{p.Id,p.Title,p.Alias,ImageUrl = p.Image}).Take(5).ToListAsync();
             return Json(results);
         }
-
-
         public async Task<IActionResult> Detail(string alias, int id)
         {
-            var product = await _context.Products
-                .Include(p => p.ChildImages)
-                .Include(p => p.ProductSizes)
-                .Include(p => p.Reviews)
-                    .ThenInclude(r => r.User)
-                .FirstOrDefaultAsync(p => p.Id == id && p.Alias == alias && p.IsActive);
+            var product = await _context.Products.Include(p => p.ChildImages).Include(p => p.ProductSizes).Include(p => p.Reviews).ThenInclude(r => r.User).FirstOrDefaultAsync(p => p.Id == id && p.Alias == alias && 
+			p.IsActive);
 
             if (product == null)
                 return NotFound();
@@ -133,10 +108,7 @@ namespace WebBanGiayAdidas.Controllers
 			}
 
 			// Kiểm tra review gần nhất của user với sản phẩm này
-			var recentReview = await _context.Reviews
-				.Where(r => r.UserId == userId.Value && r.ProductId == ProductId)
-				.OrderByDescending(r => r.CreatedAt)
-				.FirstOrDefaultAsync();
+			var recentReview = await _context.Reviews.Where(r => r.UserId == userId.Value && r.ProductId == ProductId).OrderByDescending(r => r.CreatedAt).FirstOrDefaultAsync();
 
 			if (recentReview != null && (DateTime.UtcNow - recentReview.CreatedAt.Value.ToUniversalTime()).TotalSeconds < 20)
 			{
@@ -168,14 +140,7 @@ namespace WebBanGiayAdidas.Controllers
 		}
         public async Task<IActionResult> LoadReviews(int productId, int page = 1, int pageSize = 5)
         {
-            var reviews = await _context.Reviews
-                .Where(r => r.ProductId == productId)
-                .Include(r => r.User)
-                .OrderByDescending(r => r.CreatedAt)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
+            var reviews = await _context.Reviews.Where(r => r.ProductId == productId).Include(r => r.User).OrderByDescending(r => r.CreatedAt).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
             return PartialView("_ReviewsPartial", reviews);
         }
 
@@ -195,18 +160,13 @@ namespace WebBanGiayAdidas.Controllers
 			ViewBag.CateName = cate.Title;
 
 			// Lấy sản phẩm theo category và chỉ lấy sản phẩm active
-			var query = _context.Products
-				.Where(x => x.IsActive && x.ProductCategoryId == id);
+			var query = _context.Products.Where(x => x.IsActive && x.ProductCategoryId == id);
 
 			// Tổng số sản phẩm theo category
 			int totalItems = await query.CountAsync();
 
 			// Lấy sản phẩm phân trang
-			var items = await query
-				.OrderByDescending(x => x.Id)
-				.Skip((page - 1) * pageSize)
-				.Take(pageSize)
-				.ToListAsync();
+			var items = await query.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
 			// Đưa thông tin phân trang xuống View qua ViewBag
 			ViewBag.CurrentPage = page;

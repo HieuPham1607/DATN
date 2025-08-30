@@ -31,7 +31,7 @@ namespace WebBanGiayAdidas.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                orderlist = orderlist.Where(n => n.CustomerName.Contains(keyword));
+                orderlist = orderlist.Where(n => n.CustomerName.Contains(keyword) || n.OrderCode.Contains(keyword));
             }
             var totalItems = await orderlist.CountAsync();
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);

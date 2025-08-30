@@ -58,6 +58,10 @@ namespace WebBanGiayAdidas
                 name: "Login",
                 pattern: "dang-nhap/{alias?}",
                 defaults: new { controller = "Account", action = "Login" });
+            app.MapControllerRoute(
+                name: "Info",
+                pattern: "thong-tin-tai-khoan/{alias?}",
+                defaults: new { controller = "Account", action = "Info" });
 
             app.MapControllerRoute(
                 name: "Register",
@@ -76,8 +80,16 @@ namespace WebBanGiayAdidas
                 name: "CheckOut",
                 pattern: "thanh-toan/{alias?}",
                 defaults: new { controller = "ShopCart", action = "FormCheckOut" });
+			app.MapControllerRoute(
+				name: "MyOrders",
+				pattern: "thong-tin-don-hang/{alias?}",
+				defaults: new { controller = "ShopCart", action = "MyOrders" });
+			app.MapControllerRoute(
+				name: "OrderDetail",
+				pattern: "chi-tiet-don-hang/{alias?}",
+				defaults: new { controller = "ShopCart", action = "OrderDetail" });
 
-            app.MapControllerRoute(
+			app.MapControllerRoute(
 				name: "News",
 				pattern: "tin-tuc/{alias?}",
 				defaults: new { controller = "New", action = "Index" });

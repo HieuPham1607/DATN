@@ -170,7 +170,88 @@ namespace WebBanGiayAdidas.Controllers
                 return Convert.ToBase64String(bytes);
             }
         }
-        public IActionResult IsLoggedIn()
+		// GET: /Account/Info
+		public async Task<IActionResult> Info()
+		{
+			var userId = HttpContext.Session.GetInt32("UserId");
+			if (userId == null)
+			{
+				return RedirectToAction("Login");
+			}
+
+			var user = await _context.Users.FindAsync(userId);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			return View(user);
+		}
+
+		// POST: /Account/UpdateInfo
+		[HttpPost]
+        [HttpPost]
+        public async Task<IActionResult> UpdateInfo(string newUserName)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null) return RedirectToAction("Login");
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return NotFound();
+
+            // Kiểm tra tên mới có trùng người khác không (trừ chính mình)
+            bool isDuplicate = await _context.Users
+                .AnyAsync(u => u.UserName == newUserName && u.Id != userId);
+
+            if (isDuplicate)
+            {
+                TempData["NameMessage"] = "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.";
+                return RedirectToAction("Info");
+            }
+
+            if (!string.IsNullOrWhiteSpace(newUserName))
+            {
+                user.UserName = newUserName;
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+
+                HttpContext.Session.SetString("UserName", newUserName);
+                TempData["NameMessage"] = "Cập nhật tên thành công.";
+            }
+
+            return RedirectToAction("Info");
+        }
+
+        // POST: /Account/ChangePassword
+        [HttpPost]
+		public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+		{
+			var userId = HttpContext.Session.GetInt32("UserId");
+			if (userId == null) return RedirectToAction("Login");
+
+			var user = await _context.Users.FindAsync(userId);
+			if (user == null) return NotFound();
+
+			if (HashPassword(currentPassword) != user.PasswordHash)
+			{
+				TempData["PasswordMessage"] = "Mật khẩu hiện tại không đúng.";
+				return RedirectToAction("Info");
+			}
+
+			if (newPassword != confirmPassword)
+			{
+				TempData["PasswordMessage"] = "Mật khẩu mới không khớp.";
+				return RedirectToAction("Info");
+			}
+
+			user.PasswordHash = HashPassword(newPassword);
+			_context.Update(user);
+			await _context.SaveChangesAsync();
+
+			TempData["PasswordMessage"] = "Đổi mật khẩu thành công.";
+			return RedirectToAction("Info");
+		}
+		public IActionResult IsLoggedIn()
         {
             return Json(new { isAuthenticated = User.Identity?.IsAuthenticated });
         }

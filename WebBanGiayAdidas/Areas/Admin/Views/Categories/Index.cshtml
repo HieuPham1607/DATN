@@ -11,7 +11,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Home</a>
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="nav-link">Danh mục</a>
@@ -54,6 +54,7 @@
                         <th>Tên danh mục</th>
                         @* <th>Mô tả</th> *@
                         <th>Thứ tự</th>
+                        <th>Trạng thái</th>
                         <th>Công cụ</th>
                     </tr>
                 </thead>
@@ -63,11 +64,17 @@
                         var i = 1;
                         @foreach (var item in Model)
                         {
+                            var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             <tr>
                                 <td>@i</td>
                                 <td>@Html.DisplayFor(modelItem => item.Title)</td>
                                 @* <td>@Html.DisplayFor(modelItem => item.Description)</td> *@
                                 <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                                <td>
+                                    <span class="btnActive toggle-status" data-id="@item.Id" style="cursor:pointer;">
+                                        @Html.Raw(strCheck)
+                                    </span>
+                                </td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Sửa</a> |
                                     <a href="javascript:void(0);" class="btn btn-sm btn-info btn-view" data-id="@item.Id">Xem</a> |
@@ -99,7 +106,35 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+        $(document).ready(function () {
+            $('.toggle-status').click(function () {
+                var span = $(this);
+                var id = span.data('id');
 
+                $.ajax({
+                    url: '/Admin/Categories/ToggleStatus',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (res) {
+                        if (res.success) {
+                            if (res.isActive) {
+                                span.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                span.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        } else {
+                            alert("Lỗi: " + res.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Đã xảy ra lỗi khi thay đổi trạng thái.");
+                    }
+                });
+            });
+        });
+    </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Delete button functionality

@@ -1,0 +1,90 @@
+﻿@model WebBanGiayAdidas.Models.User
+
+@{
+    ViewData["Title"] = "Thông tin khách hàng";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/assets/styles/categories_styles.css">
+
+</head>
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Account" asp-action="Info"><i class="fa fa-angle-right" aria-hidden="true"></i>Thông tin tài khoản</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main_content_cart">
+                <div class="container">
+                    <div class="container mt-5">
+                        <div class="card shadow-sm">
+                            <div class="card-header text-white" style="background-color: black; border: 2px solid black;">
+                                <h4 class="mb-0" style="color: white;">Thông tin tài khoản</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <p><strong>Email:</strong> @Model.Email</p>
+                                    <p><strong>Ngày tạo tài khoản:</strong> @(Model.CreatedAt?.ToString("dd/MM/yyyy HH:mm") ?? "Không rõ")</p>
+                                </div>
+
+                                <form asp-action="UpdateInfo" method="post">
+                                    <div class="form-group">
+                                        @if (TempData["NameMessage"] != null)
+                                        {
+                                            <div class="alert alert-info">@TempData["NameMessage"]</div>
+                                        }
+                                        <label for="newUserName">Tên đăng nhập:</label>
+                                        <input type="text" name="newUserName" id="newUserName" class="form-control" value="@Model.UserName" required />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-2">Cập nhật tên</button>
+                                </form>
+
+                                <hr class="my-4" />
+
+                                <h5 class="mb-3">Đổi mật khẩu</h5>
+
+                                @if (TempData["PasswordMessage"] != null)
+                                {
+                                    <div class="alert alert-info">@TempData["PasswordMessage"]</div>
+                                }
+
+                                <form asp-action="ChangePassword" method="post">
+                                    <div class="form-group">
+                                        <label for="currentPassword">Mật khẩu hiện tại:</label>
+                                        <input type="password" name="currentPassword" id="currentPassword" class="form-control" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newPassword">Mật khẩu mới:</label>
+                                        <input type="password" name="newPassword" id="newPassword" class="form-control" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmPassword">Xác nhận mật khẩu mới:</label>
+                                        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" required />
+                                    </div>
+                                    <button type="submit" class="btn btn-warning mt-2">Đổi mật khẩu</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        <script src="~/assets/js/categories_custom.js"></script>
+        <script src="~/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+        <script src="~/as/assets/js/jquery-3.3.1.min.js"></script>
+        <script src="~/as/assets/js/popper.min.js"></script>
+        <script src="~/as/assets/js/bootstrap.min.js"></script>
+        <script src="~/as/assets/js/main.js"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

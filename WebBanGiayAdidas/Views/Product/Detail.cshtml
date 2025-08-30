@@ -128,7 +128,7 @@
 
 			<div class="breadcrumbs d-flex flex-row align-items-center">
 				<ul>
-					<li><a asp-controller="Home" asp-action="Index">Home</a></li>
+					<li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
 					<li><a asp-controller="Product" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true" ></i>Sản phẩm</a></li>
 					<li><a asp-controller="Product" asp-action="Detail"> <i class="fa fa-angle-right" aria-hidden="true" ></i>@Model.Title</a></li>
 				</ul>
@@ -187,7 +187,7 @@
 					
 				</div>
 					<div class="free_delivery d-flex flex-row align-items-center justify-content-center">
-						<span class="ti-truck"></span><span>free delivery</span>
+						<span class="ti-truck"></span><span>Giao hàng miễn phí</span>
 					</div>
 
 					// if (price > 0)
@@ -228,11 +228,11 @@
 						<div class="red_button add_to_cart_button">
 							@if (Context.Session.GetInt32("UserId") != null)
 							{
-								<a href="#" class="btnAddToCart" data-id="@Model.Id">Add to Cart</a>
+								<a href="#" class="btnAddToCart" data-id="@Model.Id">Thêm sản phẩm</a>
 							}
 							else
 							{
-								<a href="/Account/Login" class="btnLoginFirst">Add to Cart</a>
+								<a href="/Account/Login" class="btnLoginFirst">Thêm sản phẩm</a>
 							}
 						</div>
 
@@ -251,9 +251,9 @@
 			<div class="col">
 				<div class="tabs_container">
 					<ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
-						<li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
+						<li class="tab active" data-active-tab="tab_1"><span>Miêu tả</span></li>
 						@* <li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li> *@
-						<li class="tab" data-active-tab="tab_3"><span>Reviews (@Model.Reviews.Count())</span></li>
+						<li class="tab" data-active-tab="tab_3"><span>Bình luận (@Model.Reviews.Count())</span></li>
 					</ul>
 				</div>
 			</div>
@@ -291,7 +291,7 @@
 						<!-- Hiển thị đánh giá -->
 						<div class="col-lg-6 reviews_col">
 							<div class="tab_title reviews_title">
-								<h4>Reviews (<span id="total-reviews">@Model.Reviews.Count()</span>)</h4>
+								<h4>Bình luận (<span id="total-reviews">@Model.Reviews.Count()</span>)</h4>
 							</div>
 
 							<div id="review-list">

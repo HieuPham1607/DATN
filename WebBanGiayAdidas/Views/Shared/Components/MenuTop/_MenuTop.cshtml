@@ -3,7 +3,8 @@
 <ul class="navbar_menu">
     @foreach (var item in Model)
     {
-        <li>
+        <li><a href="/@item.Alias">@item.Title</a></li>
+        @* <li>
             @if (item.Alias == "tin-tuc")
             {
                 <a asp-controller="New" asp-action="Index">@item.Title</a>
@@ -24,6 +25,6 @@
             {
                 <a asp-controller="Blog" asp-action="Index">@item.Title</a>
             }
-        </li>
+        </li> *@
     }
 </ul>

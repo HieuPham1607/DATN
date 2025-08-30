@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\product\\productcategory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\product\\productcategory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\areas\\admin\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\areas\\admin\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|d:\\linetx\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\webbangiayadidas\\webbangiayadidas\\views\\shopcart\\formcheckout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FF2A2F6F-3365-4AE5-82D3-90D761747183}|WebBanGiayAdidas\\WebBanGiayAdidas.csproj|solutionrelative:webbangiayadidas\\views\\shopcart\\formcheckout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ProductCategory.cshtml",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
-              "RelativeToolTip": "WebBanGiayAdidas\\Views\\Product\\ProductCategory.cshtml",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAAALgAAABAAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "RelativeToolTip": "WebBanGiayAdidas\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFAAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-28T03:09:33.638Z",
+              "WhenOpened": "2025-07-16T02:16:10.236Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
-              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
-              "RelativeToolTip": "WebBanGiayAdidas\\Views\\Product\\Index.cshtml",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAAALgAAAAMAAAAAAAAAA==",
+              "Title": "FormCheckOut.cshtml",
+              "DocumentMoniker": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\ShopCart\\FormCheckOut.cshtml",
+              "RelativeDocumentMoniker": "WebBanGiayAdidas\\Views\\ShopCart\\FormCheckOut.cshtml",
+              "ToolTip": "D:\\linetx\\\u0110\u1ED3 \u00C1n T\u1ED1t Nghi\u1EC7p\\WebBanGiayAdidas\\WebBanGiayAdidas\\Views\\ShopCart\\FormCheckOut.cshtml",
+              "RelativeToolTip": "WebBanGiayAdidas\\Views\\ShopCart\\FormCheckOut.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADcAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-28T03:05:45.191Z",
+              "WhenOpened": "2025-07-16T02:15:35.565Z",
               "EditorCaption": ""
             }
           ]
